@@ -1,0 +1,328 @@
+{
+  "version": "0.3",
+  "date": "2026-08-27",
+  "joints": [
+    {
+      "id": "straight-tenon",
+      "index": "01",
+      "name_cn": "直榫",
+      "name_en": "Straight Tenon",
+      "tagline": "先从最朴素的“凸起进入凹槽”开始。",
+      "mechanism_title": "它为什么能连接？",
+      "mechanism": "榫舌进入卯眼后，接触面限制横向位移与转动；榫肩与构件表面承担定位和部分受力。它结构简单、易装配，但单靠几何形状对“沿插入方向拔出”的阻止较弱，因此非常适合当作后续所有榫卯的基线。",
+      "why_3dp": "3D 打印里，直榫最适合教第一件事：CAD 里“刚好一样大”通常不代表现实里能刚好插进去。",
+      "ratings": {
+        "几何自锁": 1,
+        "抗拔": 2,
+        "打印难度": 1,
+        "装配难度": 1,
+        "适合做公差实验": 5
+      },
+      "print_notes": [
+        "第一轮统一使用 PLA、0.4 mm 喷嘴、0.20 mm 层高，先把变量收窄。",
+        "榫舌与卯眼不要设计成零间隙；先使用 Clearance Lab 确定本机基线。",
+        "受力件需关注层方向：FFF 打印件沿层间方向通常更弱，不能把“木纹方向”的直觉原样套到打印件上。"
+      ],
+      "history": "在中国木构传统中，榫卯可追溯到河姆渡时期的木构件。现代资料普遍把直榫视为最基础、应用广泛的类型之一。这里不把某一具体造型强行标成“最早版本”，只把它作为基础机械原理模型。",
+      "source_ids": [
+        "hkbu",
+        "hemudu_nmc",
+        "hemudu_cam",
+        "peoples",
+        "jwood",
+        "prusa",
+        "mdpi_orientation"
+      ]
+    },
+    {
+      "id": "dovetail",
+      "index": "02",
+      "name_cn": "燕尾榫",
+      "name_en": "Dovetail Joint / Dovetail Tenon",
+      "tagline": "让形状本身开始对抗拔出。",
+      "mechanism_title": "为什么它更难被拔出来？",
+      "mechanism": "燕尾的侧壁向外张开。只要退出方向会让宽端撞上卯口，几何形状就会把简单的“拉出”变成对接触面的挤压与剪切。它不是凭一句“摩擦力更大”就解释完，而是先由几何约束改变了可能的运动。",
+      "why_3dp": "它是把“几何自锁”做成手感最直观的案例：相同材料、相同尺寸，只改变侧壁形状，拔出行为就完全不同。",
+      "ratings": {
+        "几何自锁": 5,
+        "抗拔": 5,
+        "打印难度": 2,
+        "装配难度": 2,
+        "视觉可解释性": 5
+      },
+      "print_notes": [
+        "第一版不要把 0.20 mm 写成“标准公差”，而写成实验起点。",
+        "燕尾斜面既是力学表面，也是打印表面；打印方向会同时影响斜面质量和层间受力。",
+        "建议至少比较两个打印方向，并记录装配手感、斜面表面和破坏位置。"
+      ],
+      "history": "“燕尾”是一个跨家具、木作和建筑都能遇到的几何家族。不同语境下具体形态并不完全相同，因此网页第一版重点讲几何原理，不把抽屉燕尾、梁柱燕尾等不同变体混成一种。",
+      "source_ids": [
+        "hkbu",
+        "peoples",
+        "sstp",
+        "jwood",
+        "prusa",
+        "mdpi_orientation",
+        "wikimedia_dovetail"
+      ]
+    },
+    {
+      "id": "keyed-tenon",
+      "index": "03",
+      "name_cn": "楔钉榫",
+      "name_en": "Keyed / Wedge-pin Joint",
+      "tagline": "先互搭，再用一枚楔钉把两个构件锁成一个。",
+      "mechanism_title": "第三个零件，如何把两个构件锁住？",
+      "mechanism": "两段构件先通过上下交搭形成大的接触面；端部的小舌进入对方的槽，限制上下错动。随后在搭口中部贯穿一个方孔，插入头粗尾细的楔钉，进一步阻止构件沿连接方向分离。这个结构最有趣的地方，是“约束”被拆给了多个几何特征共同完成。",
+      "why_3dp": "它非常适合做三件式装配动画，也适合让读者比较“没有楔钉 / 插入楔钉 / 楔钉过紧”三种状态。第一版采用直材教学模型，把机械原理与弧形家具外观分开。",
+      "traditional_context": "现代中文资料常称其为楔钉榫、销钉榫或钥匙榫，多用于圈椅月牙扶手、圆桌/香几/坐墩等圆形或弧形构件的拼接。",
+      "ratings": {
+        "结构层次": 5,
+        "装配可视性": 5,
+        "打印难度": 3,
+        "装配难度": 3,
+        "文化辨识度": 5
+      },
+      "print_notes": [
+        "教学模型 v0.1 先使用直材，不追求复刻某一件古家具的弧率与具体尺寸。",
+        "楔钉必须独立打印；楔度、方孔 clearance 与层方向需要单独验证。",
+        "第一轮重点记录：无楔钉时能否分离、楔钉插入力、插入深度、拆卸难度、孔口是否开裂。"
+      ],
+      "source_ids": [
+        "peoples",
+        "sstp",
+        "suzuo_keyed",
+        "youtube_keyed"
+      ]
+    }
+  ],
+  "third_joint_candidates": [
+    {
+      "key": "A",
+      "name": "楔钉榫",
+      "en": "Keyed / Wedge-pin joint（中文传统家具语境）",
+      "summary": "两段弧形或直材先以互搭、小舌/槽限制上下错动，再用中部楔钉锁住左右分离。它不是“把普通榫头劈开后塞楔子”。",
+      "strength": "非常有“中国传统家具”辨识度，三件式结构、装配过程有戏剧性，适合做动画。",
+      "cost": "CAD 与打印比直榫/燕尾复杂，第一版要先把楔钉尺寸与插入方向验证清楚。",
+      "sources": [
+        "peoples",
+        "sstp"
+      ],
+      "selected": true
+    },
+    {
+      "key": "B",
+      "name": "破头楔式透榫（工作名）",
+      "en": "Wedged Mortise and Tenon",
+      "summary": "榫头先开缝，穿过或进入卯眼后打入楔子，使榫头局部张开并锁紧。HKBU 的“Wedged Mortise and Tenon”属于这一类思路。",
+      "strength": "机械原理非常清楚，适合做“楔入 → 膨胀 → 抗拔”的 3D 打印实验。",
+      "cost": "中文名称与具体传统做法需要进一步限定，文化辨识度不如楔钉榫。",
+      "sources": [
+        "hkbu",
+        "sstp",
+        "wikimedia_wedge"
+      ],
+      "selected": false
+    }
+  ],
+  "clearance_lab": {
+    "definition": "本项目统一把 clearance C 定义为“母件有效宽度 - 公件有效宽度”的总差值。若几何居中，则单侧理论间隙为 C/2。",
+    "test_values": [
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "baseline": {
+      "material": "PLA",
+      "nozzle": "0.4 mm",
+      "layer": "0.20 mm",
+      "walls": "3",
+      "infill": "15%",
+      "orientation": "所有样件保持一致"
+    },
+    "record": [
+      "是否无需外力即可插入",
+      "装配力 1–5 主观评分",
+      "能否徒手拆卸",
+      "晃动/间隙感",
+      "卡死位置",
+      "象脚/接缝等缺陷",
+      "卡尺实测尺寸"
+    ],
+    "note": "Prusa 明确指出装配公差不存在一个对所有模型都通用的数值；尺寸、方向、几何、校准、设置与材料都会影响。0.10–0.40 mm 是我们的实验区间，不是标准答案。",
+    "source_ids": [
+      "prusa"
+    ]
+  },
+  "sources": {
+    "hkbu": {
+      "title": "Crisscross 7000 Years: The Art and Technology of Mortise and Tenon",
+      "org": "Hong Kong Baptist University Library / Academy of Visual Arts",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/?lang=en",
+      "use": "36 种结构的命名、分类、结构说明、3D 数字展示方式参考。仅作事实与交互设计参考，不直接搬用其图片或模型。"
+    },
+    "hemudu_nmc": {
+      "title": "“远古江南·海陆山河——河姆渡文化发现50周年考古成果特展”",
+      "org": "中国国家博物馆",
+      "url": "https://www.chnmuseum.cn/zx/gbxw/202311/t20231107_265398.shtml",
+      "use": "河姆渡文化年代背景：距今约 7000–5000 年。"
+    },
+    "hemudu_cam": {
+      "title": "浙江省博物馆《浙江一万年》课程进校园",
+      "org": "中国博物馆协会",
+      "url": "https://www.chinamuseum.org.cn/detail.html?contentId=2046&id=13",
+      "use": "河姆渡干栏式建筑已使用榫卯与企口木作技术。"
+    },
+    "peoples": {
+      "title": "木头里的东方智慧 榫卯",
+      "org": "人民日报相关报刊页面",
+      "url": "https://paper.people.com.cn/fcyym/pc/content/202506/13/content_30083565.html",
+      "use": "现代中文常用名：直榫、楔钉榫、燕尾榫及简要用途。"
+    },
+    "sstp": {
+      "title": "《中国传统家具榫卯结构》目录页",
+      "org": "上海科学技术出版社",
+      "url": "https://www.sstp.com.cn/hotbook/1940.html",
+      "use": "传统家具榫卯术语体系与后续扩展书目参考；目录包含楔钉榫、燕尾榫、破头楔、挤楔等。"
+    },
+    "jwood": {
+      "title": "Cyclic behavior of Chinese ancient wooden frame with mortise–tenon joints",
+      "org": "Journal of Wood Science",
+      "url": "https://doi.org/10.1007/s10086-017-1669-5",
+      "use": "古建木框架中直榫与燕尾榫的半刚性、摩擦/挤压行为背景。"
+    },
+    "prusa": {
+      "title": "Modeling with 3D printing in mind",
+      "org": "Prusa Knowledge Base",
+      "url": "https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135",
+      "use": "FFF 装配件需要设计公差；没有通用数值；方向、几何、材料、校准都会影响结果；打印件存在方向性强度差异。"
+    },
+    "mdpi_orientation": {
+      "title": "The Influence of Certain Operating Conditions of the FDM Process on the Mechanical Properties of Polymeric Materials—A Review",
+      "org": "Polymers (2026)",
+      "url": "https://www.mdpi.com/2073-4360/18/10/1183",
+      "use": "FDM 各向异性与打印方向对强度影响的研究综述。"
+    },
+    "wikimedia_mortise": {
+      "title": "Mortise and Tenon (PSF).png",
+      "org": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Mortise_and_Tenon_(PSF).png",
+      "license": "Public Domain",
+      "use": "可复用历史线稿参考。"
+    },
+    "wikimedia_dovetail": {
+      "title": "EB1911 Carpentry - Fig. 8 - Dovetail Joint.jpg",
+      "org": "Wikimedia Commons / Encyclopædia Britannica 1911",
+      "url": "https://commons.wikimedia.org/wiki/File:EB1911_Carpentry_-_Fig._8_-_Dovetail_Joint.jpg",
+      "license": "Public Domain",
+      "use": "可复用历史燕尾结构线稿参考。"
+    },
+    "wikimedia_wedge": {
+      "title": "Mortise.svg",
+      "org": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Mortise.svg",
+      "license": "CC BY-SA 3.0",
+      "use": "破头打楔式透榫的视觉参考；若直接使用需遵守署名与相同方式共享。"
+    },
+    "suzuo_keyed": {
+      "title": "楔钉榫(苏作：销钉榫)结构示意图，明式家具榫卯特点介绍",
+      "org": "苏作诚品",
+      "url": "https://www.suzuochengpin.com/research/324.html",
+      "use": "结构机制交叉校验：上下交搭、小舌入槽、中部方孔与头粗尾细的楔钉；仅作研究/视觉参考，不直接复用图片。"
+    },
+    "youtube_keyed": {
+      "title": "榫卯36记 14、楔钉榫的制作",
+      "org": "许景波 / YouTube",
+      "url": "https://www.youtube.com/watch?v=53s8qXHM9RM",
+      "use": "制作过程与装配动作参考。"
+    }
+  },
+  "decision_001": {
+    "status": "decided",
+    "choice": "A",
+    "third_joint": "楔钉榫",
+    "reason": "与直榫（基础配合）和燕尾榫（几何自锁）形成互补：楔钉榫展示第三零件将互搭构件锁定的机制，同时具有明确的中国传统家具语境。"
+  },
+  "cad_spec_v0_3": {
+    "status": "proposed_for_first_print",
+    "principle": "尺寸是3D打印教学样件的工程起点，不声称为传统家具标准尺寸。所有配合尺寸在首轮打印后更新。",
+    "common": {
+      "unit": "mm",
+      "material_first_round": "PLA",
+      "nozzle": 0.4,
+      "layer_height": 0.2,
+      "default_clearance_total": 0.2,
+      "edge_chamfer": 0.5,
+      "versioning": "每次改动保留 CAD 参数表 + STL + STEP + GLB + print log"
+    },
+    "clearance_kit": {
+      "peg_nominal": [
+        12,
+        12
+      ],
+      "clearances": [
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ],
+      "socket_depth": 5,
+      "peg_shank_height": 10,
+      "peg_head": [
+        18,
+        18,
+        4
+      ],
+      "lead_in": 0.6,
+      "board_thickness": 5,
+      "note": "C 定义为母件有效宽度 - 公件有效宽度的总差值。"
+    },
+    "straight_tenon": {
+      "stock_section": [
+        24,
+        24
+      ],
+      "tenon_length": 18,
+      "tenon_width": 12,
+      "tenon_height": 14,
+      "shoulder_min": 5,
+      "mortise_clearance_total": "C parameter, start 0.20",
+      "teaching_goal": "建立零间隙 vs 可装配间隙的基线。"
+    },
+    "dovetail": {
+      "variant": "滑入式燕尾教学模型，不等同于抽屉多尾燕尾",
+      "body_section": [
+        30,
+        18
+      ],
+      "tail_depth": 8,
+      "neck_width": 10,
+      "outer_width": 16,
+      "tail_length": 24,
+      "groove_clearance_total": "C parameter, start 0.20",
+      "teaching_goal": "保持材料和尺度近似，只改变侧壁几何，展示对横向拔出的约束。"
+    },
+    "keyed_tenon": {
+      "variant": "直材机械原理教学抽象；传统应用常为弧形材",
+      "stock_section": [
+        24,
+        18
+      ],
+      "overlap_length": 30,
+      "half_lap_each": 9,
+      "tongue_width": 8,
+      "tongue_length": 5,
+      "tongue_height": 3,
+      "central_hole_nominal": [
+        7,
+        7
+      ],
+      "key_length": 34,
+      "key_small_end": 6.6,
+      "key_large_end": 7.4,
+      "key_taper_note": "首轮采用总锥差 0.8 mm / 34 mm；需通过打印验证插入力与拆卸性后冻结。",
+      "teaching_goal": "分离“小舌/槽约束”和“楔钉锁定”的作用。"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.1",
+  "updated_at": "2026-08-28",
+  "assets": [
+    {
+      "id": "clearance-test-kit",
+      "version": "v0.1",
+      "variant": "total-clearance-010-040",
+      "evidence_state": "GEOMETRY_VERIFIED",
+      "units": "mm",
+      "source": {
+        "path": "cad/clearance_test_kit_v0.1.scad",
+        "format": "OpenSCAD",
+        "bytes": 1446,
+        "sha256": "27bb0d942d444182d3941e9e6a947af0e82294a166bb760f6f4cc9b876dba7db"
+      },
+      "derivatives": [
+        {
+          "path": "assets/downloads/clearance_test_kit_v0.1.stl",
+          "format": "STL_ASCII",
+          "bytes": 35064,
+          "sha256": "954d6ad649288818c5ac5d0ae942dd9d28c60e10cc2959c39f9532008840231d"
+        }
+      ],
+      "parameters": {
+        "peg_nominal_mm": [12, 12],
+        "total_clearances_mm": [0.1, 0.2, 0.3, 0.4],
+        "board_thickness_mm": 5,
+        "peg_shank_height_mm": 10,
+        "peg_head_mm": [18, 18, 4],
+        "lead_in_mm": 0.6
+      },
+      "geometry_validation": {
+        "tool": "Blender 5.2.1 LTS",
+        "checked_at": "2026-08-28",
+        "bounding_box_mm": [118, 72, 14],
+        "vertices": 136,
+        "edges": 402,
+        "faces": 268,
+        "connected_shells": 5,
+        "expected_shells": 5,
+        "boundary_edges": 0,
+        "non_manifold_edges": 0,
+        "zero_area_faces": 0,
+        "result": "PASS"
+      },
+      "print_log": null
+    }
+  ]
+}
