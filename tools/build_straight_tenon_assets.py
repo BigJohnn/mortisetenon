@@ -6,7 +6,7 @@ Run with Blender:
     --input-dir /path/to/part-stls \
     --layout-stl assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl \
     --glb assets/models/straight-tenon_assembled_v0.1.glb \
-    --poster /tmp/straight-tenon_exploded_v0.1.png
+    --poster assets/images/straight-tenon/v0.1/exploded-01.webp
 """
 
 from __future__ import annotations
@@ -52,6 +52,8 @@ PARTS = {
     },
 }
 
+ANIMATION_NAME = "Explode"
+
 PRINT_LAYOUT = {
     "rail": {"location_mm": (0.0, 0.0, 0.0), "rotation_x_deg": 90.0},
     "c20": {"location_mm": (-9.0, -31.0, 10.0), "rotation_x_deg": 0.0},
@@ -74,7 +76,13 @@ def arguments() -> argparse.Namespace:
 def clear_scene() -> None:
     bpy.ops.object.select_all(action="SELECT")
     bpy.ops.object.delete(use_global=False)
-    for block in (bpy.data.meshes, bpy.data.materials, bpy.data.cameras, bpy.data.lights):
+    for block in (
+        bpy.data.meshes,
+        bpy.data.materials,
+        bpy.data.cameras,
+        bpy.data.lights,
+        bpy.data.actions,
+    ):
         for item in list(block):
             block.remove(item)
 
@@ -136,7 +144,33 @@ def material(name: str, color) -> bpy.types.Material:
     return mat
 
 
-def add_explode_animation(obj: bpy.types.Object, offset) -> None:
+def explode_curves(obj: bpy.types.Object, action: bpy.types.Action):
+    """Return the location f-curves for obj, on slotted (4.4+) and legacy actions."""
+    if hasattr(action, "fcurves"):
+        return list(action.fcurves)
+    slot = obj.animation_data.action_slot
+    for layer in action.layers:
+        for strip in layer.strips:
+            channelbag = strip.channelbag(slot)
+            if channelbag is not None:
+                return list(channelbag.fcurves)
+    return []
+
+
+def add_explode_animation(obj: bpy.types.Object, action: bpy.types.Action, offset) -> None:
+    """Keyframe one part pulling out of the rail, inside the shared Explode action.
+
+    All animated parts share a single action so the glTF exporter emits exactly one
+    animation clip named "Explode" instead of one clip per part. On Blender 4.4+ each
+    object gets its own slot in that action; on older builds the action is shared
+    directly.
+    """
+    animation = obj.animation_data_create()
+    animation.action = action
+    if hasattr(action, "slots"):
+        slot = action.slots.new(id_type="OBJECT", name=obj.name)
+        animation.action_slot = slot
+
     for frame in (1, 12):
         obj.location = (0.0, 0.0, 0.0)
         obj.keyframe_insert(data_path="location", frame=frame)
@@ -144,17 +178,11 @@ def add_explode_animation(obj: bpy.types.Object, offset) -> None:
         obj.location = offset
         obj.keyframe_insert(data_path="location", frame=frame)
 
-    action = obj.animation_data.action
-    for curve in action.fcurves:
+    for curve in explode_curves(obj, action):
         for key in curve.keyframe_points:
             key.interpolation = "BEZIER"
             key.handle_left_type = "AUTO_CLAMPED"
             key.handle_right_type = "AUTO_CLAMPED"
-
-    track = obj.animation_data.nla_tracks.new()
-    track.name = "Explode"
-    track.strips.new("Explode", int(action.frame_range[0]), action)
-    obj.animation_data.action = None
 
 
 def look_at(obj: bpy.types.Object, target) -> None:
@@ -164,6 +192,7 @@ def look_at(obj: bpy.types.Object, target) -> None:
 def build_web_model(input_dir: str, glb_path: str, poster_path: str) -> None:
     clear_scene()
     objects = import_parts(input_dir)
+    explode_action = bpy.data.actions.new(ANIMATION_NAME)
     for key, obj in objects.items():
         obj.scale = (0.001, 0.001, 0.001)
         select_only((obj,))
@@ -173,10 +202,10 @@ def build_web_model(input_dir: str, glb_path: str, poster_path: str) -> None:
         obj["source"] = "Onshape Straight Tenon C-Sweep v0.1"
         if key != "rail":
             obj["total_clearance_mm"] = float(key[1:]) / 100.0
-            add_explode_animation(obj, PARTS[key]["explode"])
+            add_explode_animation(obj, explode_action, PARTS[key]["explode"])
 
     scene = bpy.context.scene
-    scene.name = "Explode"
+    scene.name = ANIMATION_NAME
     scene.frame_start = 1
     scene.frame_end = 72
     scene.render.fps = 30
@@ -188,10 +217,10 @@ def build_web_model(input_dir: str, glb_path: str, poster_path: str) -> None:
         export_format="GLB",
         use_selection=True,
         export_animations=True,
-        export_animation_mode="NLA_TRACKS",
-        export_nla_strips=True,
-        export_nla_strips_merged_animation_name="Explode",
+        export_animation_mode="ACTIONS",
+        export_merge_animation="ACTION",
         export_optimize_animation_size=True,
+        export_optimize_animation_keep_anim_object=True,
         export_extras=True,
         export_cameras=False,
         export_lights=False,
@@ -223,8 +252,14 @@ def build_web_model(input_dir: str, glb_path: str, poster_path: str) -> None:
     scene.render.resolution_x = 1400
     scene.render.resolution_y = 1000
     scene.render.resolution_percentage = 100
-    scene.render.image_settings.file_format = "PNG"
     scene.render.film_transparent = False
+    image_format = "WEBP" if poster_path.lower().endswith(".webp") else "PNG"
+    scene.render.image_settings.file_format = image_format
+    if image_format == "WEBP":
+        scene.render.image_settings.quality = 92
+    # Workbench renders through the scene view transform; AgX would desaturate the
+    # PLA colors and the paper background away from the palette used on the site.
+    scene.view_settings.view_transform = "Standard"
     scene.render.filepath = poster_path
     os.makedirs(os.path.dirname(poster_path), exist_ok=True)
     bpy.ops.render.render(write_still=True)

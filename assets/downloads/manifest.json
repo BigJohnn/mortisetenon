@@ -23,17 +23,33 @@
         }
       ],
       "parameters": {
-        "peg_nominal_mm": [12, 12],
-        "total_clearances_mm": [0.1, 0.2, 0.3, 0.4],
+        "peg_nominal_mm": [
+          12,
+          12
+        ],
+        "total_clearances_mm": [
+          0.1,
+          0.2,
+          0.3,
+          0.4
+        ],
         "board_thickness_mm": 5,
         "peg_shank_height_mm": 10,
-        "peg_head_mm": [18, 18, 4],
+        "peg_head_mm": [
+          18,
+          18,
+          4
+        ],
         "lead_in_mm": 0.6
       },
       "geometry_validation": {
         "tool": "Blender 5.2.1 LTS",
         "checked_at": "2026-08-28",
-        "bounding_box_mm": [118, 72, 14],
+        "bounding_box_mm": [
+          118,
+          72,
+          14
+        ],
         "vertices": 136,
         "edges": 402,
         "faces": 268,
@@ -43,6 +59,156 @@
         "non_manifold_edges": 0,
         "zero_area_faces": 0,
         "result": "PASS"
+      },
+      "print_log": null
+    },
+    {
+      "id": "straight-tenon",
+      "version": "v0.1",
+      "variant": "c-sweep-total-clearance-020-050",
+      "evidence_state": "GEOMETRY_VERIFIED",
+      "units": "mm",
+      "source": {
+        "system": "Onshape",
+        "name": "Onshape Straight Tenon C-Sweep v0.1",
+        "document_url": null,
+        "note": "Onshape 文档链接尚未登记；在补上之前，下面的 build_inputs 是这一版几何唯一的可校验记录。",
+        "build_script": {
+          "path": "tools/build_straight_tenon_assets.py",
+          "sha256": "c2307650b820866f81a21d174752f467677e881496e827c40e6d7e91a542a7e4",
+          "command": "blender --background --python tools/build_straight_tenon_assets.py -- --input-dir cad/straight-tenon_v0.1_parts --layout-stl assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl --glb assets/models/straight-tenon_assembled_v0.1.glb --poster assets/images/straight-tenon/v0.1/exploded-01.webp",
+          "tool": "Blender 5.2.1 LTS"
+        }
+      },
+      "build_inputs": [
+        {
+          "path": "cad/straight-tenon_v0.1_parts/rail.stl",
+          "role": "mortise_rail",
+          "bytes": 1859884,
+          "sha256": "13b0d429c004b7c9e3fb466c4e5a879e8196caf2f92fe5edf15ca20fd7c26535"
+        },
+        {
+          "path": "cad/straight-tenon_v0.1_parts/c20.stl",
+          "role": "tenon",
+          "total_clearance_mm": 0.2,
+          "bytes": 470684,
+          "sha256": "fa97572d5a035445eccbac647f82110dc396aaaf5a929ff734c9cd1b622f7de3"
+        },
+        {
+          "path": "cad/straight-tenon_v0.1_parts/c30.stl",
+          "role": "tenon",
+          "total_clearance_mm": 0.3,
+          "bytes": 470684,
+          "sha256": "5828c6a6355e2d0619646f91fa436f00566dbdd56dfeee3084b7e29c4c3c7498"
+        },
+        {
+          "path": "cad/straight-tenon_v0.1_parts/c40.stl",
+          "role": "tenon",
+          "total_clearance_mm": 0.4,
+          "bytes": 441684,
+          "sha256": "fee49239155705f87fb49f6a5a7085cb80ca7b359b285a517d8b39327742babd"
+        },
+        {
+          "path": "cad/straight-tenon_v0.1_parts/c50.stl",
+          "role": "tenon",
+          "total_clearance_mm": 0.5,
+          "bytes": 470684,
+          "sha256": "6ba5e174f48e8c0183d9c33ccff4127000d4e8c631abb09bef7914ef7324a65c"
+        }
+      ],
+      "derivatives": [
+        {
+          "path": "assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl",
+          "format": "STL_BINARY",
+          "role": "print_layout",
+          "bytes": 3713284,
+          "sha256": "f344d2ad208ac8ae692f55f240468cb8fb66698cad29411843603782293fbf1a"
+        },
+        {
+          "path": "assets/models/straight-tenon_assembled_v0.1.glb",
+          "format": "GLB",
+          "role": "web_model",
+          "bytes": 3315040,
+          "sha256": "5a2cc661c1b850691aafa280c971bbcccb5c062d0bb61488b3240dd7e53433bf",
+          "animation": {
+            "name": "Explode",
+            "seconds": 2.4,
+            "frames": 72,
+            "fps": 30,
+            "animated_nodes": [
+              "Tenon_C020",
+              "Tenon_C030",
+              "Tenon_C040",
+              "Tenon_C050"
+            ],
+            "static_nodes": [
+              "Mortise_Rail_C020_C050"
+            ]
+          }
+        },
+        {
+          "path": "assets/images/straight-tenon/v0.1/exploded-01.webp",
+          "format": "WEBP",
+          "role": "exploded_render",
+          "bytes": 31688,
+          "pixels": [
+            1400,
+            1000
+          ],
+          "sha256": "b2445dc076e4374ed81436869a53b65f880c0f96d53ce68ddda81d014e9f19ae",
+          "note": "动画最后一帧的正交渲染，与 GLB 共用同一组零件位姿。"
+        }
+      ],
+      "parameters": {
+        "mortise_rail_mm": [
+          80,
+          10,
+          20
+        ],
+        "mortise_nominal_mm": [
+          10,
+          10
+        ],
+        "mortise_pitch_mm": 20,
+        "mortise_count": 4,
+        "tenon_body_mm": [
+          20,
+          20,
+          19
+        ],
+        "tenon_length_mm": 10,
+        "total_clearances_mm": [
+          0.2,
+          0.3,
+          0.4,
+          0.5
+        ],
+        "part_labels": [
+          "C20",
+          "C30",
+          "C40",
+          "C50"
+        ]
+      },
+      "geometry_validation": {
+        "tool": "Blender 5.2.1 LTS",
+        "checked_at": "2026-08-28",
+        "checked_file": "assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl",
+        "bounding_box_mm": [
+          98,
+          51,
+          19
+        ],
+        "vertices": 37134,
+        "edges": 111396,
+        "faces": 74264,
+        "connected_shells": 5,
+        "expected_shells": 5,
+        "boundary_edges": 0,
+        "non_manifold_edges": 0,
+        "zero_area_faces": 0,
+        "result": "PASS",
+        "note": "GLB 未做流形检查：glTF 会按法线拆分顶点，边界边计数对显示件没有意义。"
       },
       "print_log": null
     }

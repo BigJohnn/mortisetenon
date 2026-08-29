@@ -290,3 +290,115 @@ if (clearanceLogForm) {
 
   restoreDraft();
 }
+
+const explodeViewer = document.querySelector("#explodeViewer");
+if (explodeViewer) {
+  const range = document.querySelector("#explodeRange");
+  const readout = document.querySelector("#explodeReadout");
+  const goalButtons = [...document.querySelectorAll("[data-explode-goal]")];
+  const cycleButton = document.querySelector("[data-explode-cycle]");
+  const controls = [...goalButtons, cycleButton];
+
+  // The GLB carries one clip named "Explode". We never hand playback to the
+  // element: keeping it paused and writing currentTime ourselves is what lets the
+  // same clip run forwards, backwards and under the reader's finger.
+  let duration = 0;
+  // The page opens on the exploded frame, which is also what the poster shows, so
+  // handing over from poster to live model does not jump.
+  let position = 1;
+  let goal = 1;
+  let cycling = false;
+  let frame = null;
+  let lastTick = 0;
+
+  const label = (fraction) => {
+    if (fraction < 0.01) return "装配位置";
+    if (fraction > 0.99) return "完全分离";
+    return `拆开 ${Math.round(fraction * 100)}%`;
+  };
+
+  const render = () => {
+    // A looping clip wraps at exactly its duration, which would snap the model back
+    // to the assembled pose the moment it finishes separating. Stop one frame short.
+    explodeViewer.currentTime = Math.min(position * duration, duration - 1 / 30);
+    range.value = String(Math.round(position * 1000));
+    readout.textContent = label(position);
+  };
+
+  const stop = () => {
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null;
+  };
+
+  const step = (now) => {
+    const seconds = Math.min((now - lastTick) / 1000, 0.1);
+    lastTick = now;
+    const direction = Math.sign(goal - position);
+    const next = position + (direction * seconds) / duration;
+    position = direction > 0 ? Math.min(next, goal) : Math.max(next, goal);
+    render();
+
+    if (position !== goal) {
+      frame = requestAnimationFrame(step);
+      return;
+    }
+    frame = null;
+    if (cycling) {
+      goal = position > 0.5 ? 0 : 1;
+      window.setTimeout(() => cycling && run(goal), 700);
+    }
+  };
+
+  const run = (target) => {
+    goal = target;
+    if (position === goal || frame !== null) return;
+    lastTick = performance.now();
+    frame = requestAnimationFrame(step);
+  };
+
+  const setActive = (button) => {
+    controls.forEach((item) => item.classList.toggle("active", item === button));
+  };
+
+  explodeViewer.addEventListener("load", () => {
+    // play() then pause() creates the animation action, so currentTime becomes
+    // seekable while nothing is actually running.
+    explodeViewer.play();
+    explodeViewer.pause();
+    duration = explodeViewer.duration || 2.4;
+    render();
+    [...controls, range].forEach((item) => item.removeAttribute("disabled"));
+  });
+
+  goalButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      cycling = false;
+      setActive(button);
+      run(Number(button.dataset.explodeGoal));
+    });
+  });
+
+  cycleButton.addEventListener("click", () => {
+    if (cycling) {
+      cycling = false;
+      stop();
+      // Stopping mid-cycle leaves the model between the two poses, so no preset is active.
+      setActive(null);
+      return;
+    }
+    cycling = true;
+    setActive(cycleButton);
+    run(position > 0.5 ? 0 : 1);
+  });
+
+  range.addEventListener("input", () => {
+    cycling = false;
+    stop();
+    position = Number(range.value) / 1000;
+    goal = position;
+    setActive(null);
+    render();
+  });
+
+  [...controls, range].forEach((item) => item.setAttribute("disabled", ""));
+}

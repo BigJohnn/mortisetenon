@@ -92,5 +92,32 @@ entry must include:
 - Current state: `GEOMETRY_VERIFIED`
 - Next state requires one complete four-clearance print log and photo references.
 
+`straight-tenon@v0.1` is the second release, and the first asset pack whose web
+model, print file, and render all derive from one part-pose definition:
+
+- Build inputs: `cad/straight-tenon_v0.1_parts/*.stl` (Onshape export snapshot)
+- Build script: `tools/build_straight_tenon_assets.py` (Blender 5.2.1 LTS)
+- STL: `assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl`
+- GLB: `assets/models/straight-tenon_assembled_v0.1.glb`
+- Render: `assets/images/straight-tenon/v0.1/exploded-01.webp`
+- Current state: `GEOMETRY_VERIFIED`
+- Known gap: the Onshape document URL is not registered and STEP is not
+  exported, so `source.document_url` in the manifest is `null`. Until it is
+  filled in, the hashed part snapshot is the only verifiable record of this
+  geometry.
+
+## Animated assemblies
+
+A joint whose GLB carries an assembly animation follows three rules, so the clip
+stays a description of the geometry rather than a separate illustration:
+
+- One clip per asset pack, named `Explode`, running from the assembled pose to
+  the separated pose. Frame 0 is the assembly drawing; the last frame is the
+  exploded drawing.
+- Parts separate along the reverse of their real assembly direction. Lateral fan
+  offsets are allowed only to prevent occlusion and carry no meaning.
+- At least one part stays still as a reference, and published renders are frames
+  of that same clip — never a separately posed scene.
+
 The two legacy `dovetail-placeholder.*` files are not releases and are excluded
 from the manifest.
