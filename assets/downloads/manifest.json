@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "updated_at": "2026-08-28",
+  "updated_at": "2026-08-29",
   "assets": [
     {
       "id": "clearance-test-kit",
@@ -71,13 +71,24 @@
       "source": {
         "system": "Onshape",
         "name": "Onshape Straight Tenon C-Sweep v0.1",
-        "document_url": null,
-        "note": "Onshape 文档链接尚未登记；在补上之前，下面的 build_inputs 是这一版几何唯一的可校验记录。",
+        "document_url": "https://cad.onshape.com/documents/b4e44b931cf2449bf1268421/v/652edb49197bc7af84e099bc/e/e05ceae81375d5907507f0de",
+        "note": "几何源已冻结为 Onshape 版本 “straight-tenon v0.1”。document_url 指向该版本（/v/），不是工作区（/w/）——工作区仍可继续编辑，版本不会再变。",
         "build_script": {
           "path": "tools/build_straight_tenon_assets.py",
           "sha256": "c2307650b820866f81a21d174752f467677e881496e827c40e6d7e91a542a7e4",
           "command": "blender --background --python tools/build_straight_tenon_assets.py -- --input-dir cad/straight-tenon_v0.1_parts --layout-stl assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl --glb assets/models/straight-tenon_assembled_v0.1.glb --poster assets/images/straight-tenon/v0.1/exploded-01.webp",
           "tool": "Blender 5.2.1 LTS"
+        },
+        "workspace_url": "https://cad.onshape.com/documents/b4e44b931cf2449bf1268421/w/5aa5c4ec40a9d21e8c6e466b/e/e05ceae81375d5907507f0de",
+        "onshape": {
+          "document_id": "b4e44b931cf2449bf1268421",
+          "version_id": "652edb49197bc7af84e099bc",
+          "version_name": "straight-tenon v0.1",
+          "element_id": "e05ceae81375d5907507f0de",
+          "element_name": "Straight Tenon C-Sweep v0.1",
+          "element_type": "PARTSTUDIO",
+          "microversion": "85b4a056964c33f558516f13",
+          "frozen_at": "2026-08-29"
         }
       },
       "build_inputs": [
@@ -117,6 +128,57 @@
         }
       ],
       "derivatives": [
+        {
+          "path": "assets/downloads/straight-tenon_v0.1.step",
+          "format": "STEP_AP242",
+          "role": "exchange_cad",
+          "units": "m",
+          "bytes": 487131,
+          "sha256": "d26ce0329575a0a72a554315a5106dea9b6a7d3273933533f30d683864bfb8e6",
+          "exported_from": "Onshape version 652edb49197bc7af84e099bc · part studio e05ceae81375d5907507f0de",
+          "exported_at": "2026-08-29",
+          "validation": {
+            "tool": "Onshape translation API + text inspection",
+            "manifold_solid_breps": 5,
+            "expected_solids": 5,
+            "products": [
+              "Mortise rail - C0.20 to C0.50",
+              "Tenon C0.20",
+              "Tenon C0.30",
+              "Tenon C0.40",
+              "Tenon C0.50"
+            ],
+            "part_bounding_boxes_mm": {
+              "Mortise rail - C0.20 to C0.50": [
+                80.0,
+                10.0,
+                20.0
+              ],
+              "Tenon C0.20": [
+                20.0,
+                20.0,
+                19.0
+              ],
+              "Tenon C0.30": [
+                20.0,
+                20.0,
+                19.0
+              ],
+              "Tenon C0.40": [
+                20.0,
+                20.0,
+                19.0
+              ],
+              "Tenon C0.50": [
+                20.0,
+                20.0,
+                19.0
+              ]
+            },
+            "result": "PASS"
+          },
+          "note": "Onshape 的 STEP 导出固定写 SI 米（0.02 = 20 mm），请求 unit=millimeter 无效。STEP 文件自带单位元数据，导入 CAD 不会出错；此处显式标注 units 以免与包内其它 mm 派生件混淆。"
+        },
         {
           "path": "assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl",
           "format": "STL_BINARY",

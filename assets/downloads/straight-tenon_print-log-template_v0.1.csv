@@ -1,0 +1,5 @@
+schema_version,experiment_id,recorded_at,asset_id,asset_version,asset_sha256,printer_model,slicer,slicer_version,material,material_brand,nozzle_mm,layer_height_mm,walls,infill_percent,orientation,scale_percent,nominal_clearance_total_mm,male_measured_x_mm,male_measured_y_mm,female_measured_x_mm,female_measured_y_mm,inserts_without_force,insertion_force_1_5,withdrawal_force_1_5,shoulder_seated,removable_by_hand,fit_class,defects,notes,photo_refs
+0.2,straight-tenon-run-01,,straight-tenon,v0.1,f344d2ad208ac8ae692f55f240468cb8fb66698cad29411843603782293fbf1a,,,,PLA,,0.4,0.2,3,15,tenons-upright-rail-flat,100,0.20,,,,,,,,,,,,,
+0.2,straight-tenon-run-01,,straight-tenon,v0.1,f344d2ad208ac8ae692f55f240468cb8fb66698cad29411843603782293fbf1a,,,,PLA,,0.4,0.2,3,15,tenons-upright-rail-flat,100,0.30,,,,,,,,,,,,,
+0.2,straight-tenon-run-01,,straight-tenon,v0.1,f344d2ad208ac8ae692f55f240468cb8fb66698cad29411843603782293fbf1a,,,,PLA,,0.4,0.2,3,15,tenons-upright-rail-flat,100,0.40,,,,,,,,,,,,,
+0.2,straight-tenon-run-01,,straight-tenon,v0.1,f344d2ad208ac8ae692f55f240468cb8fb66698cad29411843603782293fbf1a,,,,PLA,,0.4,0.2,3,15,tenons-upright-rail-flat,100,0.50,,,,,,,,,,,,,

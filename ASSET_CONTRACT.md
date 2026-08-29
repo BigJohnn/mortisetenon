@@ -1,6 +1,6 @@
 # Printable Joinery Atlas Asset Contract v0.1
 
-Updated: 2026-08-28
+Updated: 2026-08-29
 
 ## Purpose
 
@@ -52,9 +52,17 @@ Existing files remain valid. New files follow these patterns:
 | Web model | `assets/models/{slug}_{state}_{version}.glb` | `assets/models/straight-tenon_assembled_v0.1.glb` |
 | Photography | `assets/images/{slug}/{version}/{shot}.webp` | `assets/images/straight-tenon/v0.1/assembled-01.webp` |
 | Print log | `content/print-logs/{date}_{slug}_{version}_{run}.json` | `content/print-logs/2026-08-28_clearance-test-kit_v0.1_run-01.json` |
+| Print-log template | `assets/downloads/{slug}_print-log-template_{version}.csv` | `assets/downloads/straight-tenon_print-log-template_v0.1.csv` |
 
 Allowed shot names are `assembled`, `exploded`, `orientation`,
 `scale-reference`, `failure`, and `detail`, followed by a two-digit index.
+
+Print-log templates are generated, never hand-edited: `python3
+tools/ingest_print_log.py --emit-templates` reads the recording forms in
+`labs/clearance.html` and writes one blank CSV per asset with the same columns
+the browser export produces. Editing a template by hand would let the offline
+sheet drift away from the form and from `tools/ingest_print_log.py`, which
+validates against the same parsed definition.
 
 `placeholder`, `final`, `latest`, and `new` are forbidden in published
 asset filenames. Placeholder files may exist during drafting but must never be
@@ -100,11 +108,19 @@ model, print file, and render all derive from one part-pose definition:
 - STL: `assets/downloads/straight-tenon_c-sweep-print-layout_v0.1.stl`
 - GLB: `assets/models/straight-tenon_assembled_v0.1.glb`
 - Render: `assets/images/straight-tenon/v0.1/exploded-01.webp`
+- STEP: `assets/downloads/straight-tenon_v0.1.step` (AP242, five solids)
 - Current state: `GEOMETRY_VERIFIED`
-- Known gap: the Onshape document URL is not registered and STEP is not
-  exported, so `source.document_url` in the manifest is `null`. Until it is
-  filled in, the hashed part snapshot is the only verifiable record of this
-  geometry.
+- Source of record: Onshape version `straight-tenon v0.1`
+  (`652edb49197bc7af84e099bc`, microversion `85b4a056964c33f558516f13`),
+  frozen 2026-08-29. The manifest's `document_url` points at the version
+  (`/v/`), never the workspace (`/w/`): a workspace URL keeps moving as the
+  model is edited, which would make the release non-reproducible. The workspace
+  URL is recorded separately as `source.workspace_url` for continued editing.
+- Unit note: Onshape writes STEP in SI metres regardless of the requested
+  export unit, so this one derivative carries `"units": "m"` while every other
+  file in the pack is mm. STEP embeds its own unit metadata, so importing CAD
+  reads it correctly; the manifest states it explicitly so nobody compares the
+  raw numbers against the mm derivatives by mistake.
 
 ## Animated assemblies
 

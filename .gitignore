@@ -1,0 +1,9 @@
+# Secrets — Onshape API keys live here, never commit
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store

@@ -42,12 +42,16 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-const clearanceLogForm = document.querySelector("#clearanceLogForm");
-if (clearanceLogForm) {
-  const storageKey = "printable-joinery:clearance-log:v0.1";
-  const status = document.querySelector("#logStatus");
-  const resultRows = [...clearanceLogForm.querySelectorAll("[data-clearance]")];
-  const dateInput = clearanceLogForm.elements.recorded_at;
+const initPrintLog = (form) => {
+  const asset = {
+    id: form.dataset.assetId,
+    version: form.dataset.assetVersion,
+    sha256: form.dataset.assetSha256,
+  };
+  const storageKey = `printable-joinery:print-log:${asset.id}:${asset.version}`;
+  const status = form.querySelector("[data-log-status]");
+  const resultRows = [...form.querySelectorAll("[data-clearance]")];
+  const dateInput = form.elements.recorded_at;
   let saveTimer;
 
   const localDate = () => {
@@ -63,7 +67,7 @@ if (clearanceLogForm) {
 
   const saveDraft = () => {
     const draft = {};
-    clearanceLogForm.querySelectorAll("input, select, textarea").forEach((control) => {
+    form.querySelectorAll("input, select, textarea").forEach((control) => {
       const key = fieldKey(control);
       if (key) draft[key] = control.value;
     });
@@ -84,7 +88,7 @@ if (clearanceLogForm) {
       return;
     }
 
-    clearanceLogForm.querySelectorAll("input, select, textarea").forEach((control) => {
+    form.querySelectorAll("input, select, textarea").forEach((control) => {
       const key = fieldKey(control);
       if (key && Object.hasOwn(draft, key)) control.value = draft[key];
     });
@@ -108,22 +112,19 @@ if (clearanceLogForm) {
     row.querySelectorAll("[data-field]").forEach((control) => {
       const key = control.dataset.field;
       const value = typedValue(control);
-      result[key] = key === "insertion_force_1_5" && value !== null ? Number(value) : value;
+      const numeric = key === "insertion_force_1_5" || key === "withdrawal_force_1_5";
+      result[key] = numeric && value !== null ? Number(value) : value;
     });
 
     return result;
   };
 
   const readLog = () => {
-    const values = new FormData(clearanceLogForm);
+    const values = new FormData(form);
     return {
-      schema_version: "0.1",
+      schema_version: "0.2",
       evidence_state: "PRINT_LOG_DRAFT",
-      asset: {
-        id: "clearance-test-kit",
-        version: "v0.1",
-        sha256: "954d6ad649288818c5ac5d0ae942dd9d28c60e10cc2959c39f9532008840231d",
-      },
+      asset,
       experiment: {
         id: values.get("experiment_id"),
         recorded_at: values.get("recorded_at"),
@@ -152,13 +153,13 @@ if (clearanceLogForm) {
 
     resultRows.forEach((row) => {
       row.querySelectorAll("[data-field]").forEach((control) => {
-        const missing = control.value === "";
+        const missing = control.value === "" && !("optional" in control.dataset);
         control.setCustomValidity(missing ? "请完成此项记录" : "");
         if (missing && !firstMissing) firstMissing = control;
       });
     });
 
-    if (!clearanceLogForm.reportValidity()) {
+    if (!form.reportValidity()) {
       status.textContent = "请先完成打印条件和四档结果";
       firstMissing?.focus();
       return false;
@@ -173,65 +174,34 @@ if (clearanceLogForm) {
     return `"${text.replaceAll('"', '""')}"`;
   };
 
+  // Result columns vary by asset — the straight tenon records withdrawal force and
+  // shoulder seating, the test kit does not — so the header is read off the rows.
   const toCsv = (log) => {
-    const headers = [
-      "schema_version",
-      "experiment_id",
-      "recorded_at",
-      "asset_id",
-      "asset_version",
-      "printer_model",
-      "slicer",
-      "slicer_version",
-      "material",
-      "material_brand",
-      "nozzle_mm",
-      "layer_height_mm",
-      "walls",
-      "infill_percent",
-      "orientation",
-      "scale_percent",
-      "nominal_clearance_total_mm",
-      "peg_measured_x_mm",
-      "peg_measured_y_mm",
-      "socket_measured_x_mm",
-      "socket_measured_y_mm",
-      "inserts_without_force",
-      "insertion_force_1_5",
-      "removable_by_hand",
-      "fit_class",
-      "defects",
-      "notes",
-      "photo_refs",
+    const runColumns = [
+      ["schema_version", () => log.schema_version],
+      ["experiment_id", () => log.experiment.id],
+      ["recorded_at", () => log.experiment.recorded_at],
+      ["asset_id", () => log.asset.id],
+      ["asset_version", () => log.asset.version],
+      ["asset_sha256", () => log.asset.sha256],
+      ["printer_model", () => log.print_conditions.printer_model],
+      ["slicer", () => log.print_conditions.slicer],
+      ["slicer_version", () => log.print_conditions.slicer_version],
+      ["material", () => log.print_conditions.material],
+      ["material_brand", () => log.print_conditions.material_brand],
+      ["nozzle_mm", () => log.print_conditions.nozzle_mm],
+      ["layer_height_mm", () => log.print_conditions.layer_height_mm],
+      ["walls", () => log.print_conditions.walls],
+      ["infill_percent", () => log.print_conditions.infill_percent],
+      ["orientation", () => log.print_conditions.orientation],
+      ["scale_percent", () => log.print_conditions.scale_percent],
     ];
+    const resultColumns = [...new Set(log.results.flatMap((result) => Object.keys(result)))];
+    const headers = [...runColumns.map(([name]) => name), ...resultColumns, "notes", "photo_refs"];
 
     const rows = log.results.map((result) => [
-      log.schema_version,
-      log.experiment.id,
-      log.experiment.recorded_at,
-      log.asset.id,
-      log.asset.version,
-      log.print_conditions.printer_model,
-      log.print_conditions.slicer,
-      log.print_conditions.slicer_version,
-      log.print_conditions.material,
-      log.print_conditions.material_brand,
-      log.print_conditions.nozzle_mm,
-      log.print_conditions.layer_height_mm,
-      log.print_conditions.walls,
-      log.print_conditions.infill_percent,
-      log.print_conditions.orientation,
-      log.print_conditions.scale_percent,
-      result.nominal_clearance_total_mm,
-      result.peg_measured_x_mm,
-      result.peg_measured_y_mm,
-      result.socket_measured_x_mm,
-      result.socket_measured_y_mm,
-      result.inserts_without_force,
-      result.insertion_force_1_5,
-      result.removable_by_hand,
-      result.fit_class,
-      result.defects,
+      ...runColumns.map(([, read]) => read()),
+      ...resultColumns.map((key) => result[key]),
       log.run_notes,
       log.photo_refs,
     ]);
@@ -250,13 +220,13 @@ if (clearanceLogForm) {
     URL.revokeObjectURL(url);
   };
 
-  clearanceLogForm.addEventListener("input", (event) => {
+  form.addEventListener("input", (event) => {
     event.target.setCustomValidity?.("");
     window.clearTimeout(saveTimer);
     saveTimer = window.setTimeout(saveDraft, 250);
   });
 
-  clearanceLogForm.querySelectorAll("[data-export-log]").forEach((button) => {
+  form.querySelectorAll("[data-export-log]").forEach((button) => {
     button.addEventListener("click", () => {
       if (!validateLog()) return;
 
@@ -266,7 +236,9 @@ if (clearanceLogForm) {
         .toLowerCase()
         .replace(/[^a-z0-9-]+/g, "-")
         .replace(/^-|-$/g, "");
-      const basename = `${log.experiment.recorded_at}_clearance-test-kit_v0.1_${runId || "run-01"}`;
+      // Matches the print-log path in ASSET_CONTRACT.md so the file can be
+      // dropped into content/print-logs/ without renaming.
+      const basename = `${log.experiment.recorded_at}_${asset.id}_${asset.version}_${runId || "run-01"}`;
 
       if (button.dataset.exportLog === "json") {
         download(JSON.stringify(log, null, 2), "application/json", `${basename}.json`);
@@ -277,10 +249,10 @@ if (clearanceLogForm) {
     });
   });
 
-  clearanceLogForm.querySelector("[data-clear-log]").addEventListener("click", () => {
-    if (!window.confirm("清空当前浏览器中的实验草稿？已下载的文件不会受影响。")) return;
+  form.querySelector("[data-clear-log]").addEventListener("click", () => {
+    if (!window.confirm(`清空 ${form.dataset.assetLabel} 在当前浏览器中的实验草稿？已下载的文件不会受影响。`)) return;
     localStorage.removeItem(storageKey);
-    clearanceLogForm.reset();
+    form.reset();
     dateInput.value = localDate();
     resultRows.forEach((row) => {
       row.querySelectorAll("[data-field]").forEach((control) => control.setCustomValidity(""));
@@ -289,7 +261,24 @@ if (clearanceLogForm) {
   });
 
   restoreDraft();
-}
+};
+
+const printLogForms = [...document.querySelectorAll("form[data-print-log]")];
+printLogForms.forEach(initPrintLog);
+
+document.querySelectorAll("[data-log-tab]").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const target = tab.dataset.logTab;
+    document.querySelectorAll("[data-log-tab]").forEach((item) => {
+      const active = item === tab;
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-selected", String(active));
+    });
+    printLogForms.forEach((form) => {
+      form.classList.toggle("is-hidden", form.dataset.assetId !== target);
+    });
+  });
+});
 
 const explodeViewer = document.querySelector("#explodeViewer");
 if (explodeViewer) {

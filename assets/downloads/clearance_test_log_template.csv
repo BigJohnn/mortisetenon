@@ -1,5 +1,0 @@
-schema_version,experiment_id,recorded_at,asset_id,asset_version,printer_model,slicer,slicer_version,material,material_brand,nozzle_mm,layer_height_mm,walls,infill_percent,orientation,scale_percent,nominal_clearance_total_mm,peg_measured_x_mm,peg_measured_y_mm,socket_measured_x_mm,socket_measured_y_mm,inserts_without_force,insertion_force_1_5,removable_by_hand,fit_class,defects,notes,photo_refs
-0.1,clearance-run-01,,clearance-test-kit,v0.1,,,,PLA,,0.4,0.2,3,15,board-flat-and-peg-heads-on-bed,100,0.10,,,,,,,,,,,
-0.1,clearance-run-01,,clearance-test-kit,v0.1,,,,PLA,,0.4,0.2,3,15,board-flat-and-peg-heads-on-bed,100,0.20,,,,,,,,,,,
-0.1,clearance-run-01,,clearance-test-kit,v0.1,,,,PLA,,0.4,0.2,3,15,board-flat-and-peg-heads-on-bed,100,0.30,,,,,,,,,,,
-0.1,clearance-run-01,,clearance-test-kit,v0.1,,,,PLA,,0.4,0.2,3,15,board-flat-and-peg-heads-on-bed,100,0.40,,,,,,,,,,,
