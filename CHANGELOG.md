@@ -12,6 +12,10 @@
 - Replaced the hand-written `clearance_test_log_template.csv` with generated per-asset templates; the contract now states that templates are generated, never hand-edited.
 - Added `tools/create_dovetail_onshape.py` and `tools/verify_dovetail_assembly.py` for the slide-in dovetail v0.2 (C = 0.20 mm, 0.20 mm roof clearance, 0.4 mm internal socket-root relief) with assembled and exploded assemblies. The model exists in Onshape only; no dovetail asset pack is published yet.
 - Added `.gitignore` so the Onshape API keys in `.env` and Python bytecode stay out of the repository.
+- Froze the dovetail workspace as Onshape version `dovetail v0.2` (`cc81e1a378a8fb2804c35364`) after checking that all seven features regenerate, and repointed the joint page's assembly and exploded links from the workspace (`/w/`) to that version.
+- Converted the first dovetail print photo to `assets/images/dovetail/v0.2/assembled-01.webp`, matching the contract's photography path, shot name, and format; the JPEG under `v0.1/` is gone and its EXIF block did not survive the conversion.
+- Corrected the dovetail status chip from the invented `PRINTED` to the contract state `DRAFT`: one print with no measurements is not a print-verified asset.
+- Recorded `dovetail@v0.2` in the asset contract as a traceable source with no asset pack, stating why a first print alone is not a release.
 
 ## v0.4 — 2026-08-28
 - Built the straight-tenon C sweep v0.1 (C = 0.20 / 0.30 / 0.40 / 0.50 mm) from the Onshape source: print-layout STL, animated GLB, and exploded WebP render, all from one part-pose definition.

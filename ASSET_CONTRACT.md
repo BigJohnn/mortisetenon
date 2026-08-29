@@ -122,6 +122,21 @@ model, print file, and render all derive from one part-pose definition:
   reads it correctly; the manifest states it explicitly so nobody compares the
   raw numbers against the mm derivatives by mistake.
 
+`dovetail@v0.2` is not an asset pack yet. It exists as an Onshape model and one
+physical print, so it is recorded here only to keep the source traceable:
+
+- Source of record: Onshape version `dovetail v0.2`
+  (`cc81e1a378a8fb2804c35364`, microversion `09afd4d32a0f94591eaa927b`),
+  frozen 2026-08-29 after all seven features regenerated clean. The joint page
+  links that version (`/v/`), matching the rule above.
+- Geometry: slide-in dovetail, C = 0.20 mm per flank pair, 0.20 mm roof
+  clearance, 0.4 mm internal socket-root relief.
+- Photography: `assets/images/dovetail/v0.2/assembled-01.webp`.
+- Current state: `DRAFT`. No STEP / STL / GLB is exported and there is no
+  manifest entry, because a first print alone is not a release: the print
+  conditions, insertion force, and measured clearances are all unrecorded. The
+  page states that boundary rather than implying a recommended clearance.
+
 ## Animated assemblies
 
 A joint whose GLB carries an assembly animation follows three rules, so the clip
