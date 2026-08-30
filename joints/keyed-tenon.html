@@ -1,11 +1,258 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>03 楔钉榫 · 可打印的榫卯</title><link rel="stylesheet" href="../assets/styles.css"></head><body>
-<nav class="nav"><div class="shell nav-inner"><a class="brand" href="../index.html"><span class="brand-mark"></span>可打印的榫卯</a><div class="nav-links"><a href="../index.html#joints">图鉴</a><a href="../labs/clearance.html">实验室</a><a href="../cad/index.html">CAD Spec</a><a href="../research/sources.html">资料</a></div></div></nav>
-<header class="detail-hero"><div class="shell detail-grid"><div class="detail-meta"><div class="index-big">JOINT · 03</div><div class="detail-title">楔钉榫</div><div class="en-title">KEYED / WEDGE-PIN JOINT</div><p class="lead" style="margin-top:32px">先互搭，再让小舌入槽，最后用一枚头粗尾细的楔钉贯穿锁定。它把一个连接拆成了多层约束。</p><div class="rating-grid"><div class="rating"><span>结构层次</span><span class="score">●●●●●</span></div><div class="rating"><span>装配可视性</span><span class="score">●●●●●</span></div><div class="rating"><span>打印难度</span><span class="score">●●●○○</span></div><div class="rating"><span>文化辨识度</span><span class="score">●●●●●</span></div></div></div>
-<div class="model-panel"><div class="model-stage"><div class="mesh"></div><svg viewBox="0 0 640 420" class="model-svg" style="width:86%"><g><path d="M65 145H330V210H205L175 235H65Z" fill="#d7a56e" stroke="#171816" stroke-width="5" stroke-linejoin="round"/><path d="M575 275H310V210H435L465 185H575Z" fill="#ede9df" stroke="#171816" stroke-width="5" stroke-linejoin="round"/><path d="M300 170L342 180L326 255L284 245Z" fill="#bc5f3f" stroke="#171816" stroke-width="5"/></g></svg><div class="hero-caption">overlap → tongue/slot → key</div></div></div></div></header>
-<div class="shell content-layout"><main class="content-main">
-<section id="principle" class="block"><div class="kicker">01 · Principle</div><h2>一枚楔钉，不是全部。</h2><div class="principle-grid"><div class="diagram"><svg viewBox="0 0 420 300"><path d="M50 95H245V145H155L135 165H50Z" fill="#d7a56e" stroke="#171816" stroke-width="5"/><path d="M370 205H175V155H265L285 135H370Z" fill="#eeeae0" stroke="#171816" stroke-width="5"/><path d="M190 115L230 125L217 198L177 188Z" fill="#bc5f3f" stroke="#171816" stroke-width="5"/><text x="170" y="255" font-size="15" fill="#72756f">第三件：楔钉贯穿搭口</text></svg></div><div><div class="big-quote">交搭负责接触，<br><span class="muted">小舌/槽管错动，楔钉管分离。</span></div><p class="muted">多个简单约束叠加，最后得到一个紧密连接。这比把它简单理解成“塞一根木钉”更准确。</p></div></div></section>
-<section class="block"><div class="kicker">02 · Traditional Context</div><h2>它为什么常出现在圈椅？</h2><p class="lead">现代中文资料把楔钉榫用于弧形材连接，常见于圈椅月牙扶手，以及香几、坐墩、圆杌凳、圆形边框或托泥等部位。两件弧材的拼口需要既保持线条连续，又避免上下与左右错移。</p><div class="warning"><b>网页 v0.3 的取舍：</b>第一版 CAD 先把弧形外观拿掉，改成直材教学模型，只保留连接机制。等机械与打印参数稳定后，再增加“圈椅弧形版”。</div></section>
-<section class="block"><div class="kicker">03 · 3D Print Experiment</div><h2>把三个约束逐层拆掉。</h2><div class="steps"><div class="step"><div class="step-num">A</div><h3>只交搭</h3><p>观察两个构件还有哪些自由度。</p></div><div class="step"><div class="step-num">B</div><h3>加小舌/槽</h3><p>比较上下错移是否明显减少。</p></div><div class="step"><div class="step-num">C</div><h3>插入楔钉</h3><p>记录左右分离、插入力和锁紧感。</p></div><div class="step"><div class="step-num">D</div><h3>改变楔度</h3><p>比较过松、合适、过紧甚至开裂。</p></div></div><div class="cta-row"><a class="btn primary" href="../cad/index.html">查看 v0.1 CAD 参数 →</a></div></section>
-<section class="block"><div class="source-box"><h4>Research sources</h4><div class="source-list"><div class="source-item"><a href="https://paper.people.com.cn/fcyym/pc/content/202506/13/content_30083565.html" target="_blank" rel="noreferrer">木头里的东方智慧 榫卯</a> · 名称与传统应用</div><div class="source-item"><a href="https://www.suzuochengpin.com/research/324.html" target="_blank" rel="noreferrer">楔钉榫结构示意</a> · 交搭、小舌/槽和楔钉机制交叉校验</div><div class="source-item"><a href="https://www.youtube.com/watch?v=53s8qXHM9RM" target="_blank" rel="noreferrer">榫卯36记：楔钉榫制作</a> · 制作/装配动作参考</div></div></div></section>
-</main><aside class="side-toc"><a href="#principle">01 原理</a><a href="../cad/index.html">CAD Spec</a><a href="../labs/clearance.html">Clearance</a></aside></div>
-<footer class="footer"><div class="shell"><a href="../index.html">← 回到图鉴</a></div></footer></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>03 楔钉榫 · 可打印的榫卯</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <nav class="nav"><div class="shell nav-inner"><a class="brand" href="../index.html"><span class="brand-mark"></span>可打印的榫卯</a><div class="nav-links"><a href="../index.html#joints">图鉴</a><a href="../labs/clearance.html">实验室</a><a href="../cad/index.html">CAD Spec</a><a href="../research/sources.html">资料来源</a></div></div></nav>
+
+  <header class="detail-hero">
+    <div class="shell detail-grid">
+      <div class="detail-meta">
+        <div class="index-big">JOINT · 03</div>
+        <h1 class="detail-title">楔钉榫</h1>
+        <div class="en-title">Keyed / Wedge-pin Joint</div>
+        <p class="lead" style="margin-top:28px">一个连接，拆成三层约束。</p>
+        <span class="todo-chip">CAD v0.7 · DRAFT · 数字装配已验证 · 尚未打印</span>
+        <p class="mini" style="margin-top:18px">三件式：两根构件上下半搭，各自的小舌插进对方的盲槽，再由一枚楔钉贯穿锁死。下面的模型来自冻结的 Onshape v0.7，位姿和拆装方向都取自同一份装配定义，不是另外摆出来的示意图。它验证几何，不验证手感——这一版一次都没打印过。</p>
+        <div class="cta-row"><a class="btn ghost" href="https://cad.onshape.com/documents/73de9c93248e073d85379a97/v/3aa8f29bde2c332836964647/e/8fc834ed7d4b7b8f20ba8ff1" target="_blank" rel="noopener">查看 Onshape 装配</a><a class="btn ghost" href="https://cad.onshape.com/documents/73de9c93248e073d85379a97/v/3aa8f29bde2c332836964647/e/ae62a5499ac33f0ba5abc9f6" target="_blank" rel="noopener">查看 Onshape 爆炸图</a></div>
+      </div>
+      <div class="model-panel joint-model-panel" id="keyedModelPanel">
+        <div class="model-stage">
+          <div class="mesh"></div>
+          <model-viewer id="keyedViewer" class="model-viewer" src="../assets/models/keyed-tenon_assembled_v0.7.gltf" alt="楔钉榫 v0.7 的三件式模型：两根半搭构件与一枚锥形楔钉，可旋转并拖动拆装进度" animation-name="Explode" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.7" environment-image="neutral" exposure="1" camera-orbit="38deg 68deg 130%" field-of-view="26deg" loading="eager"></model-viewer>
+          <div class="model-fallback" aria-live="polite"><img src="../assets/images/keyed-tenon/v0.7/exploded-01.webp" alt="楔钉榫 v0.7 的爆炸渲染：两根半搭构件分开，楔钉悬在方孔正上方"><p data-keyed-model-status>正在载入真实 CAD 模型…</p></div>
+        </div>
+        <div class="explode-scrub"><label for="keyedRange">拆装进度</label><input id="keyedRange" type="range" min="0" max="1000" value="1000" step="1" disabled><output id="keyedReadout">完全分离</output></div>
+        <div class="view-controls" aria-label="拆装控制"><button class="control" type="button" data-keyed-goal="0" disabled>装回</button><button class="control active" type="button" data-keyed-goal="1" disabled>拆开</button><button class="control" type="button" data-keyed-cycle disabled>循环演示</button></div>
+        <div class="model-note">Onshape v0.7 装配位姿 · 拆装方向即真实装配的逆向 · 不模拟摩擦或插入力</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell content-layout">
+    <main class="content-main">
+      <section class="block" id="principle">
+        <div class="kicker">01 · Principle</div>
+        <h2>楔钉不是全部，它只负责最后一个自由度。</h2>
+        <p class="big-quote">把这个榫卯理解成“塞一根木钉”，会漏掉它真正在做的事：三层几何依次拿掉不同的运动，每一层都只解决上一层解决不了的那一个。</p>
+        <div class="table-wrap" style="margin-top:26px">
+          <table>
+            <thead><tr><th>加到哪一层</th><th>还剩下什么运动</th><th>这一层负责什么</th></tr></thead>
+            <tbody>
+              <tr><td>只有上下半搭</td><td>沿轴滑动、横向平移、抬起、绕竖轴转动</td><td>只提供贴合面和厚度分配</td></tr>
+              <tr><td>＋小舌进入盲槽</td><td>只剩沿轴滑动</td><td>挡住抬起、横移和转动</td></tr>
+              <tr><td>＋楔钉贯穿</td><td>无</td><td>以剪切挡住沿轴分离</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mini" style="margin-top:14px">这也是为什么小舌被做成插进盲槽的短榫，而不是搭接面上的一个凸台：凸台只能防转，挡不住抬起。</p>
+        <div class="rating-grid">
+          <div class="rating"><span>约束层次</span><span class="score">●●●●●</span></div>
+          <div class="rating"><span>装配可读性</span><span class="score">●●●●●</span></div>
+          <div class="rating"><span>对打印公差的敏感度</span><span class="score">●●●●○</span></div>
+          <div class="rating"><span>打印难度</span><span class="score">●●●○○</span></div>
+          <div class="rating"><span>首轮装配手感</span><span class="score">未知</span></div>
+        </div>
+        <p class="mini">星级是为阅读建立直觉的编辑标记，不是标准化测试。“未知”就是字面意思：这一版还没有实物。</p>
+      </section>
+
+      <section class="block" id="read-model">
+        <div class="kicker">02 · Read the joint</div>
+        <h2>先看它要求怎样装，再决定要不要打印。</h2>
+        <p class="lead">拖动上面的拆装进度，或者直接旋转模型。三件在分开时的位置就是它们真实装配路径的逆向：构件 A 沿轴退出，楔钉竖直抽出，构件 B 始终不动。</p>
+        <div class="protocol joint-reading-grid">
+          <div><b>装配有先后吗？</b><br><span class="mini">有，且不可交换：两件必须先合到位，中部方孔才会对齐；孔没对齐时楔钉根本进不去。</span></div>
+          <div><b>楔钉靠什么锁住？</b><br><span class="mini">靠剪切，不靠摩擦压紧。它横穿在分离方向上，所以两件想沿轴拉开就必须先剪断它。</span></div>
+          <div><b>模型没告诉我什么？</b><br><span class="mini">插入力、层纹、象脚、打进去时孔壁会不会裂——全部要由实物回答，这一版还没有实物。</span></div>
+        </div>
+        <div class="note"><b>阅读边界：</b>模型的两个状态来自同一冻结的 Onshape v0.7，验证的是几何位置与分离关系。它不能替代公差与手感验证。</div>
+      </section>
+
+      <section class="block" id="geometry">
+        <div class="kicker">03 · Geometry</div>
+        <h2>间隙只加在配合面上，承压面一律贴合。</h2>
+        <p class="lead">v0.7 的实际尺寸如下。它们不是从图上量的，而是建模脚本里的常量本身；页面表格和模型对不上的时候，以 Onshape v0.7 为准。</p>
+        <div class="table-wrap" style="margin-top:20px">
+          <table>
+            <thead><tr><th>项目</th><th>v0.7 实际值</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td>料截面</td><td>24 × 18 mm</td><td>两件相同截面</td></tr>
+              <tr><td>单件长度 / 装配总长</td><td>70 mm / 100 mm</td><td>搭接 30 mm，两端各外伸 35 mm</td></tr>
+              <tr><td>半搭厚度</td><td>9 mm ＋ 9 mm</td><td>合起来仍是 18 mm</td></tr>
+              <tr><td>小舌（公）</td><td>7.90 W × 5.00 L × 2.90 H mm</td><td>名义 8 × 5 × 3，各边减去 C/2</td></tr>
+              <tr><td>小舌槽（母）</td><td>8.10 W × 5.40 L × 3.10 H mm</td><td>各边加 C/2；端部另留 0.40 mm，故意不承压</td></tr>
+              <tr><td>配合间隙 C</td><td>0.20 mm（母 − 公，总量）</td><td>公母各让 0.10 mm，两件因此保持全等</td></tr>
+              <tr><td>楔钉孔</td><td>Y 向 7.20 mm 等宽；X 向 6.40 → 8.00 mm</td><td>锥率 0.0889 mm/mm，入口在上表面</td></tr>
+              <tr><td>楔钉</td><td>厚 7.00 mm；6.80 → 8.00 mm；长 13.5 mm</td><td>与孔同锥率，法向零偏移</td></tr>
+              <tr><td>楔钉落位</td><td>头部与入口面齐平，尖端离出口面 4.50 mm</td><td>行程中合拢 1.2 mm 的间隙</td></tr>
+              <tr><td>搭接角让位</td><td>45°，边长 0.20 mm，只切中间 23 mm</td><td>两侧各留 0.50 mm 不切</td></tr>
+              <tr><td>卯口导入</td><td>45°，0.50 mm</td><td>在肩面内，装配后不可见</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="evidence" style="margin-top:26px">
+          <b>哪些面必须零间隙</b>
+          <ul>
+            <li>30 × 24 mm 的搭接面——两件的主要贴合面。</li>
+            <li>两个 30 mm 肩面——决定装配长度是不是 100 mm。</li>
+          </ul>
+        </div>
+        <div class="note" style="margin-top:18px"><b>为什么不给它们也加 0.2 mm：</b>这三个面是承压面，加间隙不会换来“更好装”，只会换来一个永远合不拢的 0.2 mm 旷量——因为没有任何零件会去消除它。楔钉锁的是轴向（X）和横向（Y）的剪切，它不把两件在 Z 方向压紧。</div>
+      </section>
+
+      <section class="block" id="wedge">
+        <div class="kicker">04 · Two geometry results</div>
+        <h2>楔子和倒角，各自有一条不能违反的算术。</h2>
+
+        <h3 style="margin-top:8px">其一：楔子不可能同时“齐平、贴紧、有间隙”</h3>
+        <p class="lead">在锥面上加法向间隙，等于让楔钉多走一段才碰到孔壁。这个模型的锥率是 0.0889 mm/mm，所以 0.2 mm 的法向间隙会让楔钉整整多沉 0.2 ÷ 0.0889 ＝ 4.5 mm。间隙不会变成“松一点”，只会变成“深一点”。</p>
+        <div class="evidence">
+          <b>所以间隙被花在落位深度上，而不是花在面上</b>
+          <ul>
+            <li>楔钉就是孔在顶部 13.5 mm 的那一段轮廓，法向偏移为零。</li>
+            <li>它在行程中把 1.2 mm 的开口差合拢，最后头部与入口面齐平、尖端离出口面 4.5 mm。</li>
+            <li>楔钉掉不下去：6.80 mm 的尖端比孔在出口面的 6.40 mm 开口还宽。</li>
+            <li>代价是灵敏：尺寸每差 1 mm，落位就移动 11.25 mm。打偏 0.05 mm 对应约 0.5 mm 的落位偏差。</li>
+          </ul>
+        </div>
+
+        <h3 style="margin-top:44px">其二：让位只要 0.586 r，而且不能切到侧面</h3>
+        <p class="lead">FFF 会在每个内凹角留下一个喷嘴半径。它必须被让开，否则那一点点圆角会把整条搭接面顶开——而这个接头是超静定的，顶开的间隙会随机落在搭接面或任一个肩面上。</p>
+        <div class="principle-grid" style="margin-top:26px">
+          <div class="diagram">
+            <svg viewBox="0 0 420 300" role="img" aria-label="90 度内凹角里，半径 r 的圆角沿对角线只侵入 0.414r，边长 c 的 45 度让位让出 0.707c">
+              <path d="M60 60H210V150H360V250H60Z" fill="#d7a56e" stroke="#171816" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M210 60H360V150H210Z" fill="none" stroke="#c9c5bb" stroke-width="3" stroke-dasharray="8 7"/>
+              <text x="252" y="86" font-size="13" fill="#a5a29a">对面构件的尖角要进来</text>
+              <path d="M210 150V90A60 60 0 0 0 270 150Z" fill="#bc5f3f" fill-opacity=".3" stroke="#bc5f3f" stroke-width="4"/>
+              <path d="M210 150L228 132" stroke="#bc5f3f" stroke-width="4"/>
+              <path d="M210 150L168 150L210 108Z" fill="#fbfaf7" stroke="#171816" stroke-width="4" stroke-dasharray="9 6" stroke-linejoin="round"/>
+              <circle cx="210" cy="150" r="5" fill="#171816"/>
+              <path d="M244 196L226 160" stroke="#bc5f3f" stroke-width="2"/>
+              <text x="196" y="214" font-size="13" fill="#bc5f3f">打印多出来的圆角 · 侵入 0.414 r</text>
+              <text x="66" y="98" font-size="13" fill="#171816">45° 让位 · 切掉 0.707 c</text>
+              <path d="M126 106L166 132" stroke="#171816" stroke-width="2"/>
+              <text x="60" y="282" font-size="14" fill="#72756f">c ≥ 0.586 r ≈ 0.12 mm（0.4 mm 喷嘴）</text>
+            </svg>
+          </div>
+          <div>
+            <div class="big-quote">半径 0.2 的圆角，<br><span class="muted">只挡住 0.08 mm。</span></div>
+            <p class="muted">90° 内凹角里，半径 r 的圆角沿对角线只侵入 0.414 r；边长 c 的 45° 切口沿同一方向让出 0.707 c。要盖住圆角，只需要 c ≥ 0.586 r——0.4 mm 喷嘴大约是 0.12 mm。v0.7 取 0.20 mm，留了约三分之二的余量；之前那一版取 0.40 mm，是需要量的三倍多。</p>
+          </div>
+        </div>
+        <div class="diagram" style="margin-top:26px;min-height:auto;padding:22px 18px">
+          <svg viewBox="0 0 640 330" role="img" aria-label="侧立面上的搭接接缝，以及全宽让位与中间 23 mm 让位在角点处的差别">
+            <text x="70" y="28" font-size="14" fill="#72756f">装配后的侧立面 · 接缝的两个角点</text>
+            <path d="M70 40H245V85H395V130H70Z" fill="#d7a56e" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M245 40H570V130H395V85H245Z" fill="#ede9df" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
+            <circle cx="245" cy="85" r="13" fill="none" stroke="#bc5f3f" stroke-width="3"/>
+            <circle cx="395" cy="85" r="13" fill="none" stroke="#bc5f3f" stroke-width="3"/>
+            <text x="70" y="152" font-size="13" fill="#72756f">两个角点 × 两个侧面 ＝ 整件上四处</text>
+
+            <rect x="70" y="186" width="240" height="126" rx="14" fill="#fbfaf7" stroke="#d8d5cd" stroke-width="2"/>
+            <path d="M100 206H180V234L158 258H280V292H100Z" fill="#d7a56e" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M180 206H280V258H180Z" fill="#ede9df" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M180 234L158 258L180 258Z" fill="#fbfaf7" stroke="#bc5f3f" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M196 236L184 246" stroke="#bc5f3f" stroke-width="2"/>
+            <text x="100" y="200" font-size="13" fill="#bc5f3f">全宽 24 mm 让位：破口</text>
+
+            <rect x="330" y="186" width="240" height="126" rx="14" fill="#fbfaf7" stroke="#d8d5cd" stroke-width="2"/>
+            <path d="M360 206H440V258H540V292H360Z" fill="#d7a56e" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M440 206H540V258H440Z" fill="#ede9df" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M440 258L440 234L418 258Z" fill="none" stroke="#a5a29a" stroke-width="3" stroke-dasharray="6 4"/>
+            <path d="M462 274L434 250" stroke="#a5a29a" stroke-width="2"/>
+            <text x="330" y="200" font-size="13" fill="#171816">中间 23 mm 让位：接缝连续</text>
+            <text x="450" y="296" font-size="12" fill="#72756f">让位藏在里面</text>
+          </svg>
+        </div>
+        <p class="muted" style="margin-top:20px">搭接角位于装配后的<strong>外表面</strong>。让位一旦横穿整个 24 mm 宽度，就会在两个侧面破出，在接缝上留下一个三角形通槽——整件上有四个。所以 v0.7 把让位从轮廓草图里拿出来，单独切中间 23 mm，两侧各留 0.5 mm 尖角，接缝因此读起来是连续的一条线。代价是那两条 0.5 mm 窄边保留约 0.08 mm 干涉，它们位于截面最边缘、最容易压服的地方。</p>
+        <div class="note" style="margin-top:18px"><b>卯口导入不受这条限制：</b>它在肩面内部，装配后被完全盖住，破不出去，所以仍然直接做在型腔轮廓里，取 0.50 mm。</div>
+      </section>
+
+      <section class="block" id="verify">
+        <div class="kicker">05 · Digital check</div>
+        <h2>能在数字上证明的，和不能的。</h2>
+        <p class="lead"><code>tools/verify_keyed_tenon.py</code> 每次重建后都会跑一遍。它的期望值不是抄进去的，而是从建模脚本自己的常量算出来的，所以两个文件不会各说各话。</p>
+        <div class="print-evidence-grid">
+          <figure class="print-photo">
+            <img src="../assets/images/keyed-tenon/v0.7/assembled-01.webp" alt="楔钉榫 v0.7 的合拢渲染：楔钉头部与上表面齐平，搭接接缝是连续的一条线" width="1600" height="1200" loading="lazy">
+            <figcaption>Onshape v0.7 合拢状态渲染 · 楔钉头部齐平，接缝连续无破口 · 这是渲染，不是照片</figcaption>
+          </figure>
+          <div>
+            <div class="evidence">
+              <b>已经验证的</b>
+              <ul>
+                <li>18 个特征全部重建通过。</li>
+                <li>三个零件的包围盒与体积对上解析值：A 21135.8310 mm³、B 21083.9910 mm³、楔钉 699.3000 mm³。</li>
+                <li>两件在楔钉孔以外逐点全等：38 / 38 个顶点重合。</li>
+                <li>布尔并集探针测得互相侵入 0.000000 mm³——两件只在搭接面和两个肩面相遇。</li>
+              </ul>
+            </div>
+            <div class="note"><b>没有验证的：</b>0.20 mm 的两处间隙、让位尺寸、楔角、落位深度，以及孔壁被敲进去时会不会裂——全部还是假设。所以本页不提供 STL：在打印之前发布可打印文件，等于替你背书一个没验证过的间隙。</div>
+          </div>
+        </div>
+        <div class="cta-row"><a class="btn ghost" href="https://cad.onshape.com/documents/73de9c93248e073d85379a97/v/3aa8f29bde2c332836964647/e/bd84c453f68419d4085d9688" target="_blank" rel="noopener">打开 Onshape 参数化源</a><a class="btn ghost" href="../assets/models/keyed-tenon_assembled_v0.7.gltf">下载本页 glTF</a></div>
+      </section>
+
+      <section class="block" id="print">
+        <div class="kicker">06 · Print orientation</div>
+        <h2>打印方向是设计的一部分，不是切片时才选的。</h2>
+        <p class="lead">两根构件<strong>侧面朝下</strong>打印：着床面 70 × 18 mm，高 24 mm，成长方向是 Y，层面是 X-Z 平面。</p>
+        <div class="protocol">
+          <div><b>为什么不是平躺</b><br><span class="mini">躺在 24 × 70 的面上，小舌会变成 5 mm 的无支撑悬空。</span></div>
+          <div><b>为什么让位能画在草图里</b><br><span class="mini">这个方向下，所有要紧的内凹角都落在 X-Z 平面，也就是层面上。</span></div>
+          <div><b>楔钉怎么摆</b><br><span class="mini">平放。它的两个 Y 面是平行的，层纹因此顺着受剪方向走。</span></div>
+        </div>
+        <div class="note" style="margin-top:20px"><b>提醒：</b>以上是设计时的意图，不是实测结论。方向是否真的更好，要等第一轮打印记录。</div>
+      </section>
+
+      <section class="block" id="reproduce">
+        <div class="kicker">07 · Reproduce with intent</div>
+        <h2>第一轮要回答的，是四个假设里的哪一个错了。</h2>
+        <p class="lead">这一版的可疑之处已经写清楚，复刻时请一次只动一个变量，让结果能互相比较。</p>
+        <ul>
+          <li>小舌 / 槽的 C ＝ 0.20 mm：能否徒手推入，两个肩面是否同时贴合。</li>
+          <li>楔钉落位：实际停在哪里，与预测的“头部齐平、尖端离出口面 4.5 mm”差多少。</li>
+          <li>搭接角 0.20 mm 让位：够不够；两条 0.5 mm 未让位窄边是否明显顶住。</li>
+          <li>孔壁：楔钉打到底时，7.20 mm 孔的侧壁有没有裂。</li>
+        </ul>
+        <div class="cta-row"><a class="btn primary" href="../labs/clearance.html#record">记录这一轮打印结果 →</a><a class="btn ghost" href="../cad/index.html">查看 CAD Spec</a></div>
+      </section>
+
+      <section class="block" id="context">
+        <div class="kicker">08 · Context</div>
+        <h2>历史只讲到足够理解。</h2>
+        <p class="lead">现代中文资料通常把楔钉榫用于弧形材的对接，最常被举的例子是圈椅的月牙扶手，此外还有香几、坐墩、圆杌凳和圆形边框、托泥等部位。两段弧材的拼口既要保持线条连续，又要挡住上下与左右的错移，正好需要这样一组分层约束。</p>
+        <div class="warning"><b>本页的取舍：</b>v0.7 先把弧形外观拿掉，做成直材的机械原理模型，只保留连接机制本身。等间隙和打印参数稳定之后，再考虑增加“圈椅弧形版”。在那之前，本页不声称自己复刻了任何一件具体家具。</div>
+        <div class="source-box">
+          <h4>Research sources</h4>
+          <div class="source-list">
+            <div class="source-item"><a href="https://paper.people.com.cn/fcyym/pc/content/202506/13/content_30083565.html" target="_blank" rel="noreferrer">木头里的东方智慧 榫卯</a> · 名称与传统应用</div>
+            <div class="source-item"><a href="https://www.suzuochengpin.com/research/324.html" target="_blank" rel="noreferrer">楔钉榫结构示意</a> · 交搭、小舌/槽与楔钉机制交叉校验</div>
+            <div class="source-item"><a href="https://www.youtube.com/watch?v=53s8qXHM9RM" target="_blank" rel="noreferrer">榫卯36记：楔钉榫制作</a> · 制作与装配动作参考</div>
+            <div class="source-item"><a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/?lang=en" target="_blank" rel="noreferrer">Crisscross 7000 Years: The Art and Technology of Mortise and Tenon</a> · 分类参考</div>
+            <div class="source-item"><a href="https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135" target="_blank" rel="noreferrer">Prusa Knowledge Base: Modeling with 3D printing in mind</a> · FFF 公差与内凹角边界</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <aside class="side-toc">
+      <a href="#principle">01 原理</a>
+      <a href="#read-model">02 看懂关系</a>
+      <a href="#geometry">03 实际尺寸</a>
+      <a href="#wedge">04 两条算术</a>
+      <a href="#verify">05 数字验证</a>
+      <a href="#print">06 打印方向</a>
+      <a href="#reproduce">07 如何复刻</a>
+      <a href="#context">08 背景</a>
+    </aside>
+  </div>
+  <footer class="footer"><div class="shell"><a href="../index.html">← 回到图鉴</a></div></footer>
+  <script type="module" src="../assets/vendor/model-viewer-4.3.1.min.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

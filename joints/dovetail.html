@@ -1,10 +1,82 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>02 燕尾榫 · 可打印的榫卯</title><link rel="stylesheet" href="../assets/styles.css"></head><body>
-<nav class="nav"><div class="shell nav-inner"><a class="brand" href="../index.html"><span class="brand-mark"></span>可打印的榫卯</a><div class="nav-links"><a href="../index.html#joints">图鉴</a><a href="../labs/clearance.html">实验室</a><a href="../research/sources.html">资料来源</a></div></div></nav>
-<header class="detail-hero"><div class="shell detail-grid"><div class="detail-meta"><div class="index-big">JOINT · 02</div><div class="detail-title">燕尾榫</div><div class="en-title">Dovetail Joint / Dovetail Tenon</div><p class="lead" style="margin-top:28px">让形状本身开始对抗拔出。</p><span class="todo-chip">CAD v0.2 · DRAFT · 首件已打印，未量测</span><p class="mini" style="margin-top:18px">当前为滑入式燕尾教学模型；参数化源、装配验证与爆炸状态保留在 Onshape，下面两个链接指向已冻结的版本 <code>dovetail v0.2</code>，不是会随编辑漂移的工作区。首轮样件徒手可以装配，但需要明显用力；这是单次实物观察，不是通用 clearance 建议。</p><div class="cta-row"><a class="btn ghost" href="https://cad.onshape.com/documents/aa8b70cbf3d6f40dfdcb967a/v/cc81e1a378a8fb2804c35364/e/fd7c8ae946a2204d062c1af9" target="_blank" rel="noopener">查看装配验证</a><a class="btn ghost" href="https://cad.onshape.com/documents/aa8b70cbf3d6f40dfdcb967a/v/cc81e1a378a8fb2804c35364/e/f162ab40c560153c427570be" target="_blank" rel="noopener">查看爆炸图</a></div></div><div class="model-panel"><div class="model-stage"><div class="mesh"></div><div style="padding:42px;text-align:center;position:relative;z-index:1"><div style="font-size:84px;line-height:1">↔</div><p class="muted">真实 CAD 装配 / 爆炸状态已在 Onshape 中验证</p></div></div><div class="model-note">dovetail v0.2 · assembled + exploded</div></div></div></header>
-<div class="shell content-layout"><main class="content-main">
-<section class="block" id="principle"><div class="kicker">01 · Principle</div><h2>为什么它更难被拔出来？</h2><p class="big-quote">燕尾的侧壁向外张开。只要退出方向会让宽端撞上卯口，几何形状就会把简单的“拉出”变成对接触面的挤压与剪切。它不是凭一句“摩擦力更大”就解释完，而是先由几何约束改变了可能的运动。</p><div class="rating-grid"><div class="rating"><span>几何自锁</span><span class="score">●●●●●</span></div><div class="rating"><span>抗拔</span><span class="score">●●●●●</span></div><div class="rating"><span>打印难度</span><span class="score">●●○○○</span></div><div class="rating"><span>装配难度</span><span class="score">●●○○○</span></div><div class="rating"><span>视觉可解释性</span><span class="score">●●●●●</span></div></div><p class="mini">星级为本项目的编辑性教学评分，不是实验测得的标准化性能值。</p></section>
-<section class="block" id="print"><div class="kicker">02 · First Physical Print</div><h2>实物已经出现，证据才开始变得具体。</h2><p class="lead">这不是渲染，也不是网格预览：下方照片记录了首个燕尾样件的实际打印状态。</p><div class="print-evidence-grid"><figure class="print-photo"><img src="../assets/images/dovetail/v0.2/assembled-01.webp" alt="燕尾榫 v0.2 的首轮 3D 打印实物：两件打印件呈合拢状态，燕尾轮廓清晰可见" width="1600" height="1200" loading="lazy"><figcaption>首轮实物照片 · 2026-08-29 · 燕尾轮廓与合拢状态可见</figcaption></figure><div><div class="evidence"><b>本轮观察</b><ul><li>该燕尾教学模型已完成一次实际打印。</li><li>徒手可以完成装配，但配合偏紧，需要明显用力。</li><li>照片中两件处于合拢状态，燕尾的宽端 / 颈部轮廓清晰可见。</li><li>表面层纹、边缘与配合区域将作为后续调参依据。</li></ul></div><div class="note"><b>适用边界：</b>“徒手可装配、偏紧”仅描述本次样件的主观手感。尚未记录材料、喷嘴、层高、插入力、晃动或实测间隙，因此不能单独给出通用 clearance 建议。</div></div></div><h3 style="margin-top:40px">下一次记录需要补齐</h3><div class="protocol"><div><b>打印条件</b><br><span class="mini">材料、喷嘴、层高、方向、支撑</span></div><div><b>装配结果</b><br><span class="mini">插入力、拆卸与晃动</span></div><div><b>尺寸证据</b><br><span class="mini">槽口 / 榫舌实测、失真与缺陷照片</span></div></div></section>
-<section class="block" id="context"><div class="kicker">03 · Context</div><h2>历史只讲到足够理解。</h2><p class="lead">“燕尾”是一个跨家具、木作和建筑都能遇到的几何家族。不同语境下具体形态并不完全相同，因此网页第一版重点讲几何原理，不把抽屉燕尾、梁柱燕尾等不同变体混成一种。</p><div class="source-box"><h4>Research sources</h4><div class="source-list"><div class="source-item"><a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/?lang=en" target="_blank" rel="noreferrer">Crisscross 7000 Years: The Art and Technology of Mortise and Tenon</a> · 分类与交互参考</div><div class="source-item"><a href="https://doi.org/10.1007/s10086-017-1669-5" target="_blank" rel="noreferrer">Cyclic behavior of Chinese ancient wooden frame with mortise–tenon joints</a> · 半刚性与摩擦 / 挤压行为背景</div><div class="source-item"><a href="https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135" target="_blank" rel="noreferrer">Prusa Knowledge Base: Modeling with 3D printing in mind</a> · FFF 公差与方向边界</div></div></div></section>
-<section class="block" id="next"><div class="kicker">04 · Next</div><h2>把一张照片变成可复现的结论。</h2><ul><li>回填本次打印的材料、喷嘴、层高与打印方向。</li><li>记录滑入、插入力、晃动、拆卸与实测间隙。</li><li>从同一 Onshape 版本导出 STEP / STL / GLB。</li><li>补拍失败样本、边缘缺陷与尺度参照。</li></ul><div class="cta-row"><a class="btn primary" href="../labs/clearance.html#record">记录本轮打印结果 →</a></div></section>
-</main><aside class="side-toc"><a href="#principle">01 原理</a><a href="#print">02 实物打印</a><a href="#context">03 背景</a><a href="#next">04 下一步</a></aside></div><footer class="footer"><div class="shell"><a href="../index.html">← 回到图鉴</a></div></footer></body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>02 燕尾榫 · 可打印的榫卯</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <nav class="nav"><div class="shell nav-inner"><a class="brand" href="../index.html"><span class="brand-mark"></span>可打印的榫卯</a><div class="nav-links"><a href="../index.html#joints">图鉴</a><a href="../labs/clearance.html">实验室</a><a href="../research/sources.html">资料来源</a></div></div></nav>
+
+  <header class="detail-hero">
+    <div class="shell detail-grid">
+      <div class="detail-meta">
+        <div class="index-big">JOINT · 02</div>
+        <h1 class="detail-title">燕尾榫</h1>
+        <div class="en-title">Dovetail Joint / Dovetail Tenon</div>
+        <p class="lead" style="margin-top:28px">让形状本身开始对抗拔出。</p>
+        <span class="todo-chip">CAD v0.2 · PRINTED · 手动可装配（偏紧）</span>
+        <p class="mini" style="margin-top:18px">这是一个沿开口方向滑入的教学模型。首轮样件已经打印并合拢；徒手能装配，但需要明显用力。它证明这一次样件能合上，不证明任何打印机、材料或尺寸都应使用同一间隙。</p>
+        <div class="cta-row"><a class="btn ghost" href="https://cad.onshape.com/documents/aa8b70cbf3d6f40dfdcb967a/v/cc81e1a378a8fb2804c35364/e/fd7c8ae946a2204d062c1af9" target="_blank" rel="noopener">查看 Onshape 装配</a><a class="btn ghost" href="https://cad.onshape.com/documents/aa8b70cbf3d6f40dfdcb967a/v/cc81e1a378a8fb2804c35364/e/f162ab40c560153c427570be" target="_blank" rel="noopener">查看 Onshape 分开状态</a></div>
+      </div>
+      <div class="model-panel joint-model-panel" id="dovetailModelPanel">
+        <div class="model-stage">
+          <div class="mesh"></div>
+          <model-viewer id="dovetailViewer" class="model-viewer" src="../assets/models/dovetail_assembled_v0.2.gltf" alt="燕尾榫 v0.2 的 Onshape 装配模型，可旋转查看" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.7" environment-image="neutral" exposure="1" camera-orbit="55deg 70deg 125%" field-of-view="25deg" loading="eager"></model-viewer>
+          <div class="model-fallback" aria-live="polite"><img src="../assets/images/dovetail/v0.2/assembled-01.webp" alt="燕尾榫首轮打印件的合拢状态"><p data-dovetail-model-status>正在载入真实 CAD 模型…</p></div>
+        </div>
+        <div class="explode-scrub"><label for="dovetailRange">拆装进度</label><input id="dovetailRange" type="range" min="0" max="1000" value="1000" step="1" disabled><output id="dovetailReadout">完全分离</output></div>
+        <div class="view-controls" aria-label="拆装控制"><button class="control" type="button" data-dovetail-goal="0" disabled>装回</button><button class="control active" type="button" data-dovetail-goal="1" disabled>拆开</button><button class="control" type="button" data-dovetail-cycle disabled>循环演示</button></div>
+        <div class="model-note">真实 CAD 位姿 · 可旋转缩放或拖动进度 · 不模拟摩擦或插入力</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell content-layout">
+    <main class="content-main">
+      <section class="block" id="principle">
+        <div class="kicker">01 · Principle</div>
+        <h2>它限制的不是“力”，而是运动。</h2>
+        <p class="big-quote">燕尾的侧壁向外张开。若试图从非开口方向拉出，宽端会撞上卯口；原本简单的拉出，转而需要压坏、变形或让接触面滑开。几何先规定了哪些运动不可能，摩擦才在其后影响手感。</p>
+        <div class="rating-grid"><div class="rating"><span>抗拔的几何约束</span><span class="score">●●●●●</span></div><div class="rating"><span>需要指定装配方向</span><span class="score">●●●●○</span></div><div class="rating"><span>首轮打印难度</span><span class="score">●●○○○</span></div><div class="rating"><span>首轮装配手感</span><span class="score">偏紧</span></div><div class="rating"><span>视觉可读性</span><span class="score">●●●●●</span></div></div>
+        <p class="mini">星级是为阅读建立直觉的编辑标记，不是标准化强度测试。这里的“偏紧”只对应下方这一次打印观察。</p>
+      </section>
+
+      <section class="block" id="read-model">
+        <div class="kicker">02 · Read the joint</div>
+        <h2>先看它要求怎样装，再决定要不要打印。</h2>
+        <p class="lead">上面的模型不承担“炫技动画”的任务。旋转模型，或拖动拆装进度，回答三个实际问题即可。</p>
+        <div class="protocol joint-reading-grid"><div><b>从哪里进入？</b><br><span class="mini">两件只能沿燕尾开口方向滑入；侧向硬压不是它设计允许的装配路径。</span></div><div><b>哪里拦住拉出？</b><br><span class="mini">宽端与卯口的斜侧壁相互抵住。这是它对抗拔出的来源。</span></div><div><b>模型没告诉我什么？</b><br><span class="mini">摩擦、层纹、象脚、材料弹性和徒手所需的力，必须由实物来回答。</span></div></div>
+        <div class="note"><b>阅读边界：</b>两个模型状态都来自同一冻结的 Onshape v0.2；它们验证几何位置与分开后的关系，不能替代真实打印件的公差或手感验证。</div>
+      </section>
+
+      <section class="block" id="print">
+        <div class="kicker">03 · First physical print</div>
+        <h2>实物已经出现，结论才开始有重量。</h2>
+        <p class="lead">这不是渲染，也不是网格预览：下方照片记录了 v0.2 首轮燕尾样件的实际合拢状态。</p>
+        <div class="print-evidence-grid"><figure class="print-photo"><img src="../assets/images/dovetail/v0.2/assembled-01.webp" alt="燕尾榫 v0.2 的首轮 3D 打印实物：两件打印件呈合拢状态，燕尾轮廓清晰可见" width="1600" height="1200" loading="lazy"><figcaption>首轮实物照片 · 2026-08-29 · 燕尾轮廓与合拢状态可见</figcaption></figure><div><div class="evidence"><b>已知打印条件</b><ul><li>打印机：拓竹 P2S</li><li>切片：默认打印参数</li><li>喷嘴：0.4 mm</li><li>层高：0.2 mm</li></ul></div><div class="evidence"><b>本轮观察</b><ul><li>两件可以徒手完成装配。</li><li>配合偏紧，需要明显用力。</li><li>照片中两件处于合拢状态，宽端与颈部轮廓可辨。</li></ul></div><div class="note"><b>仍未知：</b>材料、打印方向、实际尺寸、插入力与晃动尚未记录。因此现在不能给出“通用 clearance 数值”。</div></div></div>
+      </section>
+
+      <section class="block" id="reproduce">
+        <div class="kicker">04 · Reproduce with intent</div>
+        <h2>下一轮的目标不是“更炫”，而是可比较。</h2>
+        <p class="lead">若你要复刻，请只改变一个会影响配合的变量，并让每次打印都留下可比较的证据。</p>
+        <div class="protocol"><div><b>固定几何</b><br><span class="mini">从同一 v0.2 文件、同一比例导出。</span></div><div><b>写下条件</b><br><span class="mini">材料、方向、喷嘴、层高和切片版本。</span></div><div><b>记录结果</b><br><span class="mini">首次接触、是否坐到底、用力、晃动与缺陷照片。</span></div></div>
+        <div class="cta-row"><a class="btn primary" href="../labs/clearance.html#record">记录下一轮打印结果 →</a></div>
+      </section>
+
+      <section class="block" id="context">
+        <div class="kicker">05 · Context</div>
+        <h2>历史只讲到足够理解。</h2>
+        <p class="lead">“燕尾”是一个跨家具、木作和建筑都能遇到的几何家族。不同语境的具体形态并不完全相同；本页只讨论这一个滑入式教学变体，不把抽屉燕尾、梁柱燕尾等混成一种。</p>
+        <div class="source-box"><h4>Research sources</h4><div class="source-list"><div class="source-item"><a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/?lang=en" target="_blank" rel="noreferrer">Crisscross 7000 Years: The Art and Technology of Mortise and Tenon</a> · 分类与交互参考</div><div class="source-item"><a href="https://doi.org/10.1007/s10086-017-1669-5" target="_blank" rel="noreferrer">Cyclic behavior of Chinese ancient wooden frame with mortise–tenon joints</a> · 半刚性与摩擦 / 挤压行为背景</div><div class="source-item"><a href="https://help.prusa3d.com/article/modeling-with-3d-printing-in-mind_164135" target="_blank" rel="noreferrer">Prusa Knowledge Base: Modeling with 3D printing in mind</a> · FFF 公差与方向边界</div></div></div>
+      </section>
+    </main>
+    <aside class="side-toc"><a href="#principle">01 原理</a><a href="#read-model">02 看懂关系</a><a href="#print">03 实物打印</a><a href="#reproduce">04 如何复刻</a><a href="#context">05 背景</a></aside>
+  </div>
+  <footer class="footer"><div class="shell"><a href="../index.html">← 回到图鉴</a></div></footer>
+  <script type="module" src="../assets/vendor/model-viewer-4.3.1.min.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

@@ -2,6 +2,16 @@
 
 本版把直榫资产包**接回它的几何源**，并为即将到手的实打数据修好入口：Onshape 版本已冻结并登记，STEP 补齐了 STEP / STL / GLB 三格式；打印记录升到 schema v0.2，测试块与直榫各有一套表单，导出的 JSON 由 `tools/ingest_print_log.py` 校验后才允许进仓库。Clearance Kit 与直榫 C sweep 的首轮实打正在进行中。
 
+## 本地浏览
+
+不要直接双击 `index.html`。GLB 是由浏览器通过网络请求加载的，`file://` 会阻止这个请求。
+
+```bash
+npm run dev
+```
+
+无需先执行 `npm install`；该命令只调用系统自带的 Python 本地服务器。终端会显示地址，默认打开 [http://localhost:8000](http://localhost:8000)。从这里进入首页、直榫或燕尾榫页，3D 模型和交互控件都会正常工作。按 `Ctrl+C` 停止服务。
+
 ## 入口
 - `index.html`：首页
 - `joints/straight-tenon.html`：直榫
@@ -39,7 +49,7 @@ blender --background --python tools/build_straight_tenon_assets.py -- \
   --glb assets/models/straight-tenon_assembled_v0.1.glb \
   --poster assets/images/straight-tenon/v0.1/exploded-01.webp
 ```
-排版 STL 的输出是确定性的：重跑得到的文件与已发布版本 SHA-256 一致。网页需通过 HTTP 打开（例如 `python3 -m http.server`），`file://` 下浏览器会拦截 GLB 加载。
+排版 STL 的输出是确定性的：重跑得到的文件与已发布版本 SHA-256 一致。网页需通过 HTTP 打开；开发时使用 `npm run dev`。
 
 ## 建议下一步
 1. 取回本轮打印件，在 `labs/clearance.html#record` 分别记录测试块与直榫的四档结果，导出 JSON。

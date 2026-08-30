@@ -280,20 +280,28 @@ document.querySelectorAll("[data-log-tab]").forEach((tab) => {
   });
 });
 
-const explodeViewer = document.querySelector("#explodeViewer");
-if (explodeViewer) {
-  const range = document.querySelector("#explodeRange");
-  const readout = document.querySelector("#explodeReadout");
-  const goalButtons = [...document.querySelectorAll("[data-explode-goal]")];
-  const cycleButton = document.querySelector("[data-explode-cycle]");
-  const controls = [...goalButtons, cycleButton];
+// Every joint model on this site ships one clip named "Explode", running from the
+// assembled pose to the separated pose. Playback is never handed to the element:
+// keeping it paused and writing currentTime ourselves is what lets the same clip
+// run forwards, backwards and under the reader's finger.
+const createExplodeViewer = ({
+  viewer,
+  panel,
+  status,
+  range,
+  readout,
+  goalButtons,
+  goalAttribute,
+  cycleButton,
+  page,
+  evidence,
+}) => {
+  if (!viewer || !range || !readout) return;
+  const controls = [...goalButtons, cycleButton].filter(Boolean);
 
-  // The GLB carries one clip named "Explode". We never hand playback to the
-  // element: keeping it paused and writing currentTime ourselves is what lets the
-  // same clip run forwards, backwards and under the reader's finger.
   let duration = 0;
-  // The page opens on the exploded frame, which is also what the poster shows, so
-  // handing over from poster to live model does not jump.
+  // The page opens on the separated frame, which is also what the fallback image
+  // shows, so handing over from the static evidence to the live model does not jump.
   let position = 1;
   let goal = 1;
   let cycling = false;
@@ -309,7 +317,7 @@ if (explodeViewer) {
   const render = () => {
     // A looping clip wraps at exactly its duration, which would snap the model back
     // to the assembled pose the moment it finishes separating. Stop one frame short.
-    explodeViewer.currentTime = Math.min(position * duration, duration - 1 / 30);
+    viewer.currentTime = Math.min(position * duration, duration - 1 / 30);
     range.value = String(Math.round(position * 1000));
     readout.textContent = label(position);
   };
@@ -319,42 +327,56 @@ if (explodeViewer) {
     frame = null;
   };
 
-  const step = (now) => {
-    const seconds = Math.min((now - lastTick) / 1000, 0.1);
-    lastTick = now;
-    const direction = Math.sign(goal - position);
-    const next = position + (direction * seconds) / duration;
-    position = direction > 0 ? Math.min(next, goal) : Math.max(next, goal);
-    render();
-
-    if (position !== goal) {
-      frame = requestAnimationFrame(step);
-      return;
-    }
-    frame = null;
-    if (cycling) {
-      goal = position > 0.5 ? 0 : 1;
-      window.setTimeout(() => cycling && run(goal), 700);
-    }
+  const setActive = (button) => {
+    controls.forEach((item) => item.classList.toggle("active", item === button));
   };
 
   const run = (target) => {
     goal = target;
     if (position === goal || frame !== null) return;
     lastTick = performance.now();
+    const step = (now) => {
+      const seconds = Math.min((now - lastTick) / 1000, 0.1);
+      lastTick = now;
+      const direction = Math.sign(goal - position);
+      const next = position + (direction * seconds) / duration;
+      position = direction > 0 ? Math.min(next, goal) : Math.max(next, goal);
+      render();
+
+      if (position !== goal) {
+        frame = requestAnimationFrame(step);
+        return;
+      }
+      frame = null;
+      if (cycling) {
+        goal = position > 0.5 ? 0 : 1;
+        window.setTimeout(() => cycling && run(goal), 700);
+      }
+    };
     frame = requestAnimationFrame(step);
   };
 
-  const setActive = (button) => {
-    controls.forEach((item) => item.classList.toggle("active", item === button));
+  const reportLoadFailure = (message) => {
+    panel?.classList.add("model-load-failed");
+    if (status) status.textContent = message;
   };
 
-  explodeViewer.addEventListener("load", () => {
+  if (window.location.protocol === "file:") {
+    reportLoadFailure(`交互 3D 模型需要通过 HTTP 打开；请在项目根目录运行 npm run dev，再访问 http://localhost:8000/${page}。`);
+  }
+
+  viewer.addEventListener("error", () => {
+    reportLoadFailure(`3D 模型未能载入；请确认页面通过 HTTP 打开，并检查模型资源是否可访问。${evidence}`);
+  });
+
+  viewer.addEventListener("load", () => {
+    panel?.classList.add("model-ready");
+    panel?.classList.remove("model-load-failed");
     // play() then pause() creates the animation action, so currentTime becomes
     // seekable while nothing is actually running.
-    explodeViewer.play();
-    explodeViewer.pause();
-    duration = explodeViewer.duration || 2.4;
+    viewer.play();
+    viewer.pause();
+    duration = viewer.duration || 2.4;
     render();
     [...controls, range].forEach((item) => item.removeAttribute("disabled"));
   });
@@ -363,11 +385,11 @@ if (explodeViewer) {
     button.addEventListener("click", () => {
       cycling = false;
       setActive(button);
-      run(Number(button.dataset.explodeGoal));
+      run(Number(button.dataset[goalAttribute]));
     });
   });
 
-  cycleButton.addEventListener("click", () => {
+  cycleButton?.addEventListener("click", () => {
     if (cycling) {
       cycling = false;
       stop();
@@ -390,4 +412,43 @@ if (explodeViewer) {
   });
 
   [...controls, range].forEach((item) => item.setAttribute("disabled", ""));
-}
+};
+
+createExplodeViewer({
+  viewer: document.querySelector("#explodeViewer"),
+  panel: document.querySelector("#modelPanel"),
+  status: document.querySelector("[data-model-status]"),
+  range: document.querySelector("#explodeRange"),
+  readout: document.querySelector("#explodeReadout"),
+  goalButtons: [...document.querySelectorAll("[data-explode-goal]")],
+  goalAttribute: "explodeGoal",
+  cycleButton: document.querySelector("[data-explode-cycle]"),
+  page: "joints/straight-tenon.html",
+  evidence: "下方保留同源爆炸图作为静态证据。",
+});
+
+createExplodeViewer({
+  viewer: document.querySelector("#dovetailViewer"),
+  panel: document.querySelector("#dovetailModelPanel"),
+  status: document.querySelector("[data-dovetail-model-status]"),
+  range: document.querySelector("#dovetailRange"),
+  readout: document.querySelector("#dovetailReadout"),
+  goalButtons: [...document.querySelectorAll("[data-dovetail-goal]")],
+  goalAttribute: "dovetailGoal",
+  cycleButton: document.querySelector("[data-dovetail-cycle]"),
+  page: "joints/dovetail.html",
+  evidence: "这里保留首轮打印实物照片作为证据。",
+});
+
+createExplodeViewer({
+  viewer: document.querySelector("#keyedViewer"),
+  panel: document.querySelector("#keyedModelPanel"),
+  status: document.querySelector("[data-keyed-model-status]"),
+  range: document.querySelector("#keyedRange"),
+  readout: document.querySelector("#keyedReadout"),
+  goalButtons: [...document.querySelectorAll("[data-keyed-goal]")],
+  goalAttribute: "keyedGoal",
+  cycleButton: document.querySelector("[data-keyed-cycle]"),
+  page: "joints/keyed-tenon.html",
+  evidence: "这里保留静态爆炸示意图作为退路。",
+});

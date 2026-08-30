@@ -137,6 +137,87 @@ physical print, so it is recorded here only to keep the source traceable:
   conditions, insertion force, and measured clearances are all unrecorded. The
   page states that boundary rather than implying a recommended clearance.
 
+`keyed-tenon@v0.7` is likewise not an asset pack. It exists as an Onshape model
+that has been checked digitally and never printed:
+
+- Source of record: Onshape version `keyed-tenon v0.7`
+  (`3aa8f29bde2c332836964647`, microversion `4e657dd2fda60180ce765e6e`),
+  frozen 2026-08-29 after all eighteen features regenerated clean. v0.1 - v0.6
+  are kept as history; v0.5 holds an alternative key, lofted and then given
+  clearance by a 0.2 mm offset boolean, preserved because it was superseded
+  rather than abandoned.
+- Geometry as built: 24 x 18 mm stock, two 70 mm members, a 30 mm half-lap split
+  9 + 9 mm, and an 8 x 5 x 3 mm stub tongue at each lap end running into a blind
+  mortise in the mating member. Assembled length 100 mm.
+- Clearance is applied to fits and only to fits: tongue/mortise C = 0.20 mm and
+  key-to-hole C = 0.20 mm across the key's parallel faces. The lap face and both
+  30 mm shoulders stay coincident, because they are the bearing surfaces.
+  Clearing them instead would buy a permanent 0.2 mm of play in Z and X that
+  nothing takes up: the key locks X and Y by shear, not Z.
+- Corner relief is sized from the geometry, not guessed. A fillet of radius r in
+  a 90 degree corner intrudes only 0.414 r along the diagonal, and a 45 degree
+  cut of leg c clears 0.707 c, so c >= 0.586 r suffices -- about 0.12 mm for a
+  0.4 mm nozzle. The lap corners carry 0.20 mm and the mortise mouths 0.50 mm.
+- The lap relief stops short of both side faces. That corner lies on the outside
+  of the assembled joint, so a relief taken across the full width breaks out and
+  leaves a notch in the seam -- four of them on the finished piece. It is
+  therefore cut as its own feature over the middle 23 mm of the 24 mm width,
+  leaving 0.5 mm of sharp corner at each edge so the seam reads as one
+  continuous line. Those slivers keep about 0.08 mm of interference on the most
+  compliant part of the section; that is the price of an unbroken seam. The
+  mortise mouth needs no such treatment: it sits inside the shoulder face and is
+  hidden once assembled, so its lead-in stays in the pocket profile.
+- Print orientation is part of the design. The members print on a side face, so
+  the build direction is Y, the layers are X-Z planes, and every concave corner
+  that matters lies in that plane -- which is why both reliefs can be shaped
+  from Front sketches. It also keeps the tongue from being a 5 mm unsupported
+  overhang, which it would be on the 24 x 70 footprint.
+- Key and hole: the key is a flat wedge, tapering in X only, 6.80 -> 8.00 mm
+  over 13.5 mm and 7.00 mm thick. The hole tapers at the same rate, 6.40 mm at
+  the far face to 8.00 mm at the entry face, 7.20 mm wide. Matching the tapers
+  gives full-face contact down both walls, and the parallel Y faces let the key
+  print lying flat with its layers along the shear path.
+- A wedge cannot be flush, tight and clearanced at once; clearance always buys
+  depth instead. On a matched taper it must be taken as a shift along the axis,
+  not as an offset normal to the faces -- a 0.2 mm normal offset would sink this
+  key 0.2 / 0.0889 = 4.5 mm. So the key is the hole's own profile over its top
+  13.5 mm at zero offset: it closes a 1.2 mm gap over its travel and comes to
+  rest with its head flush with the entry face and its tip 4.5 mm above the far
+  face. Seat depth moves 11.25 mm per mm of size error. The key cannot fall
+  through: its 6.80 mm tip is wider than the hole's 6.40 mm far opening.
+- The two members are congruent under a 180 degree rotation about Y everywhere
+  except the key hole. The hole tapers along Z and that rotation reverses Z, so
+  no non-trivial taper can map onto itself; the members differ by their half of
+  the hole and ship as two meshes rather than one printed twice. Everything else
+  stays congruent, which is what keeps the two 30 mm shoulder spacings carrying
+  identical error so both shoulders seat together.
+- Digital assembly check: `tools/verify_keyed_tenon.py` reproduces every bounding
+  box and volume from the closed-form model (A 21135.8310 mm3, B 21083.9910 mm3,
+  key 699.3000 mm3), and matches the two members vertex for vertex under that
+  rotation once the hole footprint is masked out. It reads the feature list to
+  see which relief the model carries and derives its expected volumes from the
+  build script's own constants, so the two files cannot drift apart. A temporary
+  boolean union of the two members measured an interpenetration of 0 mm3, so
+  they meet only on the lap plane and the two shoulders.
+- Web model: `assets/models/keyed-tenon_assembled_v0.7.gltf`, built by
+  `tools/export_keyed_tenon_gltf.py` from the frozen version. Onshape's assembly
+  glTF export writes every part in Part Studio coordinates and drops the assembly
+  transforms, so the script reads those transforms back from both assembly
+  definitions and applies them, then derives the `Explode` clip from the measured
+  difference between the mated and separated states. No offset is typed into the
+  exporter, so the clip cannot drift away from the assembly it describes. The
+  export is also Z-up, which model-viewer is not, so the parts hang under one
+  root node carrying a quarter turn about X.
+- Renders: `assets/images/keyed-tenon/v0.7/{assembled,exploded}-01.webp`, both
+  frames of the two frozen assembly states. They are renders, not photographs,
+  and the page says so where they appear.
+- Current state: `DRAFT`. Nothing has been printed, so both 0.20 mm clearances,
+  both relief sizes, the wedge angle, the seated depth, and whether the hole
+  walls survive being driven are all still assumptions. No STEP or STL is
+  exported and there is no manifest entry: a web model exists so the joint can be
+  read, but publishing a printable file would put this project's name on a
+  clearance nobody has tested.
+
 ## Animated assemblies
 
 A joint whose GLB carries an assembly animation follows three rules, so the clip
