@@ -137,8 +137,11 @@ physical print, so it is recorded here only to keep the source traceable:
   conditions, insertion force, and measured clearances are all unrecorded. The
   page states that boundary rather than implying a recommended clearance.
 
-`keyed-tenon@v0.7` is likewise not an asset pack. It exists as an Onshape model
-that has been checked digitally and never printed:
+`keyed-tenon@v0.7` is likewise not an asset pack. It is an Onshape model that has
+been checked digitally and printed once. The two members below are v0.7 exactly;
+the key is not -- it was redrawn by hand in the workspace after v0.7 was frozen,
+and no version has been cut since, so the key numbers here are read back from the
+live workspace (2026-08-30) rather than from a frozen version:
 
 - Source of record: Onshape version `keyed-tenon v0.7`
   (`3aa8f29bde2c332836964647`, microversion `4e657dd2fda60180ce765e6e`),
@@ -151,49 +154,73 @@ that has been checked digitally and never printed:
   mortise in the mating member. Assembled length 100 mm.
 - Clearance is applied to fits and only to fits: tongue/mortise C = 0.20 mm and
   key-to-hole C = 0.20 mm across the key's parallel faces. The lap face and both
-  30 mm shoulders stay coincident, because they are the bearing surfaces.
+  24 x 9 mm shoulders stay coincident, because they are the bearing surfaces.
   Clearing them instead would buy a permanent 0.2 mm of play in Z and X that
   nothing takes up: the key locks X and Y by shear, not Z.
-- Corner relief is sized from the geometry, not guessed. A fillet of radius r in
-  a 90 degree corner intrudes only 0.414 r along the diagonal, and a 45 degree
-  cut of leg c clears 0.707 c, so c >= 0.586 r suffices -- about 0.12 mm for a
-  0.4 mm nozzle. The lap corners carry 0.20 mm and the mortise mouths 0.50 mm.
+- Corner relief is not sized from anything. The lap corners carry a 45 degree
+  notch of leg 0.20 mm and the mortise mouths a 0.50 mm lead-in, and those two
+  numbers are assumptions the first print has to settle. An earlier version of
+  this record derived the 0.20 mm from "a fillet of radius r intrudes 0.414 r
+  along the diagonal, so c >= 0.586 r"; that argument measured the fillet where
+  it intrudes least. Keeping the same nozzle-radius model but asking where the
+  relief's own concave vertex ends up gives c >= (1 + sqrt 2) r, about 0.48 mm
+  for a 0.4 mm nozzle -- which would make 0.20 mm a notch narrower than the
+  nozzle that has to cut it. v0.7 ships as built; the print decides.
 - The lap relief stops short of both side faces. That corner lies on the outside
   of the assembled joint, so a relief taken across the full width breaks out and
   leaves a notch in the seam -- four of them on the finished piece. It is
   therefore cut as its own feature over the middle 23 mm of the 24 mm width,
   leaving 0.5 mm of sharp corner at each edge so the seam reads as one
   continuous line. Those slivers keep about 0.08 mm of interference on the most
-  compliant part of the section; that is the price of an unbroken seam. The
+  compliant part of the section -- 0.08 mm being the fillet's diagonal reach,
+  not its worst case, which is r itself against a sharp mating corner. That is
+  the price of an unbroken seam. The
   mortise mouth needs no such treatment: it sits inside the shoulder face and is
   hidden once assembled, so its lead-in stays in the pocket profile.
-- Print orientation is part of the design. The members print on a side face, so
-  the build direction is Y, the layers are X-Z planes, and every concave corner
-  that matters lies in that plane -- which is why both reliefs can be shaped
-  from Front sketches. It also keeps the tongue from being a 5 mm unsupported
-  overhang, which it would be on the 24 x 70 footprint.
-- Key and hole: the key is a flat wedge, tapering in X only, 6.80 -> 8.00 mm
-  over 13.5 mm and 7.00 mm thick. The hole tapers at the same rate, 6.40 mm at
-  the far face to 8.00 mm at the entry face, 7.20 mm wide. Matching the tapers
-  gives full-face contact down both walls, and the parallel Y faces let the key
-  print lying flat with its layers along the shear path.
-- A wedge cannot be flush, tight and clearanced at once; clearance always buys
-  depth instead. On a matched taper it must be taken as a shift along the axis,
-  not as an offset normal to the faces -- a 0.2 mm normal offset would sink this
-  key 0.2 / 0.0889 = 4.5 mm. So the key is the hole's own profile over its top
-  13.5 mm at zero offset: it closes a 1.2 mm gap over its travel and comes to
-  rest with its head flush with the entry face and its tip 4.5 mm above the far
-  face. Seat depth moves 11.25 mm per mm of size error. The key cannot fall
-  through: its 6.80 mm tip is wider than the hole's 6.40 mm far opening.
+- Print orientation was designed as side-face-down: build direction Y, layers in
+  X-Z planes, every concave corner that matters lying in that plane -- which is
+  why both reliefs can be shaped from Front sketches -- and the tongue supported
+  rather than hanging. The first print did not use it. It went down flat on the
+  70 x 24 footprint, 18 mm tall, lap face up, which is steadier and gives better
+  flatness but makes each tongue an overhang: the tongue is not on the lap face,
+  it floats in the middle of the remaining 9 mm section (member A: z = 3.05 to
+  5.95), so its 7.90 x 5.00 mm underside hangs 3.05 mm above the plate.
+- Support therefore has to be painted, not left to the slicer. The first print
+  used Bambu Studio tree support in manual mode, which generates support only
+  under painted regions, with enforcers on exactly those two tongue undersides
+  and "overhangs only" checked. Nothing else on the part needs support: the key
+  hole opens upward with walls 2.5 degrees off vertical, and the mortise is an
+  8.10 mm bridge. Leaving it automatic would pack support into the mortise, which
+  is both a fit surface and unreachable. The cost of this orientation is that the
+  support scar lands on a tongue face that has only 0.10 mm of clearance.
+- Key and hole: the hole tapers in X from 6.40 mm at the far face to 8.00 mm at
+  the entry face over 18 mm, and is 7.20 mm wide in Y. The key tapers in X only,
+  so its parallel Y faces let it print lying flat with its layers along the shear
+  path. Both tapers are essentially equal -- and that, not the word "wedge", is
+  what governs the key. Two matched tapers have no included angle for the key to
+  drive itself into; they grip over the full face the way a Morse taper does, and
+  the depth at which the grip starts is set entirely by size.
+- A wedge therefore cannot be flush, tight and clearanced at once; clearance
+  always buys depth. v0.7's key spent none: 6.80 -> 8.00 mm over 13.5 mm, 7.00 mm
+  thick, the hole's own profile over its top 13.5 mm at zero offset, seating with
+  its head flush and its tip 4.50 mm above the far face. It printed too tight to
+  press in by hand. The workspace key is the same idea with clearance: 6.05 ->
+  7.65 mm over 17.83125 mm, 6.80 mm thick -- 0.35 mm under the hole in X at every
+  level and 0.40 mm under it in Y. It presses in easily and it no longer lands
+  flush anywhere: the head catches where the hole has narrowed to 7.65 mm, which
+  is 0.35 / 0.0889 = 3.94 mm below the entry face, leaving the tip 3.77 mm out
+  the far side. Nor can it be stopped by the far opening any more -- its 6.05 mm
+  tip passes through the 6.40 mm hole; friction on the taper is all that holds
+  it. Seat depth still moves 11.25 mm per mm of size error.
 - The two members are congruent under a 180 degree rotation about Y everywhere
   except the key hole. The hole tapers along Z and that rotation reverses Z, so
   no non-trivial taper can map onto itself; the members differ by their half of
   the hole and ship as two meshes rather than one printed twice. Everything else
-  stays congruent, which is what keeps the two 30 mm shoulder spacings carrying
+  stays congruent, which is what keeps both members' shoulder positions carrying
   identical error so both shoulders seat together.
 - Digital assembly check: `tools/verify_keyed_tenon.py` reproduces every bounding
   box and volume from the closed-form model (A 21135.8310 mm3, B 21083.9910 mm3,
-  key 699.3000 mm3), and matches the two members vertex for vertex under that
+  key 830.5796 mm3), and matches the two members vertex for vertex under that
   rotation once the hole footprint is masked out. It reads the feature list to
   see which relief the model carries and derives its expected volumes from the
   build script's own constants, so the two files cannot drift apart. A temporary
@@ -210,13 +237,24 @@ that has been checked digitally and never printed:
   root node carrying a quarter turn about X.
 - Renders: `assets/images/keyed-tenon/v0.7/{assembled,exploded}-01.webp`, both
   frames of the two frozen assembly states. They are renders, not photographs,
-  and the page says so where they appear.
-- Current state: `DRAFT`. Nothing has been printed, so both 0.20 mm clearances,
-  both relief sizes, the wedge angle, the seated depth, and whether the hole
-  walls survive being driven are all still assumptions. No STEP or STL is
-  exported and there is no manifest entry: a web model exists so the joint can be
-  read, but publishing a printable file would put this project's name on a
-  clearance nobody has tested.
+  and the page says so where they appear. They also show the flush v0.7 key, so
+  they predate the key revision; the page says that too.
+- Photography: `assets/images/keyed-tenon/v0.7/printed-01.webp`, the first print
+  assembled, key not inserted, and `slicer-support-01.webp`, the slicer screen
+  that records the orientation and the two painted enforcers.
+- First print, 2026-08-30, Bambu Lab P2S, 0.4 mm nozzle, PLA Matte, flat
+  orientation, manual tree support on the two tongue undersides. The members go
+  together to the shoulders but need real force; the key presses in relatively
+  easily. Which key was on the plate is not recorded.
+- Current state: `DRAFT`. A print that assembles is not a measurement: both
+  0.20 mm clearances, both relief sizes, the seated depth, and whether the hole
+  walls survive being driven are all still assumptions, and the one new fact --
+  that the members are tight -- has no dimension attached to it. The leading
+  explanation is that the tongue's 0.10 mm of clearance is eaten from both sides
+  at once, by support scar under the tongue and by sag in the mortise's 8.10 mm
+  bridge above it; measuring the two heights settles it. No STEP or STL is
+  exported and there is no manifest entry: publishing a printable file now would
+  put this project's name on a clearance that has just been shown to be tight.
 
 ## Animated assemblies
 

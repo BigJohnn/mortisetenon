@@ -16,8 +16,8 @@
         <h1 class="detail-title">楔钉榫</h1>
         <div class="en-title">Keyed / Wedge-pin Joint</div>
         <p class="lead" style="margin-top:28px">一个连接，拆成三层约束。</p>
-        <span class="todo-chip">CAD v0.7 · DRAFT · 数字装配已验证 · 尚未打印</span>
-        <p class="mini" style="margin-top:18px">三件式：两根构件上下半搭，各自的小舌插进对方的盲槽，再由一枚楔钉贯穿锁死。下面的模型来自冻结的 Onshape v0.7，位姿和拆装方向都取自同一份装配定义，不是另外摆出来的示意图。它验证几何，不验证手感——这一版一次都没打印过。</p>
+        <span class="todo-chip">CAD v0.7 · PRINTED · 两件需用力压入 · 楔钉已改画</span>
+        <p class="mini" style="margin-top:18px">三件式：两根构件上下半搭，各自的小舌插进对方的盲槽，再由一枚楔钉贯穿锁死。首轮已经打印并合拢，代价是两件要用力压入。下面的模型来自冻结的 Onshape v0.7；两根构件与工作区里的现状完全一致，楔钉则在 v0.7 之后被手改过，所以模型里的楔钉是旧的那一枚——本页表格里的楔钉尺寸取自工作区，不取自模型。</p>
         <div class="cta-row"><a class="btn ghost" href="https://cad.onshape.com/documents/73de9c93248e073d85379a97/v/3aa8f29bde2c332836964647/e/8fc834ed7d4b7b8f20ba8ff1" target="_blank" rel="noopener">查看 Onshape 装配</a><a class="btn ghost" href="https://cad.onshape.com/documents/73de9c93248e073d85379a97/v/3aa8f29bde2c332836964647/e/ae62a5499ac33f0ba5abc9f6" target="_blank" rel="noopener">查看 Onshape 爆炸图</a></div>
       </div>
       <div class="model-panel joint-model-panel" id="keyedModelPanel">
@@ -75,7 +75,7 @@
       <section class="block" id="geometry">
         <div class="kicker">03 · Geometry</div>
         <h2>间隙只加在配合面上，承压面一律贴合。</h2>
-        <p class="lead">v0.7 的实际尺寸如下。它们不是从图上量的，而是建模脚本里的常量本身；页面表格和模型对不上的时候，以 Onshape v0.7 为准。</p>
+        <p class="lead">实际尺寸如下。它们不是从图上量的：两根构件的数字是建模脚本里的常量本身，与 v0.7 一致；楔钉一栏则是 2026-08-30 从 Onshape 工作区读回来的——那枚楔钉是在 v0.7 之后直接在草图里拖出来的，没有标注尺寸，所以长度不是一个整数。对不上的时候，以工作区为准。</p>
         <div class="table-wrap" style="margin-top:20px">
           <table>
             <thead><tr><th>项目</th><th>v0.7 实际值</th><th>说明</th></tr></thead>
@@ -87,8 +87,8 @@
               <tr><td>小舌槽（母）</td><td>8.10 W × 5.40 L × 3.10 H mm</td><td>各边加 C/2；端部另留 0.40 mm，故意不承压</td></tr>
               <tr><td>配合间隙 C</td><td>0.20 mm（母 − 公，总量）</td><td>公母各让 0.10 mm，两件因此保持全等</td></tr>
               <tr><td>楔钉孔</td><td>Y 向 7.20 mm 等宽；X 向 6.40 → 8.00 mm</td><td>锥率 0.0889 mm/mm，入口在上表面</td></tr>
-              <tr><td>楔钉</td><td>厚 7.00 mm；6.80 → 8.00 mm；长 13.5 mm</td><td>与孔同锥率，法向零偏移</td></tr>
-              <tr><td>楔钉落位</td><td>头部与入口面齐平，尖端离出口面 4.50 mm</td><td>行程中合拢 1.2 mm 的间隙</td></tr>
+              <tr><td>楔钉（工作区现状）</td><td>厚 6.80 mm；6.05 → 7.65 mm；长 17.83125 mm</td><td>锥率 0.0897，与孔的 0.0889 相差 1%；X 向每一层都比孔窄 0.35 mm，Y 向窄 0.40 mm</td></tr>
+              <tr><td>楔钉落位（计算值）</td><td>头部沉入入口面 3.94 mm，尖端伸出出口面 3.77 mm</td><td>由上面两行推出，未实测；v0.7 的旧楔钉是两面齐平</td></tr>
               <tr><td>搭接角让位</td><td>45°，边长 0.20 mm，只切中间 23 mm</td><td>两侧各留 0.50 mm 不切</td></tr>
               <tr><td>卯口导入</td><td>45°，0.50 mm</td><td>在肩面内，装配后不可见</td></tr>
             </tbody>
@@ -98,79 +98,30 @@
           <b>哪些面必须零间隙</b>
           <ul>
             <li>30 × 24 mm 的搭接面——两件的主要贴合面。</li>
-            <li>两个 30 mm 肩面——决定装配长度是不是 100 mm。</li>
+            <li>两个 24 × 9 mm 肩面——决定装配长度是不是 100 mm。</li>
           </ul>
         </div>
         <div class="note" style="margin-top:18px"><b>为什么不给它们也加 0.2 mm：</b>这三个面是承压面，加间隙不会换来“更好装”，只会换来一个永远合不拢的 0.2 mm 旷量——因为没有任何零件会去消除它。楔钉锁的是轴向（X）和横向（Y）的剪切，它不把两件在 Z 方向压紧。</div>
       </section>
 
       <section class="block" id="wedge">
-        <div class="kicker">04 · Two geometry results</div>
-        <h2>楔子和倒角，各自有一条不能违反的算术。</h2>
+        <div class="kicker">04 · One geometry result</div>
+        <h2>楔子有一条不能违反的算术。</h2>
 
-        <h3 style="margin-top:8px">其一：楔子不可能同时“齐平、贴紧、有间隙”</h3>
-        <p class="lead">在锥面上加法向间隙，等于让楔钉多走一段才碰到孔壁。这个模型的锥率是 0.0889 mm/mm，所以 0.2 mm 的法向间隙会让楔钉整整多沉 0.2 ÷ 0.0889 ＝ 4.5 mm。间隙不会变成“松一点”，只会变成“深一点”。</p>
+        <h3 style="margin-top:8px">楔子不可能同时“齐平、贴紧、有间隙”</h3>
+        <p class="lead">先说清楚它是什么：孔和楔钉的锥率几乎相同（0.0889 与 0.0897，在整条 17.8 mm 上只差 0.015 mm，不到一条挤出线的宽度）。同锥率的一对不是楔子，是锥塞——两个面之间没有夹角可以让它越压越紧，它靠的是全锥面摩擦，像莫氏锥柄那样。锥度在这里唯一的作用，是把尺寸误差换算成深度。</p>
+        <p class="lead">所以在锥面上留间隙，不会换来“松一点”，只会换来“深一点”。这一版是活的例子：楔钉被改窄了 0.35 mm（孔口 8.00，楔钉头 7.65），于是它要多沉 0.35 ÷ 0.0889 ＝ 3.94 mm 才被孔壁卡住。</p>
         <div class="evidence">
-          <b>所以间隙被花在落位深度上，而不是花在面上</b>
+          <b>间隙被花在落位深度上，而不是花在面上</b>
           <ul>
-            <li>楔钉就是孔在顶部 13.5 mm 的那一段轮廓，法向偏移为零。</li>
-            <li>它在行程中把 1.2 mm 的开口差合拢，最后头部与入口面齐平、尖端离出口面 4.5 mm。</li>
-            <li>楔钉掉不下去：6.80 mm 的尖端比孔在出口面的 6.40 mm 开口还宽。</li>
-            <li>代价是灵敏：尺寸每差 1 mm，落位就移动 11.25 mm。打偏 0.05 mm 对应约 0.5 mm 的落位偏差。</li>
+            <li>v0.7 的楔钉是零间隙版：它就是孔在顶部 13.5 mm 的那一段轮廓本身，两面齐平落位。它压不进去。</li>
+            <li>工作区现在这一枚给了间隙——X 向窄 0.35 mm、Y 向窄 0.40 mm——好压了，代价是头部沉入 3.94 mm。</li>
+            <li>楔钉还长了：17.83 mm 对 18 mm 的孔深。沉下 3.94 mm 之后，尖端会从出口面伸出 3.77 mm。两头都不齐平。</li>
+            <li>它也不再“掉不下去”：6.05 mm 的尖端比出口面 6.40 mm 的开口还窄，挡住它的是锥面摩擦，不是出口。</li>
+            <li>灵敏度不变：尺寸每差 1 mm，落位移动 1 ÷ 0.0889 ＝ 11.25 mm。打偏 0.05 mm 就是 0.56 mm 的深度差。</li>
           </ul>
         </div>
-
-        <h3 style="margin-top:44px">其二：让位只要 0.586 r，而且不能切到侧面</h3>
-        <p class="lead">FFF 会在每个内凹角留下一个喷嘴半径。它必须被让开，否则那一点点圆角会把整条搭接面顶开——而这个接头是超静定的，顶开的间隙会随机落在搭接面或任一个肩面上。</p>
-        <div class="principle-grid" style="margin-top:26px">
-          <div class="diagram">
-            <svg viewBox="0 0 420 300" role="img" aria-label="90 度内凹角里，半径 r 的圆角沿对角线只侵入 0.414r，边长 c 的 45 度让位让出 0.707c">
-              <path d="M60 60H210V150H360V250H60Z" fill="#d7a56e" stroke="#171816" stroke-width="5" stroke-linejoin="round"/>
-              <path d="M210 60H360V150H210Z" fill="none" stroke="#c9c5bb" stroke-width="3" stroke-dasharray="8 7"/>
-              <text x="252" y="86" font-size="13" fill="#a5a29a">对面构件的尖角要进来</text>
-              <path d="M210 150V90A60 60 0 0 0 270 150Z" fill="#bc5f3f" fill-opacity=".3" stroke="#bc5f3f" stroke-width="4"/>
-              <path d="M210 150L228 132" stroke="#bc5f3f" stroke-width="4"/>
-              <path d="M210 150L168 150L210 108Z" fill="#fbfaf7" stroke="#171816" stroke-width="4" stroke-dasharray="9 6" stroke-linejoin="round"/>
-              <circle cx="210" cy="150" r="5" fill="#171816"/>
-              <path d="M244 196L226 160" stroke="#bc5f3f" stroke-width="2"/>
-              <text x="196" y="214" font-size="13" fill="#bc5f3f">打印多出来的圆角 · 侵入 0.414 r</text>
-              <text x="66" y="98" font-size="13" fill="#171816">45° 让位 · 切掉 0.707 c</text>
-              <path d="M126 106L166 132" stroke="#171816" stroke-width="2"/>
-              <text x="60" y="282" font-size="14" fill="#72756f">c ≥ 0.586 r ≈ 0.12 mm（0.4 mm 喷嘴）</text>
-            </svg>
-          </div>
-          <div>
-            <div class="big-quote">半径 0.2 的圆角，<br><span class="muted">只挡住 0.08 mm。</span></div>
-            <p class="muted">90° 内凹角里，半径 r 的圆角沿对角线只侵入 0.414 r；边长 c 的 45° 切口沿同一方向让出 0.707 c。要盖住圆角，只需要 c ≥ 0.586 r——0.4 mm 喷嘴大约是 0.12 mm。v0.7 取 0.20 mm，留了约三分之二的余量；之前那一版取 0.40 mm，是需要量的三倍多。</p>
-          </div>
-        </div>
-        <div class="diagram" style="margin-top:26px;min-height:auto;padding:22px 18px">
-          <svg viewBox="0 0 640 330" role="img" aria-label="侧立面上的搭接接缝，以及全宽让位与中间 23 mm 让位在角点处的差别">
-            <text x="70" y="28" font-size="14" fill="#72756f">装配后的侧立面 · 接缝的两个角点</text>
-            <path d="M70 40H245V85H395V130H70Z" fill="#d7a56e" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
-            <path d="M245 40H570V130H395V85H245Z" fill="#ede9df" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
-            <circle cx="245" cy="85" r="13" fill="none" stroke="#bc5f3f" stroke-width="3"/>
-            <circle cx="395" cy="85" r="13" fill="none" stroke="#bc5f3f" stroke-width="3"/>
-            <text x="70" y="152" font-size="13" fill="#72756f">两个角点 × 两个侧面 ＝ 整件上四处</text>
-
-            <rect x="70" y="186" width="240" height="126" rx="14" fill="#fbfaf7" stroke="#d8d5cd" stroke-width="2"/>
-            <path d="M100 206H180V234L158 258H280V292H100Z" fill="#d7a56e" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
-            <path d="M180 206H280V258H180Z" fill="#ede9df" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
-            <path d="M180 234L158 258L180 258Z" fill="#fbfaf7" stroke="#bc5f3f" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M196 236L184 246" stroke="#bc5f3f" stroke-width="2"/>
-            <text x="100" y="200" font-size="13" fill="#bc5f3f">全宽 24 mm 让位：破口</text>
-
-            <rect x="330" y="186" width="240" height="126" rx="14" fill="#fbfaf7" stroke="#d8d5cd" stroke-width="2"/>
-            <path d="M360 206H440V258H540V292H360Z" fill="#d7a56e" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
-            <path d="M440 206H540V258H440Z" fill="#ede9df" stroke="#171816" stroke-width="4" stroke-linejoin="round"/>
-            <path d="M440 258L440 234L418 258Z" fill="none" stroke="#a5a29a" stroke-width="3" stroke-dasharray="6 4"/>
-            <path d="M462 274L434 250" stroke="#a5a29a" stroke-width="2"/>
-            <text x="330" y="200" font-size="13" fill="#171816">中间 23 mm 让位：接缝连续</text>
-            <text x="450" y="296" font-size="12" fill="#72756f">让位藏在里面</text>
-          </svg>
-        </div>
-        <p class="muted" style="margin-top:20px">搭接角位于装配后的<strong>外表面</strong>。让位一旦横穿整个 24 mm 宽度，就会在两个侧面破出，在接缝上留下一个三角形通槽——整件上有四个。所以 v0.7 把让位从轮廓草图里拿出来，单独切中间 23 mm，两侧各留 0.5 mm 尖角，接缝因此读起来是连续的一条线。代价是那两条 0.5 mm 窄边保留约 0.08 mm 干涉，它们位于截面最边缘、最容易压服的地方。</p>
-        <div class="note" style="margin-top:18px"><b>卯口导入不受这条限制：</b>它在肩面内部，装配后被完全盖住，破不出去，所以仍然直接做在型腔轮廓里，取 0.50 mm。</div>
+        <div class="note" style="margin-top:18px"><b>要齐平，就得换一种做法：</b>在同锥率上想同时得到“好压”和“齐平”，只有两条路——把楔钉头做大到孔口以上，让它坐在入口面上（变成有台肩的销），或者接受落位由尺寸决定、事后锯平。本页不替你选，但表格里的 3.94 / 3.77 就是不选时的结果。</div>
       </section>
 
       <section class="block" id="verify">
@@ -180,51 +131,105 @@
         <div class="print-evidence-grid">
           <figure class="print-photo">
             <img src="../assets/images/keyed-tenon/v0.7/assembled-01.webp" alt="楔钉榫 v0.7 的合拢渲染：楔钉头部与上表面齐平，搭接接缝是连续的一条线" width="1600" height="1200" loading="lazy">
-            <figcaption>Onshape v0.7 合拢状态渲染 · 楔钉头部齐平，接缝连续无破口 · 这是渲染，不是照片</figcaption>
+            <figcaption>Onshape v0.7 合拢状态渲染 · 这是渲染，不是照片；图中的楔钉是齐平的旧版，工作区改画之前</figcaption>
           </figure>
           <div>
             <div class="evidence">
               <b>已经验证的</b>
               <ul>
                 <li>18 个特征全部重建通过。</li>
-                <li>三个零件的包围盒与体积对上解析值：A 21135.8310 mm³、B 21083.9910 mm³、楔钉 699.3000 mm³。</li>
+                <li>三个零件的包围盒与体积对上解析值：A 21135.8310 mm³、B 21083.9910 mm³、楔钉 830.5796 mm³。校验脚本读的是工作区，所以楔钉改画之后它先报了错，直到建模脚本里的常量跟着改回一致。</li>
                 <li>两件在楔钉孔以外逐点全等：38 / 38 个顶点重合。</li>
                 <li>布尔并集探针测得互相侵入 0.000000 mm³——两件只在搭接面和两个肩面相遇。</li>
               </ul>
             </div>
-            <div class="note"><b>没有验证的：</b>0.20 mm 的两处间隙、让位尺寸、楔角、落位深度，以及孔壁被敲进去时会不会裂——全部还是假设。所以本页不提供 STL：在打印之前发布可打印文件，等于替你背书一个没验证过的间隙。</div>
+            <div class="note"><b>没有验证的：</b>0.20 mm 的两处间隙、让位尺寸、落位深度，以及孔壁被敲进去时会不会裂——首轮实物只回答了“能不能合上”，没有回答任何一个尺寸。所以本页仍不提供 STL：现在发布可打印文件，等于替你背书一个刚被证明偏紧的间隙。</div>
           </div>
         </div>
         <div class="cta-row"><a class="btn ghost" href="https://cad.onshape.com/documents/73de9c93248e073d85379a97/v/3aa8f29bde2c332836964647/e/bd84c453f68419d4085d9688" target="_blank" rel="noopener">打开 Onshape 参数化源</a><a class="btn ghost" href="../assets/models/keyed-tenon_assembled_v0.7.gltf">下载本页 glTF</a></div>
       </section>
 
       <section class="block" id="print">
-        <div class="kicker">06 · Print orientation</div>
-        <h2>打印方向是设计的一部分，不是切片时才选的。</h2>
-        <p class="lead">两根构件<strong>侧面朝下</strong>打印：着床面 70 × 18 mm，高 24 mm，成长方向是 Y，层面是 X-Z 平面。</p>
-        <div class="protocol">
-          <div><b>为什么不是平躺</b><br><span class="mini">躺在 24 × 70 的面上，小舌会变成 5 mm 的无支撑悬空。</span></div>
-          <div><b>为什么让位能画在草图里</b><br><span class="mini">这个方向下，所有要紧的内凹角都落在 X-Z 平面，也就是层面上。</span></div>
-          <div><b>楔钉怎么摆</b><br><span class="mini">平放。它的两个 Y 面是平行的，层纹因此顺着受剪方向走。</span></div>
+        <div class="kicker">06 · Orientation &amp; support</div>
+        <h2>方向可以设计，悬空却要自己涂出来。</h2>
+        <p class="lead">建模时选的方向是<strong>侧面朝下</strong>：着床面 70 × 18 mm，高 24 mm，成长方向 Y，层面是 X-Z 平面。理由是所有要紧的内凹角都落在层面上，两处让位因此能直接画进 Front 草图，而且小舌不会悬空。</p>
+        <p class="lead">首轮实际是按<strong>平躺</strong>切的：着床面 70 × 24 mm，高 18 mm，层面是 X-Y 平面，搭接面朝上。这个方向更稳、平面精度更好，但它让小舌变成了悬空——<strong>而且必须手动涂支撑</strong>。</p>
+        <div class="evidence" style="margin-top:22px">
+          <b>为什么小舌一定悬空</b>
+          <ul>
+            <li>小舌不坐在搭接面上，它悬在剩余 9 mm 截面的正中间：A 件的小舌占 z ＝ 3.05 → 5.95 mm。</li>
+            <li>它的底面因此是一块 7.90 × 5.00 mm 的水平面，离台面 3.05 mm，下面什么都没有。</li>
+            <li>两根构件各有一个，共两处。这两块面同时是配合面。</li>
+          </ul>
         </div>
-        <div class="note" style="margin-top:20px"><b>提醒：</b>以上是设计时的意图，不是实测结论。方向是否真的更好，要等第一轮打印记录。</div>
+        <div class="protocol" style="margin-top:22px">
+          <div><b>支撑类型</b><br><span class="mini">树状（手动）。手动模式下支撑只跟着涂过的地方走，不涂就没有。</span></div>
+          <div><b>涂哪里</b><br><span class="mini">两个小舌的悬空底面，各 7.90 × 5.00 mm，并勾选“仅对悬空区生效”。</span></div>
+          <div><b>为什么不交给自动</b><br><span class="mini">自动会往小舌槽里也塞支撑。那是 8.10 mm 的短跨，桥接就够，塞进去反而取不出来。</span></div>
+        </div>
+        <figure class="print-photo" style="margin-top:24px">
+          <img src="../assets/images/keyed-tenon/v0.7/slicer-support-01.webp" alt="拓竹切片软件的支撑绘制界面：构件平躺在 70 × 24 mm 面上，支撑类型为树状（手动），小舌的悬空底面被涂成支撑强制区" width="1920" height="1117" loading="lazy">
+          <figcaption>首轮切片设置 · 拓竹 P2S · 支撑类型“树状（手动）”，红圈处是涂出来的支撑强制区</figcaption>
+        </figure>
+        <div class="note" style="margin-top:20px"><b>这条要记在设计里，不是记在切片里：</b>楔钉孔向上张开、孔壁只偏离竖直 2.5°，不需要支撑；小舌槽是 8.10 mm 的短跨，桥接即可。整个零件上真正需要支撑的，就是这两块小舌底面——它们又恰好是要参与配合的面，所以支撑痕会直接落在 0.10 mm 的间隙上。下面那一节的“压不动”，很可能就是从这里来的。</div>
+      </section>
+
+      <section class="block" id="printed">
+        <div class="kicker">07 · First physical print</div>
+        <h2>两件合上了，但要用力压。</h2>
+        <p class="lead">下面是照片，不是渲染。两根构件已经合拢，搭接接缝连成一条线，中间的方孔从上表面直通到下表面——照片里能透过它看到背景，因为这一张没有插楔钉。</p>
+        <div class="print-evidence-grid">
+          <figure class="print-photo">
+            <img src="../assets/images/keyed-tenon/v0.7/printed-01.webp" alt="楔钉榫首轮 3D 打印实物：两根橙色构件已合拢，搭接接缝清晰，上表面中部是贯通的楔钉方孔，孔里没有楔钉" width="1600" height="1200" loading="lazy">
+            <figcaption>首轮实物照片 · 2026-08-30 · 两件已合拢，楔钉未插入</figcaption>
+          </figure>
+          <div>
+            <div class="evidence">
+              <b>已知打印条件</b>
+              <ul>
+                <li>打印机：拓竹 P2S</li>
+                <li>喷嘴：0.4 mm；材料：PLA Matte</li>
+                <li>方向：平躺，着床面 70 × 24 mm</li>
+                <li>支撑：树状（手动），只涂两处小舌底面</li>
+              </ul>
+            </div>
+            <div class="evidence">
+              <b>本轮观察</b>
+              <ul>
+                <li>两件能合到底，但需要明显用力压入。</li>
+                <li>楔钉相对容易压入。</li>
+                <li>接缝合成一条线，肉眼没看到崩口。</li>
+              </ul>
+            </div>
+            <div class="note"><b>仍未记录：</b>层高与切片版本、实测尺寸、插入力、合拢后的晃动、楔钉最终停在哪个深度，以及这一轮用的是改画前还是改画后的楔钉。“用力压入”是手感，不是数据。</div>
+          </div>
+        </div>
       </section>
 
       <section class="block" id="reproduce">
-        <div class="kicker">07 · Reproduce with intent</div>
-        <h2>第一轮要回答的，是四个假设里的哪一个错了。</h2>
-        <p class="lead">这一版的可疑之处已经写清楚，复刻时请一次只动一个变量，让结果能互相比较。</p>
+        <div class="kicker">08 · Reproduce with intent</div>
+        <h2>第一轮已经把问题缩小了：为什么压不动。</h2>
+        <p class="lead">首轮回答了“能不能合上”——能，但要用力。下一轮要回答的是这股力从哪来。四个候选里有三个可以直接量，请一次只动一个变量。</p>
+        <div class="evidence" style="margin-bottom:22px">
+          <b>最可能的一条：0.10 mm 被两侧同时吃掉</b>
+          <ul>
+            <li>小舌高 2.90 mm，槽高 3.10 mm，上下各 0.10 mm。</li>
+            <li>小舌的底面是这一轮唯一靠支撑成形的面，支撑痕只会让它变高。</li>
+            <li>槽的顶面是一段 8.10 mm 的桥接，桥接只会往下垂，让槽变矮。</li>
+            <li>两个偏差方向相同，都在啃同一条 0.20 mm。量一下小舌实际高度和槽实际高度，这一条就成立或出局。</li>
+          </ul>
+        </div>
         <ul>
-          <li>小舌 / 槽的 C ＝ 0.20 mm：能否徒手推入，两个肩面是否同时贴合。</li>
-          <li>楔钉落位：实际停在哪里，与预测的“头部齐平、尖端离出口面 4.5 mm”差多少。</li>
-          <li>搭接角 0.20 mm 让位：够不够；两条 0.5 mm 未让位窄边是否明显顶住。</li>
+          <li>小舌 / 槽的 C ＝ 0.20 mm：改成 0.30 或 0.40 mm 再打一件，看“用力压”是否消失、肩面是否仍同时贴合。</li>
+          <li>搭接角 0.20 mm 让位：先看它在实物上是否成形——0.20 mm 的 45° 缺口比 0.4 mm 喷嘴还窄，很可能根本没被切出来；再看两条 0.5 mm 未让位窄边是否明显顶住。</li>
+          <li>楔钉落位：把楔钉压到底，量头部沉入了多少。预测是 3.94 mm 沉入、尖端伸出 3.77 mm；同时记下用的是哪一版楔钉。</li>
           <li>孔壁：楔钉打到底时，7.20 mm 孔的侧壁有没有裂。</li>
         </ul>
         <div class="cta-row"><a class="btn primary" href="../labs/clearance.html#record">记录这一轮打印结果 →</a><a class="btn ghost" href="../cad/index.html">查看 CAD Spec</a></div>
       </section>
 
       <section class="block" id="context">
-        <div class="kicker">08 · Context</div>
+        <div class="kicker">09 · Context</div>
         <h2>历史只讲到足够理解。</h2>
         <p class="lead">现代中文资料通常把楔钉榫用于弧形材的对接，最常被举的例子是圈椅的月牙扶手，此外还有香几、坐墩、圆杌凳和圆形边框、托泥等部位。两段弧材的拼口既要保持线条连续，又要挡住上下与左右的错移，正好需要这样一组分层约束。</p>
         <div class="warning"><b>本页的取舍：</b>v0.7 先把弧形外观拿掉，做成直材的机械原理模型，只保留连接机制本身。等间隙和打印参数稳定之后，再考虑增加“圈椅弧形版”。在那之前，本页不声称自己复刻了任何一件具体家具。</div>
@@ -244,11 +249,12 @@
       <a href="#principle">01 原理</a>
       <a href="#read-model">02 看懂关系</a>
       <a href="#geometry">03 实际尺寸</a>
-      <a href="#wedge">04 两条算术</a>
+      <a href="#wedge">04 楔子的算术</a>
       <a href="#verify">05 数字验证</a>
-      <a href="#print">06 打印方向</a>
-      <a href="#reproduce">07 如何复刻</a>
-      <a href="#context">08 背景</a>
+      <a href="#print">06 方向与支撑</a>
+      <a href="#printed">07 首轮实物</a>
+      <a href="#reproduce">08 如何复刻</a>
+      <a href="#context">09 背景</a>
     </aside>
   </div>
   <footer class="footer"><div class="shell"><a href="../index.html">← 回到图鉴</a></div></footer>

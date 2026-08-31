@@ -8,7 +8,7 @@ wrong body, or a mistyped dimension.
 
 The congruence test is the load-bearing one: member A mapped through a 180 deg
 rotation about Y must reproduce member B everywhere except the key hole.  That
-guarantees the two 30 mm shoulder spacings carry identical error, so both
+guarantees both members' shoulder positions carry identical error, so both
 shoulders seat together instead of one of them fighting the other.
 
 The hole is the one deliberate exception.  It tapers along Z, and a 180 degree
@@ -114,8 +114,9 @@ def expected(corner_relief: float, mouth_chamfer: float) -> dict[str, dict]:
         "B": {"volume": body - hole_slice(m.HALF_LAP, m.HEIGHT),
               "box": ((-m.TONGUE_TIP, -half_w, 0.0), (m.MAIN_END, half_w, m.HEIGHT))},
         "key": {"volume": key,
-                "box": ((m.KEY_PARK_X - half_head, -m.KEY_Y / 2, m.KEY_SEAT_Z),
-                        (m.KEY_PARK_X + half_head, m.KEY_Y / 2, m.HEIGHT))},
+                "box": ((m.KEY_PARK_X - half_head, -m.KEY_Y / 2, m.KEY_PARK_Z),
+                        (m.KEY_PARK_X + half_head, m.KEY_Y / 2,
+                         m.KEY_PARK_Z + m.KEY_LENGTH))},
     }
 
 
