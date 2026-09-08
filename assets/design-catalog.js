@@ -50,8 +50,12 @@ function renderFirstWave(data) {
     });
     article.append(dl);
 
+    const briefLink = element("a", "catalog-link", "查看首轮完整内容 →");
+    briefLink.href = `first-wave.html#${joint.id}`;
+    article.append(briefLink);
+
     if (joint.chapter_path) {
-      const link = element("a", "catalog-link", "打开现有章节 →");
+      const link = element("a", "catalog-link", " · 打开现有章节 →");
       link.href = joint.chapter_path;
       article.append(link);
     }
@@ -107,8 +111,14 @@ function renderWorks(data) {
     }
     card.append(dl);
 
+    if (work.wave === "FIRST_3") {
+      const briefLink = element("a", "catalog-link", "查看首轮完整内容 →");
+      briefLink.href = `first-wave.html#${work.id}`;
+      card.append(briefLink);
+    }
+
     if (work.case_path) {
-      const link = element("a", "catalog-link", "打开现有案例 →");
+      const link = element("a", "catalog-link", " · 打开现有案例 →");
       link.href = work.case_path;
       card.append(link);
     }

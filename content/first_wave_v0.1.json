@@ -1,0 +1,770 @@
+{
+  "version": "0.1",
+  "date": "2026-09-08",
+  "scope": "首轮 10 个基本榫卯 + 3 个综合作品的设计内容，不包含新增实物验证结论。",
+  "editorial_rules": [
+    "来源能够支持的结构关系写入“已确认”；由本项目为教学、打印或交互演示提出的选择写入“设计提案”。",
+    "参数接口先定义变量、约束与依赖，不在没有测量时给出推荐 clearance、承载或寿命数值。",
+    "已有实物和照片沿用原页面证据状态；新设计简报不会自动升级为 GEOMETRY_VERIFIED 或 PRINT_VERIFIED。",
+    "需要作者经验、原始 CAD 或编辑取舍的项目统一进入 user_assistance，并提供可继续推进的默认方案。",
+    "作者决定保留 OPEN / RESOLVED 状态；已回答项继续保留问题、默认方案与确认结果，作为设计变更记录。"
+  ],
+  "status_labels": {
+    "EXISTING_CHAPTER": "已有章节，可补设计审计",
+    "READY_FOR_CAD": "内容就绪，可进 CAD",
+    "NEEDS_USER": "可继续推进，但有作者决策",
+    "PROVISIONAL_MAPPING": "已有作品，连接映射待审计"
+  },
+  "joints": [
+    {
+      "index": "01",
+      "id": "straight-tenon",
+      "name_cn": "直榫",
+      "name_en": "Straight Tenon",
+      "family": "插接与显隐",
+      "review_state": "EXISTING_CHAPTER",
+      "evidence_state": "GEOMETRY_VERIFIED；已有首轮实打，缺完整实测记录",
+      "chapter_path": "joints/straight-tenon.html",
+      "one_sentence": "用最少的几何建立榫舌、卯眼、榫肩、插入轴与总间隙的共同语言。",
+      "teaching_question": "一个单轴插接，在没有额外锁定件时究竟限制了哪些运动，又保留了哪个退出方向？",
+      "confirmed": [
+        "现有参数化源、STEP、STL 与交互模型来自同一 v0.1 快照。",
+        "四档设计总间隙 C20 / C30 / C40 / C50 已完成首轮实打且均可装配；C20 主观手感最紧。",
+        "尚未记录实测榫舌、卯眼尺寸和装配力，因此不能从照片推出推荐间隙。"
+      ],
+      "design_proposal": {
+        "model_scope": "保留当前一根四孔卯件 + 四个独立榫件的 C sweep，把它定义为后续所有榫卯的配合基线。",
+        "parts": [
+          {"name": "卯眼杆", "role": "提供统一名义孔径和四个可比较位置"},
+          {"name": "榫件 ×4", "role": "只改变总间隙 C，保持其余几何一致"}
+        ],
+        "not_in_scope": "不把当前结果外推到不同打印机、材料、方向或木材加工。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "对正", "action": "榫舌沿唯一插入轴对准卯眼。", "watch": "入口边角是否先碰撞。"},
+        {"step": "02", "title": "推入", "action": "四个侧面逐渐进入约束。", "watch": "实际接触来自侧壁还是象脚。"},
+        {"step": "03", "title": "止位", "action": "榫肩贴住卯件表面。", "watch": "是否由榫底提前顶死。"},
+        {"step": "04", "title": "退出", "action": "沿原插入轴反向拔出。", "watch": "直榫本身不提供强几何抗拔。"}
+      ],
+      "parameters": [
+        {"symbol": "Cₓ / Cᵧ", "name": "两个方向的总间隙", "role": "控制侧壁配合，分别记录而不默认相等", "status": "接口已冻结"},
+        {"symbol": "Lₜ", "name": "榫长", "role": "决定导向长度与卯眼深度", "status": "几何已有"},
+        {"symbol": "S", "name": "榫肩宽", "role": "给出止位面并影响根部截面", "status": "几何已有"},
+        {"symbol": "cₑ", "name": "入口倒角", "role": "帮助导入，不应掩盖主体配合", "status": "需与全书统一"}
+      ],
+      "cad_deliverables": ["保留当前 v0.1 源文件", "补一张自由度/受限运动图", "把 Cₓ/Cᵧ 命名同步到全书公共参数表"],
+      "experiment_debt": ["测量四档榫舌与卯眼实际尺寸", "记录装配/拔出等级与榫肩贴合", "与 Clearance Kit 同机同材料对照"],
+      "user_assistance": [],
+      "source_ids": ["research_pack_v0.3"]
+    },
+    {
+      "index": "02",
+      "id": "dovetail",
+      "name_cn": "燕尾榫",
+      "name_en": "Sliding Dovetail",
+      "family": "斜面与钩挂",
+      "review_state": "EXISTING_CHAPTER",
+      "evidence_state": "GEOMETRY_VERIFIED；打印证据仍不完整",
+      "chapter_path": "joints/dovetail.html",
+      "one_sentence": "把“抗拔”从模糊的摩擦感改写成由斜壁和宽端控制的退出方向。",
+      "teaching_question": "斜壁为何允许沿槽长滑动，却限制垂直于槽长的直接拔出？",
+      "confirmed": [
+        "现有页面已经区分沿槽长的装配路径与横向受限方向。",
+        "v0.2 装配模型与爆炸模型已经进入页面。",
+        "打印角度、侧壁表面和插入力尚未形成完整证据链。"
+      ],
+      "design_proposal": {
+        "model_scope": "以直线滑入式燕尾为首轮对象，不把箱体角部的多尾燕尾和半隐燕尾混入同一章。",
+        "parts": [
+          {"name": "燕尾榫件", "role": "提供窄口后的宽端和两侧斜面"},
+          {"name": "燕尾槽件", "role": "限定单一滑入路径并阻挡横向拔出"}
+        ],
+        "not_in_scope": "不在本轮比较胶合、木材纤维方向或箱体多尾排布。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "找入口", "action": "从燕尾槽端部对正。", "watch": "它不是从槽口正上方压入。"},
+        {"step": "02", "title": "滑入", "action": "沿槽长方向推进。", "watch": "两侧斜壁误差会沿全长累积。"},
+        {"step": "03", "title": "到位", "action": "端部止位面对齐。", "watch": "先卡侧壁还是先到止位端。"},
+        {"step": "04", "title": "试图横拔", "action": "观察宽端被窄口阻挡。", "watch": "区分几何约束与摩擦。"}
+      ],
+      "parameters": [
+        {"symbol": "α", "name": "燕尾半角", "role": "改变宽端差与侧壁法向力", "status": "待首轮 CAD 对照"},
+        {"symbol": "Cₛ", "name": "侧壁法向总间隙", "role": "避免把水平宽度差误当真实侧壁间隙", "status": "接口待统一"},
+        {"symbol": "Cₜ", "name": "顶部间隙", "role": "区分侧壁定位与顶部刮擦", "status": "接口待统一"},
+        {"symbol": "Lₛ", "name": "滑移长度", "role": "决定累计误差和接触长度", "status": "范围待定"}
+      ],
+      "cad_deliverables": ["冻结教学版燕尾角系列", "补侧壁法向间隙示意", "把单件与装配模型的命名统一"],
+      "experiment_debt": ["角度 × 打印方向的小型矩阵", "记录插入力、卡滞位置与破坏面", "比较短槽测试块与长槽结构件"],
+      "user_assistance": [],
+      "source_ids": ["research_pack_v0.3"]
+    },
+    {
+      "index": "03",
+      "id": "keyed-tenon",
+      "name_cn": "楔钉榫",
+      "name_en": "Keyed Cross-lap Tenon",
+      "family": "楔与销",
+      "review_state": "EXISTING_CHAPTER",
+      "evidence_state": "GEOMETRY_VERIFIED；已有首轮实物照片",
+      "chapter_path": "joints/keyed-tenon.html",
+      "one_sentence": "把主体定位和第三零件锁定拆开，让读者看到约束是如何分工的。",
+      "teaching_question": "当两个主体已经能定位时，第三个楔钉具体阻止哪一个退出运动？",
+      "confirmed": [
+        "现有三件式 CAD、装配模型、STL 和实物照片已进入页面。",
+        "主体交搭、小舌限位与楔钉锁定在模型中可以分别观察。",
+        "楔钉止入深度、拆卸性和孔口损伤仍缺系统记录。"
+      ],
+      "design_proposal": {
+        "model_scope": "维持三件结构；本轮内容把主体配合与楔钉配合明确拆成两个参数组。",
+        "parts": [
+          {"name": "主体 A", "role": "提供下搭口与第一组孔壁"},
+          {"name": "主体 B", "role": "提供上搭口、小舌/槽限位与第二组孔壁"},
+          {"name": "楔钉", "role": "沿独立方向穿入并锁住主体退出"}
+        ],
+        "not_in_scope": "不把第三零件存在本身等同于可逆、耐久或高承载。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "交搭", "action": "主体 A 与 B 沿法向合拢。", "watch": "搭口底面是否先顶。"},
+        {"step": "02", "title": "限位", "action": "小舌进入对应槽。", "watch": "它负责平面内定位，不替代楔钉。"},
+        {"step": "03", "title": "对孔", "action": "两件孔道形成连续插入路径。", "watch": "误差叠加是否造成错孔。"},
+        {"step": "04", "title": "入楔", "action": "楔钉进入至设计止位。", "watch": "预紧、卡死与孔口损伤要分开记录。"}
+      ],
+      "parameters": [
+        {"symbol": "Cᵦ", "name": "主体配合间隙", "role": "控制两主体交搭", "status": "需从楔钉参数中拆出"},
+        {"symbol": "Cₖ", "name": "楔钉孔总间隙", "role": "控制穿入与晃动", "status": "接口已定义"},
+        {"symbol": "β", "name": "楔度", "role": "控制止入行程中的截面增长", "status": "几何已有"},
+        {"symbol": "Dₛ", "name": "止入深度", "role": "避免用敲击力度代替设计止位", "status": "需补标注"}
+      ],
+      "cad_deliverables": ["补主体/楔钉两组参数表", "输出对孔剖面图", "明确楔钉止位基准"],
+      "experiment_debt": ["主体配合与楔钉配合分开扫描", "记录装拆次数与孔口损伤", "比较不同层方向下的楔钉折断位置"],
+      "user_assistance": [],
+      "source_ids": ["research_pack_v0.3"]
+    },
+    {
+      "index": "04",
+      "id": "clamp-tenon",
+      "name_cn": "夹头榫",
+      "name_en": "Clamp Tenon",
+      "family": "桌案承重节点",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；三件教学拆件策略已冻结，尚无本项目 CAD 与实物",
+      "one_sentence": "把案面边材、腿足与牙条压缩成一个三件教学节点，追踪面上载荷如何进入腿足。",
+      "teaching_question": "腿足为什么要同时接住面边和牙条，而不是只靠一个普通直榫？",
+      "confirmed": [
+        "馆藏说明和数字榫卯资料都把夹头榫用于桌案腿足、牙条/牙头与上部构件的连接。",
+        "腿足上端榫头进入上部卯眼，腿足开口夹持牙条，是首轮可靠的构件关系。",
+        "完整桌案通过四角节点形成框架并把上部载荷传向腿足；具体构造仍需对应实物或线图核对。"
+      ],
+      "design_proposal": {
+        "model_scope": "先做一个 1/4 桌角的三件剖切教学件：面边、腿足、连续牙条；牙头作为牙条端部特征，不拆成第四件。",
+        "parts": [
+          {"name": "面边教学件", "role": "代表桌面大边并接收腿足顶榫"},
+          {"name": "腿足教学件", "role": "以顶榫承接面边，以开槽夹持牙条"},
+          {"name": "牙条教学件", "role": "连接相邻腿足并提供侧向框架作用"}
+        ],
+        "not_in_scope": "不在单节点里模拟整块桌面、侧脚角度或特定馆藏器的比例。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "牙条入腿", "action": "牙条端部沿腿足开口的装配方向进入。", "watch": "牙条端部特征与腿足顶榫是否争用材料。"},
+        {"step": "02", "title": "节点对正", "action": "组合后的腿足/牙条对准面边卯眼。", "watch": "三件基准要在一个角点收敛。"},
+        {"step": "03", "title": "顶榫入面", "action": "腿足顶榫进入面边。", "watch": "牙条肩面何时闭合。"},
+        {"step": "04", "title": "追踪载荷", "action": "从面边向腿足标出承压路径。", "watch": "这是几何假设图，不是受力测试。"}
+      ],
+      "parameters": [
+        {"symbol": "Wₗ × Tₗ", "name": "腿足截面", "role": "全节点的母尺寸", "status": "建议先用全书统一教学截面"},
+        {"symbol": "Wₜ × Tₜ × Lₜ", "name": "顶榫", "role": "连接腿足与面边", "status": "比例待 CAD 剖面核对"},
+        {"symbol": "Dₐ", "name": "牙条嵌入深度", "role": "控制牙条进入腿足的承压长度", "status": "待定"},
+        {"symbol": "O₃", "name": "三件基准偏置", "role": "显式记录三件误差叠加", "status": "新接口"}
+      ],
+      "cad_deliverables": ["三件剖切教学节点", "四步爆炸动画", "面边—腿足—牙条载荷路径图", "与插肩榫同尺度对照图"],
+      "experiment_debt": ["三件累计误差与错孔/错肩", "牙条是否到底和榫肩是否贴合", "单节点侧向刚度与反复装拆"],
+      "user_assistance": [
+        {
+          "id": "U01",
+          "status": "RESOLVED",
+          "priority": "高",
+          "question": "夹头榫教学节点中，牙头是作为牙条端部造型，还是拆成独立第四件？",
+          "default": "先采用三件版，牙头并入牙条；完整小案再决定是否拆件。",
+          "resolution": "2026-09-08：接受默认方案；首轮采用面边、腿足、牙条三件版，牙头并入牙条。",
+          "impact": "影响零件数、装配顺序和与插肩榫的公平对照。",
+          "blocks": "已解除节点零件数与装配顺序阻塞；完整小案 v0.2 是否拆出牙头另行决定。"
+        }
+      ],
+      "source_ids": ["sjtu_clamp_tenon", "hkbu_clamp_tenon"]
+    },
+    {
+      "index": "05",
+      "id": "shouldered-tenon",
+      "name_cn": "插肩榫",
+      "name_en": "Shouldered Tenon",
+      "family": "桌案承重节点",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；尚无本项目 CAD 与实物",
+      "one_sentence": "与夹头榫并读，把注意力放到腿足八字斜肩和牙条接触面的闭合。",
+      "teaching_question": "斜肩增加的接触面，怎样改变定位、表面连续性和载荷传递？",
+      "confirmed": [
+        "香港浸会大学项目将其描述为三件式桌案节点：上部、桌腿与牙条。",
+        "桌腿上端削出八字斜肩，牙条与斜肩相合，形成平整而紧密的表面。",
+        "它与夹头榫用途相近但构造不同，适合作为成对比较章节。"
+      ],
+      "design_proposal": {
+        "model_scope": "与夹头榫共用腿足截面、上部构件尺度和展示视角，只把夹持关系替换为斜肩闭合关系。",
+        "parts": [
+          {"name": "上部教学件", "role": "接收腿足上端并代表案面边材"},
+          {"name": "腿足教学件", "role": "提供上端开口和左右斜肩"},
+          {"name": "牙条教学件", "role": "进入开口并与斜肩形成接触"}
+        ],
+        "not_in_scope": "本轮不宣称某个斜肩角为传统标准或打印最优。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "牙条对正", "action": "牙条端部对准腿足上端开口。", "watch": "斜肩入口不能先干涉。"},
+        {"step": "02", "title": "斜肩闭合", "action": "牙条进入直至两侧肩面贴合。", "watch": "两侧同时接触还是单侧先碰。"},
+        {"step": "03", "title": "接入上部", "action": "节点与上部构件合拢。", "watch": "顶面/榫底不能抢先止位。"},
+        {"step": "04", "title": "并排比较", "action": "与同尺度夹头榫叠加显示。", "watch": "比较接触面，不比较未经测试的强弱。"}
+      ],
+      "parameters": [
+        {"symbol": "θₛ", "name": "斜肩角", "role": "定义肩面方向和闭合路径", "status": "先设为可变参数"},
+        {"symbol": "Lₛ", "name": "斜肩长度", "role": "控制接触面积和腿足剩余截面", "status": "待比例研究"},
+        {"symbol": "Cₛ", "name": "肩面法向间隙", "role": "避免用水平偏置近似斜面配合", "status": "新接口"},
+        {"symbol": "Tₐ", "name": "牙条厚度", "role": "与腿足开口共同决定装配", "status": "与夹头榫共用"}
+      ],
+      "cad_deliverables": ["三件参数化节点", "斜肩法向间隙剖面", "与夹头榫的同尺度叠加图", "无碰撞装配动画"],
+      "experiment_debt": ["斜肩角与闭合缝关系", "左右肩误差对单侧承压的影响", "打印台阶方向与插入力"],
+      "user_assistance": [],
+      "source_ids": ["hkbu_shouldered_tenon", "dpm_joinery_article"]
+    },
+    {
+      "index": "06",
+      "id": "rice-dumpling-corner-tenon",
+      "name_cn": "粽角榫",
+      "name_en": "Three-way Mitered Corner Tenon",
+      "family": "三向角部",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；尚无本项目 CAD 与实物",
+      "one_sentence": "第一次让 X、Y、Z 三向构件在一个有限角点共享材料，并把装配顺序变成结构的一部分。",
+      "teaching_question": "三个正交构件都想占据同一个角点时，怎样用格角面、长短榫和内部避让分配空间？",
+      "confirmed": [
+        "故宫博物院将粽角榫概括为横、纵、竖三根方材在角部结合。",
+        "香港浸会大学资料指出三面可见角线呈 45°，并描述框材和腿足之间的长短榫关系。",
+        "它不是单一两件插合；装配次序和内部榫头避让是解释重点。"
+      ],
+      "design_proposal": {
+        "model_scope": "做等截面 X/Y/Z 三件教学角，外表面只保留三条 45°角线；内部使用颜色和剖切区分长短榫。",
+        "parts": [
+          {"name": "X 向框材", "role": "提供第一组格角面与内部榫区"},
+          {"name": "Y 向框材", "role": "与 X 向材形成水平转角"},
+          {"name": "Z 向腿材", "role": "从竖向占据角点并接收水平构件"}
+        ],
+        "not_in_scope": "不以教学等截面替代桌、柜具体构件比例，也不从外观反推唯一内部做法。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "水平预合", "action": "X 与 Y 构件先形成可观察的格角关系。", "watch": "这一步是否会封死 Z 向路径。"},
+        {"step": "02", "title": "竖向接入", "action": "Z 构件沿候选路径进入共享节点。", "watch": "长短榫和内部避让必须无碰撞。"},
+        {"step": "03", "title": "三肩闭合", "action": "三条外角线在同一点收敛。", "watch": "累计误差会在尖角最明显。"},
+        {"step": "04", "title": "反向拆解", "action": "验证是否存在明确的最后一件和第一件。", "watch": "动画必须服从实体装配路径。"}
+      ],
+      "parameters": [
+        {"symbol": "W", "name": "统一构件截面", "role": "首轮教学母尺寸", "status": "建议与十字半搭接共用"},
+        {"symbol": "Rₓ/Rᵧ/R𝓏", "name": "内部榫区比例", "role": "分配角点内部材料", "status": "待 CAD 拓扑研究"},
+        {"symbol": "C₃", "name": "三件装配避让", "role": "记录最后一件的最小无碰撞余量", "status": "新接口"},
+        {"symbol": "m", "name": "格角尖端保护量", "role": "避免打印尖角脆弱但不改变可见角线", "status": "设计假设"}
+      ],
+      "cad_deliverables": ["三件参数化教学角", "半透明/剖切内部榫区图", "装配顺序动画", "角线误差放大图"],
+      "experiment_debt": ["三件累计误差与最后一件卡死", "尖角成形和修整", "角点抗扭与循环拆装"],
+      "user_assistance": [],
+      "source_ids": ["dpm_zongjiao", "hkbu_zongjiao"]
+    },
+    {
+      "index": "07",
+      "id": "tongue-groove-batten-panel",
+      "name_cn": "龙凤榫加穿带",
+      "name_en": "Tongue-and-groove Panel with Sliding Battens",
+      "family": "板框与收缩",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；尚无本项目 CAD 与实物",
+      "one_sentence": "把板条长边拼宽和背面横向约束拆成两个连续但不同的装配动作。",
+      "teaching_question": "为什么大平面需要同时处理拼缝、横向约束和材料/制造误差，而不能只把板做厚？",
+      "confirmed": [
+        "香港浸会大学资料把龙凤榫描述为凹凸长边拼合，并在背面开带口装入穿带。",
+        "穿带截面与带口相配，用于固定和约束拼成的板面。",
+        "国家博物馆展览资料确认攒边装板、枨子和牙条等构件共同提高家具节点稳定性，但没有给出本教学模型尺寸。"
+      ],
+      "design_proposal": {
+        "model_scope": "用三块短板 + 两根可见穿带展示两个正交动作；板长刻意缩短以便观察，不冒充木材收缩实验。",
+        "parts": [
+          {"name": "中间板", "role": "两侧分别提供龙口/凤榫并承接穿带"},
+          {"name": "边板 ×2", "role": "沿长边与中间板拼合"},
+          {"name": "穿带 ×2", "role": "从背面沿横向带口滑入，约束板面"}
+        ],
+        "not_in_scope": "打印塑料没有木材同样的横纹收缩，本章只呈现结构逻辑；材料行为留给说明和后续对照。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "逐板拼宽", "action": "三块板沿长边滑合或压合。", "watch": "长距离配合的累计错台。"},
+        {"step": "02", "title": "翻到背面", "action": "暴露横向带口。", "watch": "带口不能被误读为第二条拼缝。"},
+        {"step": "03", "title": "穿带滑入", "action": "两根穿带沿相反或同一方向进入。", "watch": "入口、锥度和止位关系。"},
+        {"step": "04", "title": "区分职责", "action": "隐藏穿带或板缝，分别观察约束。", "watch": "拼板与约束不是同一功能。"}
+      ],
+      "parameters": [
+        {"symbol": "Tₚ", "name": "板厚", "role": "所有榫槽和带口的母尺寸", "status": "待与作品尺度联动"},
+        {"symbol": "Cₗ", "name": "长边拼缝间隙", "role": "控制龙凤榫长距离装配", "status": "不预设推荐值"},
+        {"symbol": "βᵦ", "name": "带口/穿带锥度", "role": "控制滑入和止位", "status": "先做 0° 与小锥度两种 CAD"},
+        {"symbol": "Sᵦ", "name": "穿带止入位置", "role": "防止用敲击力度定义终点", "status": "新接口"}
+      ],
+      "cad_deliverables": ["三板两带参数化模型", "正反面装配动画", "拼缝/穿带职责分层图", "八仙桌面板候选映射图"],
+      "experiment_debt": ["长边累计误差与拼缝错台", "带口方向对翘曲和层间破坏的影响", "穿带插入力和止位一致性"],
+      "user_assistance": [],
+      "source_ids": ["hkbu_tongue_batten", "chnmuseum_furniture"]
+    },
+    {
+      "index": "08",
+      "id": "sliding-blind-pin",
+      "name_cn": "走马销",
+      "name_en": "Sliding Blind Pin",
+      "family": "可拆与隐藏锁定",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；侧进式宽口—窄槽教学变体已冻结，尚无本项目 CAD 与实物",
+      "one_sentence": "用“落入—滑移”两段运动解释一个安装后隐藏、可反向拆卸的锁定。",
+      "teaching_question": "怎样在看不见锁定件的情况下，让两个部件只需一次短行程滑移就完成扣合？",
+      "confirmed": [
+        "五邑大学的榫卯教学报道把侧进走马销列为紧固类，并指出其用于大型镜框背后锁紧。",
+        "公开家具研究资料还常把走马销用于罗汉床围子、靠背或扶手等可装可卸部件。",
+        "“走马销”包含多种具体做法；当前资料不足以把一个阶梯孔形当成唯一标准。"
+      ],
+      "design_proposal": {
+        "model_scope": "采用侧进式宽口—窄槽教学变体：销头进入宽口，再沿构件平面滑入窄槽；用半透明窗口显示隐藏销头。",
+        "parts": [
+          {"name": "栽销构件", "role": "固定销头/销根并提供滑移驱动"},
+          {"name": "阶梯榫眼构件", "role": "用宽口接收销头，用窄槽阻挡法向退出"}
+        ],
+        "not_in_scope": "本项目只把该孔形作为首轮教学变体，不标注为走马销的唯一传统构造。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "落入宽口", "action": "销头沿法向进入较宽区域。", "watch": "宽口只负责允许进入。"},
+        {"step": "02", "title": "平面滑移", "action": "构件沿指定方向移动一个行程。", "watch": "销根进入窄槽。"},
+        {"step": "03", "title": "隐藏锁定", "action": "销头在窄槽背后阻挡法向脱出。", "watch": "锁定不是依靠过盈。"},
+        {"step": "04", "title": "反向拆卸", "action": "先反向滑回，再抬离。", "watch": "必须保留完整退让行程。"}
+      ],
+      "parameters": [
+        {"symbol": "Dₕ/Dₙ", "name": "销头/销根尺寸", "role": "分别决定阻挡与滑槽配合", "status": "变体已冻结，数值待 CAD"},
+        {"symbol": "Lᵂ", "name": "宽口长度", "role": "允许销头落入并转入滑移", "status": "待定"},
+        {"symbol": "Lₛ", "name": "滑移行程", "role": "从可落入位置移动到锁定位", "status": "必须显式标注"},
+        {"symbol": "Cᵣ", "name": "销根侧向间隙", "role": "控制滑动手感和晃动", "status": "不预设推荐值"}
+      ],
+      "cad_deliverables": ["侧进式宽口—窄槽两件参数化模型", "落入—滑移—锁定动画", "隐藏销头剖视图", "教学变体与传统多种做法的边界说明"],
+      "experiment_debt": ["滑移行程与锁定余量", "销根层方向与折断", "重复拆装后的槽口磨损"],
+      "user_assistance": [
+        {
+          "id": "U02",
+          "status": "RESOLVED",
+          "priority": "最高",
+          "question": "首轮走马销采用“侧进式宽口—窄槽”版本，还是你已有参考图/实物中的另一种做法？",
+          "default": "先做侧进式宽口—窄槽教学版，并在页内标注“变体待核”。",
+          "resolution": "2026-09-08：接受默认结构，采用侧进式宽口—窄槽教学版；页面继续声明它不是唯一传统构造。",
+          "impact": "直接决定孔形、零件姿态、装配动画和命名是否准确。",
+          "blocks": "已解除冻结 CAD 的阻塞；推荐尺寸与可打印性仍等待 CAD 和后续实验。"
+        }
+      ],
+      "source_ids": ["wyu_sliding_pin", "sstp_catalog"]
+    },
+    {
+      "index": "09",
+      "id": "cross-lap-tenon",
+      "name_cn": "十字半搭接",
+      "name_en": "Cross-lap Joint",
+      "family": "相交与搭接",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；中文条目名已冻结为“十字半搭接”",
+      "one_sentence": "用两件各让出部分厚度的最清楚模型，解释交点共面与截面削弱。",
+      "teaching_question": "两根等厚构件要在交点保持共面，各自应让出多少材料，误差又会出现在哪里？",
+      "confirmed": [
+        "半厚搭接作为机械基线，可以清楚展示两件在交点沿法向合拢和厚度让位。",
+        "香港浸会大学收录“十字榫（卡子榫）”，但其页面叙述同时涉及框角和槽口，和本项目当前的十字半搭接模型不完全等同。",
+        "本项目正式采用“十字半搭接”描述当前几何；“十字榫/卡子榫”保留给后续来源与结构均更明确的条目。"
+      ],
+      "design_proposal": {
+        "model_scope": "先做两根等宽等厚直材、90°相交、各去除一半厚度的十字半搭接基线；页面和目录统一使用正式名称。",
+        "parts": [
+          {"name": "横向构件", "role": "在交点从上侧让出部分厚度"},
+          {"name": "纵向构件", "role": "在交点从下侧让出部分厚度"}
+        ],
+        "not_in_scope": "不把格栅角部卡子榫、三材交叉或胶合强度混入首轮基线。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "对准交点", "action": "两槽在平面内对齐。", "watch": "槽位误差会改变总体网格尺寸。"},
+        {"step": "02", "title": "法向合拢", "action": "两件沿厚度方向靠近。", "watch": "侧壁控制平面内晃动。"},
+        {"step": "03", "title": "底面接触", "action": "两个槽底分别接触对方剩余截面。", "watch": "槽深总和决定共面度。"},
+        {"step": "04", "title": "检查削弱", "action": "显示交点处剩余截面。", "watch": "共面不等于承载不变。"}
+      ],
+      "parameters": [
+        {"symbol": "T", "name": "构件厚度", "role": "槽深分配的母尺寸", "status": "与粽角榫共用教学截面"},
+        {"symbol": "d₁+d₂", "name": "槽深总和", "role": "理想状态等于 T，误差表现为高低差或松动", "status": "核心教学公式"},
+        {"symbol": "C𝓌", "name": "槽宽总间隙", "role": "控制平面内晃动", "status": "不预设推荐值"},
+        {"symbol": "φ", "name": "交角", "role": "首轮固定 90°，为后续多角格栅留接口", "status": "接口已冻结"}
+      ],
+      "cad_deliverables": ["两件半厚搭接参数模型", "槽深误差三态图", "装配/自由度动画", "名称边界说明"],
+      "experiment_debt": ["槽深误差与共面度", "槽宽间隙与节点松动", "不同方向下剩余截面的破坏"],
+      "user_assistance": [
+        {
+          "id": "U03",
+          "status": "RESOLVED",
+          "priority": "最高",
+          "question": "这一章是否明确命名为“十字半搭接”，把“十字榫/卡子榫”另留给后续来源更明确的条目？",
+          "default": "页面采用“十字半搭接（工作名：十字榫搭接）”，先冻结机制，不冻结传统名称。",
+          "resolution": "2026-09-08：正式名称确定为“十字半搭接”；“十字榫/卡子榫”不再作为本章同义名。",
+          "impact": "影响目录名、来源匹配和后续是否与格栅卡子榫重复。",
+          "blocks": "正式章节标题阻塞已解除；传统术语对照仍需在内容研究中保持边界。"
+        }
+      ],
+      "source_ids": ["hkbu_cross_tenon", "sstp_catalog"]
+    },
+    {
+      "index": "10",
+      "id": "split-tenon-wedge",
+      "name_cn": "破头楔",
+      "name_en": "Wedged Split Tenon",
+      "family": "楔与销",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；可逆教学版与硬止位策略已冻结",
+      "one_sentence": "与楔钉榫对照：第三件楔片不再横穿节点，而是在榫头内部制造张开和预紧。",
+      "teaching_question": "同样增加一个楔件，为什么把它打进开缝榫头会从“锁销”变成“扩张”？",
+      "confirmed": [
+        "香港浸会大学资料把破头楔描述为榫头开缝、插入楔片，再进入卯眼使榫头张开的三件结构。",
+        "该传统做法通常被视为难以无损拆卸，常用于攒边、椅面或床架角部。",
+        "楔入深度、开缝端部与卯眼出口的关系决定它是预装楔后敲入，还是装配后再入楔；具体教学变体需冻结。"
+      ],
+      "design_proposal": {
+        "model_scope": "采用可观察的贯通教学卯：开缝榫先入卯，再从可见端缓慢插入独立楔片；保留可拆硬止位，并与传统不可逆做法并列展示。",
+        "parts": [
+          {"name": "开缝榫件", "role": "两瓣在楔片作用下张开"},
+          {"name": "贯通卯件", "role": "提供侧壁反力和可见观察窗口"},
+          {"name": "楔片", "role": "把轴向插入力转化为榫瓣横向张开"}
+        ],
+        "not_in_scope": "教学版的可拆止位不等于传统不可逆做法；页面必须并列说明。"
+      },
+      "assembly_steps": [
+        {"step": "01", "title": "开缝榫入卯", "action": "未扩张的榫头先沿轴向进入。", "watch": "开缝端不能在入口先劈裂。"},
+        {"step": "02", "title": "楔片对正", "action": "楔片进入开缝入口。", "watch": "楔片厚度和开缝宽度必须分开参数化。"},
+        {"step": "03", "title": "逐步楔入", "action": "楔片轴向前进，榫瓣横向张开。", "watch": "止位应由几何定义，不由敲击感觉定义。"},
+        {"step": "04", "title": "观察反力", "action": "剖面显示榫瓣压向卯壁。", "watch": "没有实测前只称预紧假设。"}
+      ],
+      "parameters": [
+        {"symbol": "Lₛ/Wₛ", "name": "开缝长度/宽度", "role": "控制可弯曲段与裂纹起点", "status": "核心变量"},
+        {"symbol": "β𝓌", "name": "楔角", "role": "把插入行程转为张开量", "status": "先保持可变"},
+        {"symbol": "D𝓌", "name": "楔入深度", "role": "定义终态并限制过度张开", "status": "硬止位策略已冻结，数值待 CAD"},
+        {"symbol": "E", "name": "名义张开量", "role": "仅作几何输出，不能直接等同接触压力", "status": "新接口"}
+      ],
+      "cad_deliverables": ["贯通观察版三件模型", "楔入—张开动画", "几何张开量曲线", "传统不可逆/教学可逆边界说明"],
+      "experiment_debt": ["楔入深度与实际张开", "层方向和开缝端裂纹", "可拆教学版与一次性版本的损伤差异"],
+      "user_assistance": [
+        {
+          "id": "U04",
+          "status": "RESOLVED",
+          "priority": "高",
+          "question": "首轮是优先呈现传统的难拆版本，还是先做带硬止位、可反复演示的教学版？",
+          "default": "先做可逆教学版，同时在同页保留传统不可逆结构的对照剖面。",
+          "resolution": "2026-09-08：接受默认方案；首轮制作带硬止位的可逆教学版，并保留传统不可逆结构对照剖面。",
+          "impact": "影响楔片止位、卯眼是否贯通、是否允许无损拆卸。",
+          "blocks": "已解除首轮 CAD / STL 结构选择阻塞；硬止位尺寸仍需 CAD 定义，打印适用性仍待实验。"
+        }
+      ],
+      "source_ids": ["hkbu_split_wedge", "sstp_catalog"]
+    }
+  ],
+  "works": [
+    {
+      "index": "W01",
+      "id": "frame-panel-box",
+      "name_cn": "框板收纳盒",
+      "name_en": "Frame-and-panel Storage Box",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；开放式 160 × 110 × 70 mm 首轮方案已冻结",
+      "one_sentence": "用一个低材料成本的闭环物件，集中处理四角合拢、底板入槽和最后一件怎么装。",
+      "teaching_question": "当四个角和一块板形成闭环时，局部上都能装的榫卯为什么可能让整件作品无法收口？",
+      "confirmed": [
+        "国家博物馆资料把攒边装板、枨子、牙条等构件视为提高方形家具节点稳定性的常见方法。",
+        "香港浸会大学的攒边结角榫条目确认框材内侧开槽容纳面板边缘，并强调四向闭环的拆卸困难。",
+        "本项目的收纳盒是教学作品，不对应某件历史器物。"
+      ],
+      "functional_brief": {
+        "use": "容纳桌面小物，能单手移动；首轮只验证结构和装配逻辑。",
+        "default_envelope": "外廓 160 × 110 × 70 mm；统一 8 mm 框材/壁厚作为首轮 CAD 起点，并保留整体缩放接口。",
+        "opening": "首轮采用无盖开放盒，避免把铰链、盖板和锁扣引入四角闭环。",
+        "not_in_scope": "不承诺食品接触、防水、跌落强度或传统比例。"
+      },
+      "parts": [
+        {"name": "长边框 ×2", "role": "定义长向外廓和底板槽"},
+        {"name": "短边框 ×2", "role": "闭合四角并接收角部连接"},
+        {"name": "底板 ×1", "role": "在框材槽中定位，不默认刚性锁死"},
+        {"name": "可选角部教学插件 ×4", "role": "让不同榫卯共用同一盒体外廓进行替换对照"}
+      ],
+      "joint_map": [
+        {"joint_id": "dovetail", "role": "首轮角部抗拔基线；优先做可见教学角"},
+        {"joint_id": "blind-tenon", "role": "后续对照隐藏连接，不阻塞首轮"},
+        {"joint_id": "shouldered-frame-tenon", "role": "后续框板收口与遮缝对照，不阻塞首轮"}
+      ],
+      "assembly_steps": [
+        {"step": "01", "title": "先成 U 形", "action": "一条长边与两条短边先组合。", "watch": "保留底板与最后长边的进入路径。"},
+        {"step": "02", "title": "底板入槽", "action": "底板从开放侧滑入三边槽。", "watch": "四周都封闭前完成。"},
+        {"step": "03", "title": "最后一边收口", "action": "第二条长边沿明确方向闭合。", "watch": "四个角不能要求互相冲突的装配方向。"},
+        {"step": "04", "title": "闭环审计", "action": "检查对角线、平面度和底板余量。", "watch": "局部 clearance 会在闭环中累计。"}
+      ],
+      "cad_deliverables": ["总体包络与 5 件基础 BOM", "最后一边装配动画", "燕尾角教学版", "底板浮动余量图", "后续角部替换接口"],
+      "experiment_debt": ["闭环累计误差和对角线差", "底板槽实际间隙", "角部重复拆装与跌落损伤"],
+      "user_assistance": [
+        {
+          "id": "U05",
+          "status": "RESOLVED",
+          "priority": "中",
+          "question": "收纳盒首轮要做无盖开放盒，还是你希望从一开始就把盖板/盒口结构纳入？",
+          "default": "先做无盖开放盒；盖板作为 v0.2，不让它干扰四角闭环。",
+          "resolution": "2026-09-08：接受默认方案；首轮为无盖开放盒，盖板与盒口结构留到 v0.2。",
+          "impact": "影响顶部框材、最后一件装配方向和零件数。",
+          "blocks": "顶部结构选择已解除；首轮 CAD 不包含盖板、铰链或锁扣。"
+        },
+        {
+          "id": "U06",
+          "status": "RESOLVED",
+          "priority": "中",
+          "question": "160 × 110 × 70 mm 的默认包络是否接近你希望的桌面用途？",
+          "default": "按该包络做参数化母尺寸，后续可整体缩放。",
+          "resolution": "2026-09-08：接受 160 × 110 × 70 mm 为首轮参数化母尺寸，并保留整体缩放。",
+          "impact": "影响板厚、打印分件和对榫卯细节的可见尺度。",
+          "blocks": "首轮包络与壁厚起点已冻结；实际打印收缩和适用尺度仍待后续实验。"
+        }
+      ],
+      "source_ids": ["hkbu_frame_panel", "chnmuseum_furniture"]
+    },
+    {
+      "index": "W02",
+      "id": "clamp-tenon-writing-table",
+      "name_cn": "夹头榫小案",
+      "name_en": "Clamp-tenon Mini Table",
+      "review_state": "READY_FOR_CAD",
+      "evidence_state": "DESIGN_BRIEF；220 × 140 × 150 mm、2–3 盘与合并上部策略已冻结",
+      "one_sentence": "把一个夹头榫角点复制成四角框架，让共面、牙条闭环和装配依赖第一次同时出现。",
+      "teaching_question": "单个节点成立之后，四条腿和四条牙条为什么仍可能因为闭环尺寸而装不成一张案？",
+      "confirmed": [
+        "上海交通大学博物馆藏夹头榫画案的说明明确提到面板、牙板与腿足的关系，并描述面上重量经大边和牙板传向腿足。",
+        "香港浸会大学资料把夹头榫用于桌案腿足、牙条和牙头的连接。",
+        "本项目小案是面向装配教学的比例模型，不复原上述具体藏品。"
+      ],
+      "functional_brief": {
+        "use": "可放一本 A5 书或小型展示物；首轮是桌案拓扑和装配模型。",
+        "default_envelope": "面板 220 × 140 mm，高 150 mm；首轮允许分 2–3 盘，不要求单盘完成。",
+        "top_strategy": "首轮把面板/大边合并成一个教学上部件，先聚焦夹头节点和牙条闭环；v0.2 再拆成完整攒边装板。",
+        "not_in_scope": "未做载荷实验前不作为承重凳或真实家具使用。"
+      },
+      "parts": [
+        {"name": "上部件 ×1", "role": "代表面板和大边，提供四个腿足连接位"},
+        {"name": "腿足 ×4", "role": "四个重复夹头节点的主体"},
+        {"name": "长牙条 ×2", "role": "形成长向框架"},
+        {"name": "短牙条 ×2", "role": "闭合短向框架"},
+        {"name": "可选直榫枨 ×4", "role": "v0.2 加入，用于把直榫基线带入完整作品"}
+      ],
+      "joint_map": [
+        {"joint_id": "clamp-tenon", "role": "四个主节点，决定腿、面与牙条的关系"},
+        {"joint_id": "straight-tenon", "role": "后续腿枨连接，作为基础榫卯复用"}
+      ],
+      "assembly_steps": [
+        {"step": "01", "title": "建立两片腿架", "action": "每片由两腿和一条长牙条组成。", "watch": "确认夹头节点先后和左右件镜像。"},
+        {"step": "02", "title": "短牙条闭环", "action": "两片腿架通过短牙条连接。", "watch": "四角同时配合带来的累计误差。"},
+        {"step": "03", "title": "接入上部", "action": "四条腿足顶榫对准上部件。", "watch": "四腿共面与孔位公差链。"},
+        {"step": "04", "title": "整体审计", "action": "检查摇摆、对角线和各肩缝。", "watch": "先记录几何，不提前作强度结论。"}
+      ],
+      "cad_deliverables": ["9 件基础 BOM", "单角节点与整案共用参数", "两片腿架—闭环—上部装配动画", "四腿共面/闭环误差图"],
+      "experiment_debt": ["四腿共面和对角线差", "四个夹头节点装配顺序", "面上载荷、侧向摇摆与长期松动"],
+      "user_assistance": [
+        {
+          "id": "U07",
+          "status": "RESOLVED",
+          "priority": "高",
+          "question": "小案首轮更重要的是“单盘可打印”，还是“比例更接近可用小案”？",
+          "default": "先按 220 × 140 × 150 mm 的教学模型做，可分 2–3 盘，不要求单盘完成。",
+          "resolution": "2026-09-08：接受默认方案；首轮按 220 × 140 × 150 mm 建模，允许分 2–3 盘。",
+          "impact": "决定构件截面、分件、榫卯可见度和后续承载实验是否有意义。",
+          "blocks": "首轮尺度与分盘目标已解除；承载用途仍不在本轮主张范围。"
+        },
+        {
+          "id": "U08",
+          "status": "RESOLVED",
+          "priority": "高",
+          "question": "上部先合并为一个教学件，还是从首轮就拆成大边、抹头与面板？",
+          "default": "先合并上部，v0.2 再拆成完整攒边装板；避免一次引入过多未完成榫卯。",
+          "resolution": "2026-09-08：接受默认方案；v0.1 合并面板与大边为一个上部件，v0.2 再拆分攒边装板。",
+          "impact": "影响 BOM、装配依赖以及作品与龙凤榫章节的耦合。",
+          "blocks": "v0.1 上部拆件与基础 BOM 已解除；完整攒边装板留到 v0.2。"
+        }
+      ],
+      "source_ids": ["sjtu_clamp_tenon", "hkbu_clamp_tenon"]
+    },
+    {
+      "index": "W03",
+      "id": "baxian-table",
+      "name_cn": "八仙桌",
+      "name_en": "Baxian Table Prototype",
+      "review_state": "PROVISIONAL_MAPPING",
+      "evidence_state": "已有完整打印原型；源 CAD microversion 已定位，连接映射仍待几何审计",
+      "case_path": "works/baxian-table.html",
+      "one_sentence": "用已经完成的多盘实物反向建立零件清单、装配依赖与可核查的连接映射。",
+      "teaching_question": "一件已经打印出来的作品，怎样从照片叙事升级为可追溯到源 CAD 的结构案例？",
+      "confirmed": [
+        "现有页面已经记录完整原型、打印分盘、组装照片和已知打印条件。",
+        "作者于 2026-09-08 确认 Onshape Part Studio 1 对应现有实物；本轮把 sourceMicroversion f9e8c517a1e9b12a6a5c4c4b 记录为不可变审计基线。",
+        "只读审计在该基线中读到 30 个 solid bodies，以及 table_width、table_thickness、slot_width825、hole、halfleg、clearance 六个变量。",
+        "Assembly 1 当前含 0 个实例，因此本轮 BOM 以 Part Studio 实体清单为准；零件名称不能单独证明传统榫卯映射。"
+      ],
+      "functional_brief": {
+        "use": "完整作品级装配案例与多盘制造记录。",
+        "default_envelope": "沿用现有约 160 mm 原型，不在本轮改尺寸。",
+        "audit_strategy": "以 document 55902b7f5c0506bdfaca81ec / element 589cbc08267ee433d39e1fc6 / microversion f9e8c517a1e9b12a6a5c4c4b 为基线，建立实体—接口—装配步骤三级索引；总装需另行重建或补录。",
+        "not_in_scope": "来源审计完成前，不把候选连接映射写成传统结构复原结论。"
+      },
+      "parts": [
+        {"name": "桌板实体 ×3", "role": "桌板中、桌板边、桌板边2；组成上部平面"},
+        {"name": "燕尾穿带 ×2", "role": "CAD 已命名的桌板背面约束件"},
+        {"name": "格角榫 ×4", "role": "CAD 已命名的四角实体；具体传统归类待剖面审计"},
+        {"name": "大格肩 ×4", "role": "CAD 已命名的上部连接实体"},
+        {"name": "腿足 ×4", "role": "竖向支承"},
+        {"name": "矮老 ×8", "role": "下部或侧向短构件；接口关系待标注"},
+        {"name": "虚肩 ×4", "role": "CAD 已命名的肩部实体；与相邻构件关系待标注"},
+        {"name": "销子 ×1", "role": "独立锁定件；锁定对象和装入方向待审计"}
+      ],
+      "joint_map": [
+        {"joint_id": "straight-tenon", "role": "候选：腿足、矮老之间可能存在基础插接；需逐接口剖面确认"},
+        {"joint_id": "dovetail", "role": "候选：Part Studio 明确含“燕尾穿带”×2；需确认其截面与滑入路径"},
+        {"joint_id": "keyed-tenon", "role": "候选：Part Studio 明确含“销子”×1；需确认它锁定的接口和是否属于楔钉类"},
+        {"joint_id": "tongue-groove-batten-panel", "role": "候选：桌板三件与燕尾穿带共同形成桌面系统；拼板截面仍待审计"},
+        {"joint_id": "shouldered-frame-tenon", "role": "候选：格角榫、大格肩与虚肩均已命名；与本书“格肩榫”的对应关系待剖面审计"}
+      ],
+      "assembly_steps": [
+        {"step": "01", "title": "锁定源快照", "action": "以已确认的 Part Studio microversion 建立 30 实体基线。", "watch": "这是不可变审计快照，但还不是命名 /v 发布版本。"},
+        {"step": "02", "title": "标注每个接口", "action": "给每个接触面分配接口 ID。", "watch": "一个节点可能组合多个基本榫卯。"},
+        {"step": "03", "title": "重放装配顺序", "action": "让每一步都能在 CAD 中无碰撞完成。", "watch": "实物能装不代表记录的顺序完整。"},
+        {"step": "04", "title": "冻结映射", "action": "只有与来源线图相符的接口才采用传统名称。", "watch": "其余用中性几何描述。"}
+      ],
+      "cad_deliverables": ["✓ 源 CAD microversion 与 30 实体/6 参数基线", "BOM 与接口 ID 表", "补建或补录非空总装", "逐步装配动画", "候选 joint_ids 的逐项通过/驳回记录", "原型 02 设计变更单"],
+      "experiment_debt": ["补全逐盘实测尺寸和失败记录", "四腿共面与侧向摇摆", "原型 02 的明确用途测试"],
+      "user_assistance": [
+        {
+          "id": "U09",
+          "status": "RESOLVED",
+          "priority": "最高",
+          "question": "请提供或确认八仙桌当前冻结 CAD 的文件/Onshape 元素，以及哪一版对应现有实物。",
+          "default": "在拿到源 CAD 前，所有连接继续标为“候选”，页面只使用照片可确认的打印与装配事实。",
+          "resolution": "2026-09-08：作者提供并确认 Onshape Part Studio 1；记录 sourceMicroversion f9e8c517a1e9b12a6a5c4c4b 为现有实物对应的审计基线。",
+          "impact": "决定 BOM、装配顺序、传统名称映射和原型 02 改版基线。",
+          "blocks": "源 CAD 身份阻塞已解除；非空总装、接口 ID 与传统名称映射仍需 CAD 几何审计。"
+        }
+      ],
+      "source_ids": ["existing_baxian_case", "onshape_baxian_source", "sstp_catalog"]
+    }
+  ],
+  "sources": {
+    "research_pack_v0.3": {
+      "title": "Printable Joinery Atlas Research Pack v0.3",
+      "path": "content/research_pack_v0.3.json",
+      "organization": "仓库内",
+      "use": "现有直榫、燕尾榫和楔钉榫的来源与证据边界。"
+    },
+    "sstp_catalog": {
+      "title": "《中国传统家具榫卯结构》目录页",
+      "url": "https://www.sstp.com.cn/hotbook/1940.html",
+      "organization": "上海科学技术出版社",
+      "use": "条目名称与作品池的书目入口，不单独承担结构释义。"
+    },
+    "sjtu_clamp_tenon": {
+      "title": "黄花梨夹头榫画案",
+      "url": "https://museum.sjtu.edu.cn/info/1064/3484.htm",
+      "organization": "上海交通大学校史博物馆",
+      "use": "夹头榫桌案的构件关系和载荷叙述。"
+    },
+    "hkbu_clamp_tenon": {
+      "title": "夹头榫",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000033",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "use": "夹头榫的部件与组合方式。"
+    },
+    "hkbu_shouldered_tenon": {
+      "title": "插肩榫",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000015",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "use": "三件关系、八字斜肩和桌案应用。"
+    },
+    "dpm_joinery_article": {
+      "title": "明代家具榫卯结构的历史定位",
+      "url": "https://www.dpm.org.cn/Uploads/File/2019/04/30/u5cc823fe93a0f.pdf",
+      "organization": "故宫博物院《紫禁城》",
+      "use": "夹头、插肩、抱肩、龙凤榫等在明式家具语境中的定位。"
+    },
+    "dpm_zongjiao": {
+      "title": "粽角榫",
+      "url": "https://www.dpm.org.cn/lemmas/241779.html",
+      "organization": "故宫博物院",
+      "use": "横、纵、竖三向构件在角点汇交的定义。"
+    },
+    "hkbu_zongjiao": {
+      "title": "粽角榫",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000010",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "use": "45°角线、长短榫与应用场景。"
+    },
+    "hkbu_tongue_batten": {
+      "title": "龙凤榫加穿带",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000001",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "use": "长边拼合、背面带口和穿带组合方式。"
+    },
+    "chnmuseum_furniture": {
+      "title": "大美木艺——中国明清家具珍品",
+      "url": "https://www.chnmuseum.cn/zl/zlhg/201812/t20181220_32264.shtml",
+      "organization": "中国国家博物馆",
+      "use": "攒边装板及家具构件共同形成稳定结构的背景。"
+    },
+    "wyu_sliding_pin": {
+      "title": "“古典家具之魂”载入教材走进课堂",
+      "url": "https://www.wyu.edu.cn/news/info/1198/2220.htm",
+      "organization": "五邑大学",
+      "use": "侧进走马销的紧固分类和镜框应用；具体孔形仍需进一步核图。"
+    },
+    "hkbu_cross_tenon": {
+      "title": "十字榫（卡子榫）",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000018",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "use": "十字榫名称与两件结构的参考，同时提示与半厚搭接工作模型的术语差异。"
+    },
+    "hkbu_split_wedge": {
+      "title": "破头楔",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000022",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "use": "开缝榫、楔片、难拆性与应用部位。"
+    },
+    "hkbu_frame_panel": {
+      "title": "攒边结角榫（攒边打槽装板）",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000014",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "use": "四边框、内槽、面板和闭环装配关系。"
+    },
+    "existing_baxian_case": {
+      "title": "八仙桌作品案例 v0.1",
+      "path": "works/baxian-table.html",
+      "organization": "仓库内",
+      "use": "现有原型照片、打印条件、分盘与待补记录。"
+    },
+    "onshape_baxian_source": {
+      "title": "八仙桌源 CAD · Part Studio 1 · microversion f9e8c…c4b",
+      "url": "https://cad.onshape.com/documents/55902b7f5c0506bdfaca81ec/m/f9e8c517a1e9b12a6a5c4c4b/e/589cbc08267ee433d39e1fc6",
+      "workspace_url": "https://cad.onshape.com/documents/55902b7f5c0506bdfaca81ec/w/eac67e5d46d79006432f71bd/e/589cbc08267ee433d39e1fc6",
+      "organization": "Onshape / 作者提供",
+      "audit_date": "2026-09-08",
+      "document_id": "55902b7f5c0506bdfaca81ec",
+      "workspace_id": "eac67e5d46d79006432f71bd",
+      "element_id": "589cbc08267ee433d39e1fc6",
+      "source_microversion": "f9e8c517a1e9b12a6a5c4c4b",
+      "feature_count": 115,
+      "assembly_instance_count": 0,
+      "part_inventory": {"桌板中": 1, "桌板边": 1, "桌板边2": 1, "燕尾穿带": 1, "燕尾穿带2": 1, "格角榫": 4, "大格肩": 4, "腿足": 4, "矮老": 8, "虚肩": 4, "销子": 1},
+      "variables": {"table_width": "120 mm", "table_thickness": "6.5 mm", "slot_width825": "8.25 mm", "hole": "4 mm", "halfleg": "35 mm", "clearance": "0.2 mm"},
+      "use": "作者确认的现有实物源 CAD。只读审计确认 Part Studio 有 30 个实体和 6 个变量；Assembly 1 当前为空，因此传统连接映射仍待逐接口核对。"
+    }
+  }
+}

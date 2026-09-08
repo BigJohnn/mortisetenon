@@ -187,7 +187,7 @@
     {
       "index": "09",
       "id": "cross-lap-tenon",
-      "name_cn": "十字榫搭接",
+      "name_cn": "十字半搭接",
       "family_id": "F04",
       "wave": "FIRST_10",
       "design_stage": "DESIGN_BRIEF",
@@ -263,10 +263,10 @@
       "case_path": "works/baxian-table.html",
       "position": "多盘打印与完整装配",
       "teaching_goal": "追踪零件清单、闭环尺寸、分盘制造和装配顺序如何共同决定一件完整作品。",
-      "joint_ids": ["straight-tenon", "shouldered-tenon", "tongue-groove-batten-panel", "three-shoulder-reduced-tenon", "three-shoulder-wrapped-tenon", "waist-embracing-tenon", "giants-arm-brace"],
+      "joint_ids": ["straight-tenon", "dovetail", "keyed-tenon", "tongue-groove-batten-panel", "shouldered-frame-tenon"],
       "mapping_status": "PROVISIONAL",
-      "design_questions": ["由冻结 CAD 而不是照片确认实际连接", "盘点零件与装配依赖", "记录闭环尺寸与逐盘参数", "建立原型 02 的用途测试"],
-      "evidence_boundary": "已有完整实物原型，但连接映射仍是候选；冻结 CAD 审计前不得把候选 joint_ids 写成既成事实。"
+      "design_questions": ["以已确认的 source microversion 逐接口确认实际连接", "从 30 个 Part Studio 实体重建非空总装与装配依赖", "记录闭环尺寸与逐盘参数", "建立原型 02 的用途测试"],
+      "evidence_boundary": "已有完整实物原型，且源 CAD microversion 已定位；当前 joint_ids 只依据零件名收敛候选范围，几何审计前不得写成既成事实。"
     },
     {
       "index": "W04",

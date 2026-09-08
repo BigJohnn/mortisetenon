@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CATALOG = ROOT / "content" / "design_catalog_v0.1.json"
+FIRST_WAVE_CONTENT = ROOT / "content" / "first_wave_v0.1.json"
 
 
 def require(condition: bool, message: str, errors: list[str]) -> None:
@@ -26,6 +27,7 @@ def unique(values: list[str], label: str, errors: list[str]) -> None:
 
 def validate(catalog_path: Path) -> list[str]:
     data = json.loads(catalog_path.read_text(encoding="utf-8"))
+    first_wave = json.loads(FIRST_WAVE_CONTENT.read_text(encoding="utf-8"))
     errors: list[str] = []
     targets = data["editorial_targets"]
     joints = data["joints"]
@@ -88,6 +90,98 @@ def validate(catalog_path: Path) -> list[str]:
         if path := source.get("path"):
             require((ROOT / path).is_file(), f"source {source_id} path does not exist: {path}", errors)
 
+    first_joint_ids = {joint["id"] for joint in joints if joint["wave"] == "FIRST_10"}
+    first_work_ids = {work["id"] for work in works if work["wave"] == "FIRST_3"}
+    catalog_joints_by_id = {joint["id"]: joint for joint in joints}
+    catalog_works_by_id = {work["id"]: work for work in works}
+    content_joints = first_wave["joints"]
+    content_works = first_wave["works"]
+    content_sources = first_wave["sources"]
+
+    require(len(content_joints) == 10, "first-wave content must contain 10 joints", errors)
+    require(len(content_works) == 3, "first-wave content must contain 3 works", errors)
+    require({joint["id"] for joint in content_joints} == first_joint_ids, "first-wave joint ids do not match design catalog", errors)
+    require({work["id"] for work in content_works} == first_work_ids, "first-wave work ids do not match design catalog", errors)
+    unique([joint["index"] for joint in content_joints], "first-wave joint index", errors)
+    unique([work["index"] for work in content_works], "first-wave work index", errors)
+
+    assistance_items: list[dict] = []
+    allowed_review_states = {"EXISTING_CHAPTER", "READY_FOR_CAD", "NEEDS_USER", "PROVISIONAL_MAPPING"}
+    joint_fields = (
+        "one_sentence",
+        "teaching_question",
+        "confirmed",
+        "design_proposal",
+        "assembly_steps",
+        "parameters",
+        "cad_deliverables",
+        "experiment_debt",
+    )
+    for joint in content_joints:
+        prefix = f"first-wave joint {joint['index']} {joint['name_cn']}"
+        require(joint["name_cn"] == catalog_joints_by_id[joint["id"]]["name_cn"], f"{prefix} name does not match design catalog", errors)
+        require(joint["review_state"] in allowed_review_states, f"{prefix} has unknown review state", errors)
+        for field in joint_fields:
+            require(bool(joint.get(field)), f"{prefix} is missing {field}", errors)
+        require(len(joint.get("assembly_steps", [])) == 4, f"{prefix} must have four assembly steps", errors)
+        require(bool(joint.get("design_proposal", {}).get("parts")), f"{prefix} needs part roles", errors)
+        require(set(joint.get("source_ids", [])) <= set(content_sources), f"{prefix} references unknown content source", errors)
+        if chapter_path := joint.get("chapter_path"):
+            require((ROOT / chapter_path).is_file(), f"{prefix} chapter path does not exist: {chapter_path}", errors)
+        assistance_items.extend(joint.get("user_assistance", []))
+
+    work_fields = (
+        "one_sentence",
+        "teaching_question",
+        "confirmed",
+        "functional_brief",
+        "parts",
+        "joint_map",
+        "assembly_steps",
+        "cad_deliverables",
+        "experiment_debt",
+    )
+    for work in content_works:
+        prefix = f"first-wave work {work['index']} {work['name_cn']}"
+        require(work["name_cn"] == catalog_works_by_id[work["id"]]["name_cn"], f"{prefix} name does not match design catalog", errors)
+        require(work["review_state"] in allowed_review_states, f"{prefix} has unknown review state", errors)
+        for field in work_fields:
+            require(bool(work.get(field)), f"{prefix} is missing {field}", errors)
+        require(len(work.get("assembly_steps", [])) == 4, f"{prefix} must have four assembly/audit steps", errors)
+        require({item["joint_id"] for item in work.get("joint_map", [])} <= joint_ids, f"{prefix} maps an unknown joint", errors)
+        require({item["joint_id"] for item in work.get("joint_map", [])} == set(catalog_works_by_id[work["id"]]["joint_ids"]), f"{prefix} joint map does not match design catalog", errors)
+        require(set(work.get("source_ids", [])) <= set(content_sources), f"{prefix} references unknown content source", errors)
+        if case_path := work.get("case_path"):
+            require((ROOT / case_path).is_file(), f"{prefix} case path does not exist: {case_path}", errors)
+        assistance_items.extend(work.get("user_assistance", []))
+
+    assistance_ids = [item["id"] for item in assistance_items]
+    unique(assistance_ids, "user-assistance id", errors)
+    require(len(assistance_ids) == 9, "first-wave content must preserve all nine author decisions", errors)
+    allowed_decision_states = {"OPEN", "RESOLVED"}
+    for item in assistance_items:
+        require(item.get("status") in allowed_decision_states, f"author decision {item['id']} has unknown status", errors)
+        if item.get("status") == "RESOLVED":
+            require(bool(item.get("resolution")), f"resolved author decision {item['id']} needs a resolution", errors)
+    open_ids = {item["id"] for item in assistance_items if item.get("status") == "OPEN"}
+    resolved_ids = {item["id"] for item in assistance_items if item.get("status") == "RESOLVED"}
+    require(not open_ids, "first-wave content must have no open author decisions", errors)
+    require(resolved_ids == {f"U{index:02d}" for index in range(1, 10)}, "all nine author decisions must be resolved", errors)
+    require(not any(entry["review_state"] == "NEEDS_USER" for entry in [*content_joints, *content_works]), "no first-wave entry may remain NEEDS_USER after all decisions resolve", errors)
+    for source_id, source in content_sources.items():
+        require(bool(source.get("url") or source.get("path")), f"content source {source_id} needs a URL or local path", errors)
+        if path := source.get("path"):
+            require((ROOT / path).is_file(), f"content source {source_id} path does not exist: {path}", errors)
+    baxian_source = content_sources.get("onshape_baxian_source", {})
+    require(baxian_source.get("source_microversion") == "f9e8c517a1e9b12a6a5c4c4b", "Baxian source microversion is not the confirmed baseline", errors)
+    require(baxian_source.get("assembly_instance_count") == 0, "Baxian source must record the empty audited assembly", errors)
+    require(sum(baxian_source.get("part_inventory", {}).values()) == 30, "Baxian source inventory must total 30 solids", errors)
+    require(len(baxian_source.get("variables", {})) == 6, "Baxian source must preserve the six audited variables", errors)
+
+    require((ROOT / "first-wave.html").is_file(), "first-wave content page does not exist", errors)
+    require((ROOT / "assets" / "first-wave.js").is_file(), "first-wave renderer does not exist", errors)
+    require((ROOT / "assets" / "first-wave.css").is_file(), "first-wave stylesheet does not exist", errors)
+
     return errors
 
 
@@ -100,7 +194,7 @@ def main() -> int:
         for error in errors:
             print(f"ERROR: {error}")
         return 1
-    print("Design catalog valid: 24 joints / 6 works / first wave 10+3 / 8 families x 3.")
+    print("Design catalog valid: 24 joints / 6 works / first wave 10+3 / 8 families x 3 / 9 author decisions (9 resolved, 0 open).")
     return 0
 
 

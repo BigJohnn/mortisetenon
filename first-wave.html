@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>首轮 10+3 内容工作台 · 可打印的榫卯</title>
+  <meta name="description" content="首轮 10 个基本榫卯与 3 个作品案例的设计内容、参数接口、装配步骤和作者决策进度。">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/first-wave.css">
+  <script src="assets/first-wave.js" defer></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark"></span>可打印的榫卯</a>
+      <div class="nav-links">
+        <a href="#help">作者决策</a>
+        <a href="#joints">10 个榫卯</a>
+        <a href="#works">3 个作品</a>
+        <a href="design-catalog.html">设计目录</a>
+        <a href="joinery_book_roadmap.html">Roadmap</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wave-workspace">
+    <header class="wave-header">
+      <div class="shell">
+        <div class="kicker">Iteration 01 · content review · 2026-09-08</div>
+        <div class="wave-heading-grid">
+          <div>
+            <h1>首轮 10+3，<br>先把设计说清楚。</h1>
+            <p class="lead">每项都已经填入来源边界、教学问题、结构提案、装配顺序、参数接口、CAD 交付物和实验债务。橙色问题仍需作者判断，绿色记录已经确认；这些设计进度都不代表已通过实物验证。</p>
+          </div>
+          <div class="wave-summary" aria-label="首轮内容摘要">
+            <div><strong>10</strong><span>基本榫卯</span></div>
+            <div><strong>3</strong><span>综合作品</span></div>
+            <div><strong id="decision-count">0</strong><span>仍待作者决策</span></div>
+            <div><strong id="resolved-count">9</strong><span>本轮已确认</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="wave-toolbar" aria-label="内容筛选">
+      <div class="shell wave-toolbar-inner">
+        <div class="wave-filters" role="group" aria-label="筛选首轮内容">
+          <button type="button" class="wave-filter is-active" data-filter="all" aria-pressed="true">全部 10+3</button>
+          <button type="button" class="wave-filter" data-filter="needs-user" aria-pressed="false">仍需你协助（0）</button>
+          <button type="button" class="wave-filter" data-filter="joints" aria-pressed="false">只看榫卯</button>
+          <button type="button" class="wave-filter" data-filter="works" aria-pressed="false">只看作品</button>
+        </div>
+        <output id="filter-readout" class="mini" aria-live="polite">正在读取内容…</output>
+      </div>
+    </section>
+
+    <section class="section tight" id="help">
+      <div class="shell">
+        <div class="wave-section-heading">
+          <div><div class="kicker">Author decisions · 9 resolved / 0 open</div><h2>作者决策已全部收口</h2></div>
+          <p>九项均保留原问题、默认方案和确认结果，作为设计变更记录；首轮 10+3 不再等待作者选择。</p>
+        </div>
+        <div id="help-grid" class="help-grid" data-wave-loading>正在整理作者决策…</div>
+      </div>
+    </section>
+
+    <section class="section" id="joints">
+      <div class="shell">
+        <div class="wave-section-heading">
+          <div><div class="kicker">Basic joints · 01–10</div><h2>10 个基本榫卯</h2></div>
+          <p>已有三章进入设计审计；新增七项停在内容和参数接口层，等待 CAD，不提前给出打印或强度结论。</p>
+        </div>
+        <div id="joint-content" class="wave-content-list" data-wave-loading>正在读取 10 个榫卯…</div>
+      </div>
+    </section>
+
+    <section class="section" id="works">
+      <div class="shell">
+        <div class="wave-section-heading">
+          <div><div class="kicker">Integrated works · W01–W03</div><h2>3 个作品案例</h2></div>
+          <p>作品页重点记录闭环、BOM 和装配依赖。框板收纳盒与夹头榫小案是新设计；八仙桌源 CAD 已定位，接下来做接口与装配审计。</p>
+        </div>
+        <div id="work-content" class="wave-content-list" data-wave-loading>正在读取 3 个作品…</div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="shell">
+        <div class="warning"><b>证据边界</b> 本页的“已确认”只表示来源或仓库现状能够支持这句话；“设计提案”是下一步要做的版本，不是历史唯一做法。推荐 clearance、承载、耐久与复现结论仍须走独立实验线。</div>
+        <div class="cta-row"><a class="btn primary" href="content/first_wave_v0.1.json">查看机器可读内容 →</a><a class="btn ghost" href="design-catalog.html">返回 24+6 设计目录 →</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="shell">Printable Joinery Atlas · First Wave Content v0.1 · 2026-09-08</div></footer>
+</body>
+</html>

@@ -1,6 +1,6 @@
-# 可打印的榫卯 · Printable Joinery Atlas v0.7
+# 可打印的榫卯 · Printable Joinery Atlas v0.8.2
 
-本版把项目切成两条可以不同步前进的路径：**设计线**先冻结全书要实现的结构，**证据线**继续控制哪些打印与性能主张可以发布。Design Catalog v0.1 已确定 24 个基本榫卯、6 个综合作品和 4 个实验章；首轮选择 10+3，记录教学目的、装配动作、关键参数、作品映射和未来实验问题。实体实验暂缓，Gate A 仍未通过；`DESIGN_BRIEF` 或已有页面不等于 `PRINT_VERIFIED`。
+本版把项目切成两条可以不同步前进的路径：**设计线**先冻结全书要实现的结构，**证据线**继续控制哪些打印与性能主张可以发布。Design Catalog v0.1 已确定 24 个基本榫卯、6 个综合作品和 4 个实验章；First Wave Content v0.1 已为首轮 10+3 补齐来源边界、设计提案、装配步骤、参数接口、CAD 交付物和实验债务。9 项作者决策已全部确认，首轮 10+3 不再等待设计取舍。实体实验暂缓，Gate A 仍未通过；`DESIGN_BRIEF` 或已有页面不等于 `PRINT_VERIFIED`。
 
 ## 本地浏览
 
@@ -14,7 +14,8 @@ npm run dev
 
 ## 入口
 - `index.html`：首页
-- `design-catalog.html`：24+6 全书设计目录、首批 10+3 简报与实验债务
+- `design-catalog.html`：24+6 全书设计目录与实验债务
+- `first-wave.html`：首轮 10+3 内容工作台，可筛选作者决策、基本榫卯和作品
 - `joints/straight-tenon.html`：直榫
 - `joints/dovetail.html`：燕尾榫
 - `joints/keyed-tenon.html`：楔钉榫
@@ -32,20 +33,23 @@ npm run dev
 - `research/sources.html`：研究来源与版权边界
 - `content/research_pack_v0.3.json`：结构化研究 + CAD 数据
 - `content/design_catalog_v0.1.json`：24 个基本榫卯、6 个综合作品、4 个实验章的机器可读设计真值
+- `content/first_wave_v0.1.json`：首轮 10+3 的来源、结构提案、装配、参数、CAD 交付物、实验债务与 9 项已确认的作者决策
 - `ASSET_CONTRACT.md`：CAD / STL / STEP / GLB / 图片 / print log 版本契约
 - `assets/downloads/manifest.json`：公开下载资产的哈希与几何检查清单
 - `assets/downloads/clearance-test-kit_print-log-template_v0.1.csv`、`assets/downloads/straight-tenon_print-log-template_v0.1.csv`：可离线填写的打印记录模板（由工具生成）
 - `tools/print_log_spec.py`：从实验室页面反解表单定义，作为唯一的字段真值
 - `tools/ingest_print_log.py`：校验打印记录、归档到 `content/print-logs/`、把资产升到 `PRINT_VERIFIED`
-- `tools/validate_design_catalog.py`：校验 24 / 6 / 10+3 数量、8×3 家族分布、交叉引用与页面路径
+- `tools/validate_design_catalog.py`：校验 24 / 6 / 10+3 数量、8×3 家族分布、首轮内容完整性、作者决策状态、交叉引用与页面路径
 
 ## 这版最重要的变化
 1. 新增 Design Catalog v0.1：最终纸书目标从模糊的“30–50 个案例”收敛为 **24 个基本榫卯 + 6 个综合作品**，另设 4 个横向实验章。
 2. 24 个榫卯按本项目的 8 个教学家族组织，每类 3 个；这是一种编辑结构，不冒充传统工艺的唯一分类法。
-3. 首批 10 个覆盖全部 8 个家族：现有直榫、燕尾榫、楔钉榫，加上夹头榫、插肩榫、粽角榫、龙凤榫加穿带、走马销、十字榫搭接和破头楔。
-4. 首批 3 个作品为框板收纳盒、夹头榫小案和八仙桌。八仙桌的连接列表仍是候选映射，必须由冻结 CAD / BOM 审计，不能从照片或名称倒推。
+3. 首批 10 个覆盖全部 8 个家族：现有直榫、燕尾榫、楔钉榫，加上夹头榫、插肩榫、粽角榫、龙凤榫加穿带、走马销、十字半搭接和破头楔。
+4. 首批 3 个作品为框板收纳盒、夹头榫小案和八仙桌。八仙桌已定位到作者确认的 Onshape source microversion，读到 30 个实体和 6 个参数；连接列表仍须由接口几何审计，不能从照片或零件名倒推。
 5. 资产契约新增“设计阶段不等于证据状态”：`CATALOG_SLOT`、`DESIGN_BRIEF`、`IMPLEMENTED` 只描述编辑进度；`DRAFT`、`GEOMETRY_VERIFIED`、`PRINT_VERIFIED`、`USER_REPRODUCED` 继续描述证据。
-6. Roadmap v0.7 改为双轨：设计线现在推进 10+3；直榫实测、Clearance Kit、方向/承载/耐久实验进入 Deferred 队列，但所有证据门槛保持不变。
+6. First Wave Content v0.1 把 10+3 从目录层推进到可审阅内容，并区分“来源已确认”“本轮设计提案”和“实验债务”。
+7. 9 项作者决策均已确认并保留默认方案、确认结果和推进边界；夹头榫、破头楔、收纳盒与小案均可进入 CAD。
+8. Roadmap v0.8 进入作者决策与 CAD 阶段；直榫实测、Clearance Kit、方向/承载/耐久实验仍在 Deferred 队列，所有证据门槛保持不变。
 
 ## 重建资产
 ```bash
@@ -58,10 +62,10 @@ blender --background --python tools/build_straight_tenon_assets.py -- \
 排版 STL 的输出是确定性的：重跑得到的文件与已发布版本 SHA-256 一致。网页需通过 HTTP 打开；开发时使用 `npm run dev`。
 
 ## 建议下一步
-1. 逐项审计首批新增七种结构的名称、机制、应用和解释边界；出版社目录只证明名称进入候选池，不替代结构研究。
-2. 冻结首批十种结构共用的教学尺度、间隙字段、接触面、装配轴和导出约定。
-3. 先做夹头榫 / 插肩榫对照 CAD，再做粽角榫 / 十字榫搭接 / 走马销，最后做龙凤榫加穿带 / 破头楔。
-4. 基本节点稳定后，为框板收纳盒和夹头榫小案建立 BOM、闭环尺寸与装配依赖。
+1. 冻结首批十种结构共用的教学尺度、间隙字段、接触面、装配轴和导出约定。
+2. 先做夹头榫 / 插肩榫对照 CAD；走马销 / 十字半搭接可并行进入 CAD，再做粽角榫、龙凤榫加穿带和破头楔。
+3. 为八仙桌 30 个源实体补接口 ID 和非空总装，逐项通过或驳回候选 joint_ids；随后建立命名发布版本。
+4. 基本节点稳定后，为开放式 160 × 110 × 70 mm 框板收纳盒和 220 × 140 × 150 mm 夹头榫小案建立作品 CAD。
 5. 恢复实验时从 Deferred 队列继续：直榫四档实测、Clearance Kit 首打，再按方向、承载和耐久成批验证。
 
 目录校验：

@@ -30,13 +30,13 @@
           <div class="statusbar-inline">
             <span class="evidence-chip">DRAFT</span>
             <span class="evidence-chip physical">PHYSICAL PROTOTYPE 01</span>
-            <span class="evidence-chip">CAD WORKSPACE</span>
+            <span class="evidence-chip">CAD SOURCE IDENTIFIED</span>
           </div>
           <div class="cta-row">
-            <a class="btn primary" href="https://cad.onshape.com/documents/55902b7f5c0506bdfaca81ec/w/eac67e5d46d79006432f71bd/e/589cbc08267ee433d39e1fc6" target="_blank" rel="noopener">打开 Onshape 工作区</a>
+            <a class="btn primary" href="https://cad.onshape.com/documents/55902b7f5c0506bdfaca81ec/m/f9e8c517a1e9b12a6a5c4c4b/e/589cbc08267ee433d39e1fc6" target="_blank" rel="noopener">打开冻结 CAD 快照</a>
             <a class="btn ghost" href="#read">从实物读结构 ↓</a>
           </div>
-          <p class="mini" style="margin-top:18px">状态说明：四张照片证明这件原型已经打印并装配成整桌；工作区尚未冻结为版本，也没有参数表、导出包、打印日志或承载测试，因此不登记为 <code>PRINT_VERIFIED</code>。</p>
+          <p class="mini" style="margin-top:18px">状态说明：作者已确认源 Part Studio 对应现有实物，本页固定到不可变 microversion <code>f9e8c…c4b</code>。它有 30 个实体和 6 个命名参数，但 Assembly 1 仍为空，也没有发布导出包、打印日志或承载测试，因此不登记为 <code>PRINT_VERIFIED</code>。</p>
         </div>
         <figure class="case-photo case-hero-photo">
           <img src="../assets/images/baxian-table/v0.1/printed-01.webp" alt="手持已装配完成的四色 3D 打印八仙桌原型，能看到台面、围板、腿和下方撑件" width="1600" height="2125">
@@ -100,7 +100,7 @@
           <div class="case-gallery process-pair">
             <figure class="case-photo">
               <img src="../assets/images/baxian-table/v0.1/cad-overview-01.webp" alt="Onshape 中的八仙桌 CAD 工作区截图，可见完整桌体、特征树和 Assembly 1 标签" width="1920" height="911" loading="lazy">
-              <figcaption>2026-09-05 · Onshape 文档“八仙桌”的 Main 工作区截图。画面记录 <code>Features (119)</code>、<code>Part Studio 1</code> 与独立的 <code>Assembly 1</code>；这是建模过程证据，不是冻结版本。</figcaption>
+              <figcaption>2026-09-05 · Onshape 文档“八仙桌”的工作区截图记录 <code>Features (119)</code>、<code>Part Studio 1</code> 与独立的 <code>Assembly 1</code>。2026-09-08 的 API 审计另以不可变 microversion 为准，不把截图计数和 API 特征计数混为一谈。</figcaption>
             </figure>
             <figure class="case-photo">
               <img src="../assets/images/baxian-table/v0.1/orientation-01.webp" alt="切片软件中八仙桌零件被分配到多个打印板的总览截图" width="1150" height="699" loading="lazy">
@@ -113,7 +113,18 @@
             <li><span>03</span><div><h3>按零件类型分成六盘</h3><p>截图显示长条构件、腿、面板和小件分别排版。这样便于改变单类零件的方向，也降低整盘失败的损失。</p></div></li>
             <li><span>04</span><div><h3>重新合并成一个系统</h3><p>实物装配会暴露 CAD 里看不到的累积误差、表面摩擦和进入路径冲突。成功合拢只是第一条结果，不是最后一条。</p></div></li>
           </ol>
-          <div class="warning"><b>当前 Onshape 链接是 <code>/w/</code> 工作区：</b>它会继续变化，而且匿名 API 访问返回 403。页面保留它作为设计现场；若要发布可复现模型，下一轮必须先冻结 <code>/v/</code> 版本，再从那个版本导出 STEP / STL / GLB。</div>
+          <div class="warning"><b>源身份阻塞已经解除：</b>作者提供的 <code>/w/</code> 工作区会继续变化，本页因此改用不可变 <code>/m/f9e8c…c4b</code> 快照做审计基线。它还不是命名的 <code>/v/</code> 发布版本；Assembly 1 当前含 0 个实例，装配关系必须从 Part Studio 接口重新建立或补录。</div>
+          <div class="table-wrap" style="margin-top:26px">
+            <table>
+              <thead><tr><th>源 CAD 审计</th><th>结果</th><th>本轮意义</th></tr></thead>
+              <tbody>
+                <tr><td>不可变快照</td><td><code>f9e8c517a1e9b12a6a5c4c4b</code></td><td>现有实物的设计审计基线</td></tr>
+                <tr><td>Part Studio 实体</td><td>30 个：桌板 3、燕尾穿带 2、格角榫 4、大格肩 4、腿足 4、矮老 8、虚肩 4、销子 1</td><td>形成第一版可核查 BOM</td></tr>
+                <tr><td>命名参数</td><td><code>table_width 120 mm</code>、<code>table_thickness 6.5 mm</code>、<code>slot_width825 8.25 mm</code>、<code>hole 4 mm</code>、<code>halfleg 35 mm</code>、<code>clearance 0.2 mm</code></td><td>记录设计值，不升级为实测或推荐值</td></tr>
+                <tr><td>Assembly 1</td><td>0 个实例</td><td>不能从 mate / 装配树验证顺序与接口</td></tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section class="block" id="assembly">
@@ -141,7 +152,9 @@
             <div class="evidence evidence-positive">
               <b>现在可以写进书里的事实</b>
               <ul>
-                <li>存在一个可继续编辑的 Onshape 八仙桌工作区。</li>
+                <li>作者确认 Onshape Part Studio 1 是现有实物对应的源 CAD；已记录不可变 microversion。</li>
+                <li>该快照含 30 个实体和 6 个命名参数，能够建立第一版实体 BOM 与设计参数快照。</li>
+                <li>Assembly 1 当前为空；装配关系不能从 mate 或装配树直接读取。</li>
                 <li>2026-09-05 的 CAD 截图记录了 119 个特征，以及 Part Studio / Assembly 两个工作层级。</li>
                 <li>模型被拆成多类零件，并在切片器中分到六个打印板。</li>
                 <li>完整桌体已经打印并成功装配；四张实物照覆盖整体、顶面、侧面和底面。</li>
@@ -152,8 +165,8 @@
               <b>现在还不能下的结论</b>
               <ul>
                 <li>不能声称它复原了传统八仙桌的尺度、比例或具体榫卯做法。</li>
-                <li>不能给出 clearance 推荐值：设计尺寸与实测尺寸都未登记。</li>
-                <li>不能声称他人可复现：没有冻结版本、导出包、逐盘打印参数和装配日志。</li>
+                <li>不能给出 clearance 推荐值：CAD 中的 <code>0.2 mm</code> 是设计变量，没有对应实测与适用条件。</li>
+                <li>不能声称他人可复现：虽有不可变源快照，但还没有命名发布版本、导出包、逐盘打印参数和装配日志。</li>
                 <li>不能声称可承重或耐久：照片不是载荷、摇摆、循环拆装或破坏测试。</li>
               </ul>
             </div>
@@ -162,7 +175,7 @@
             <table>
               <thead><tr><th>证据层</th><th>当前材料</th><th>状态</th><th>升级条件</th></tr></thead>
               <tbody>
-                <tr><td>设计现场</td><td>Onshape workspace + CAD 截图</td><td>DRAFT</td><td>命名参数、零件清单并冻结版本</td></tr>
+                <tr><td>设计现场</td><td>Onshape source microversion + 30 实体 / 6 参数审计</td><td>源 CAD 基线已定位</td><td>补非空总装、接口 ID、命名 <code>/v/</code> 发布版本与导出包</td></tr>
                 <tr><td>制造现场</td><td>多打印板切片总览</td><td>有过程图，记录不完整</td><td>逐盘导出、方向、支撑、耗时、材料与失败记录</td></tr>
                 <tr><td>物理装配</td><td>四张完整装配照片</td><td>原型 01 已装成</td><td>加入尺寸、手感、装配顺序和问题清单</td></tr>
                 <tr><td>结构性能</td><td>无</td><td>未测试</td><td>先定义用途，再设计摇摆 / 静载 / 循环测试</td></tr>
@@ -176,7 +189,7 @@
           <div class="kicker">06 · Prototype 02 brief</div>
           <h2>下一轮不急着改造型，先把这件原型变成可复现记录。</h2>
           <div class="comparison-grid">
-            <div><span>Freeze</span><h3>冻结 CAD</h3><p>从工作区切出 <code>baxian-table v0.1</code>，保存版本 URL、零件数量、参数快照和总装状态。</p></div>
+            <div><span>Freeze</span><h3>建立发布版本</h3><p>源 microversion 已固定；下一步从该基线建立 <code>baxian-table v0.1</code> 命名版本，并补齐非空总装、接口 ID 与总装状态。</p></div>
             <div><span>Inventory</span><h3>列零件与打印板</h3><p>给每类零件编号，登记数量、颜色/材料、方向、支撑、打印时长和所属板号。</p></div>
             <div><span>Assemble</span><h3>记录拆装顺序</h3><p>每一步只移动一类零件，拍进入方向、卡点和最终落位；同时记录需要多大手力。</p></div>
             <div><span>Measure</span><h3>测关键闭环</h3><p>至少记录四腿间距、对角线、台面框内口、台面分块总宽，以及最关键公母配合的 X/Y 尺寸。</p></div>
@@ -201,6 +214,6 @@
     </div>
   </main>
 
-  <footer class="footer"><div class="shell">Printable Joinery Atlas · 综合案例 01 · 八仙桌原型 · 2026-09-06</div></footer>
+  <footer class="footer"><div class="shell">Printable Joinery Atlas · 综合案例 01 · 八仙桌原型 · 源 CAD 审计更新于 2026-09-08</div></footer>
 </body>
 </html>
