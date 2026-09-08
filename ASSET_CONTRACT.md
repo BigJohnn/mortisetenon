@@ -1,6 +1,6 @@
 # Printable Joinery Atlas Asset Contract v0.1
 
-Updated: 2026-08-29
+Updated: 2026-09-08
 
 ## Purpose
 
@@ -30,6 +30,24 @@ Words such as "best", "recommended", or "works" must not appear as unqualified
 claims before `PRINT_VERIFIED`. A print result is always scoped to printer,
 material, orientation, slicer settings, and geometry version.
 
+## Design stages are not evidence states
+
+`content/design_catalog_v0.1.json` plans the book before every asset is built or
+printed. Its `design_stage` field is an editorial axis, separate from the four
+evidence states above:
+
+| Design stage | Meaning | Does not mean |
+| --- | --- | --- |
+| `CATALOG_SLOT` | The entry has a place and teaching role in the 24 + 6 architecture. | Its mechanism, dimensions, or historical interpretation are settled. |
+| `DESIGN_BRIEF` | Assembly action, parameter interface, work mapping, and later experiment question are defined. | CAD exists or the design is printable. |
+| `IMPLEMENTED` | A chapter or case page exists. | The linked asset has passed geometry, print, or reproduction checks. |
+
+Design work may move ahead while physical experiments are deferred. Promotion
+between `DRAFT`, `GEOMETRY_VERIFIED`, `PRINT_VERIFIED`, and `USER_REPRODUCED`
+still requires exactly the evidence in the first table; no design-stage change
+can promote an asset. The catalog is checked with
+`python3 tools/validate_design_catalog.py`.
+
 ## Identity and versioning
 
 - **Slug:** lowercase ASCII kebab-case, for example `straight-tenon`.
@@ -54,8 +72,17 @@ Existing files remain valid. New files follow these patterns:
 | Print log | `content/print-logs/{date}_{slug}_{version}_{run}.json` | `content/print-logs/2026-08-28_clearance-test-kit_v0.1_run-01.json` |
 | Print-log template | `assets/downloads/{slug}_print-log-template_{version}.csv` | `assets/downloads/straight-tenon_print-log-template_v0.1.csv` |
 
-Allowed shot names are `assembled`, `exploded`, `orientation`,
-`scale-reference`, `failure`, and `detail`, followed by a two-digit index.
+Allowed shot names are `assembled`, `exploded`, `printed`, `orientation`,
+`scale-reference`, `failure`, `detail`, and `cad-overview`, followed by a
+two-digit index.
+`printed` is a photograph of a physical print; `assembled` and `exploded` may be
+either photographs or renders, and the page that shows one must say which.
+A slicer screenshot is evidence of print setup, not of geometry, so it is named
+for what it documents: `orientation-NN` for the plate layout and build
+direction, `slicer-support-NN` where painted support is the point.
+`cad-overview-NN` is reserved for a CAD-interface or assembly-tree screenshot.
+It documents authoring context only; it is not a geometry derivative and cannot
+substitute for a frozen source URL, parameter snapshot, or exported CAD file.
 
 Print-log templates are generated, never hand-edited: `python3
 tools/ingest_print_log.py --emit-templates` reads the recording forms in
@@ -109,7 +136,26 @@ model, print file, and render all derive from one part-pose definition:
 - GLB: `assets/models/straight-tenon_assembled_v0.1.glb`
 - Render: `assets/images/straight-tenon/v0.1/exploded-01.webp`
 - STEP: `assets/downloads/straight-tenon_v0.1.step` (AP242, five solids)
-- Current state: `GEOMETRY_VERIFIED`
+- Photography: `assets/images/straight-tenon/v0.1/printed-01.webp`, the first
+  print with all four tenons seated in one mortise rail, and
+  `orientation-01.webp`, the slicer plate that records the build direction.
+- First print, 2026-08-31, Bambu Lab H2C, 0.4 mm nozzle, PLA Basic, 0.2 mm
+  layers (`0.20mm Standard @BBL H2C`), tenons upright and rail flat, no support.
+  All four clearances assemble. C = 0.20 mm presses in against damping the whole
+  way rather than sliding free; 0.30, 0.40 and 0.50 mm get progressively looser.
+  Not recorded: slicer version, wall count, infill, every measured dimension,
+  insertion and withdrawal force, whether the shoulders actually seated, and
+  which fit class 0.30 / 0.40 / 0.50 each belong to.
+- Current state: `GEOMETRY_VERIFIED`. The print does not promote it. The state
+  table requires measurements alongside the fit result, and this run has none:
+  "0.20 mm presses in" is a hand feel on one machine, and without the tenon and
+  mortise as printed there is no way to tell whether the damping comes from the
+  clearance, from elephant foot at the mortise mouth, or from the layer lines on
+  an upright tenon. The result is real evidence and it does close one Gate A
+  line -- at least one clearance assembles, in fact all four -- but a
+  recommended clearance still has nothing to stand on. No print log is filed
+  either: `tools/ingest_print_log.py` requires a fit class per rung, and only
+  0.20 mm has one.
 - Source of record: Onshape version `straight-tenon v0.1`
   (`652edb49197bc7af84e099bc`, microversion `85b4a056964c33f558516f13`),
   frozen 2026-08-29. The manifest's `document_url` points at the version
@@ -255,6 +301,28 @@ live workspace (2026-08-30) rather than from a frozen version:
   bridge above it; measuring the two heights settles it. No STEP or STL is
   exported and there is no manifest entry: publishing a printable file now would
   put this project's name on a clearance that has just been shown to be tight.
+
+`baxian-table@v0.1` is a case-study identity, not yet a released asset pack. It
+records the first complete work assembled from multiple print plates:
+
+- Live design source: Onshape workspace
+  `55902b7f5c0506bdfaca81ec / eac67e5d46d79006432f71bd / 589cbc08267ee433d39e1fc6`.
+  The URL intentionally remains a `/w/` authoring link until a named version is
+  frozen. Anonymous API reads returned 403 on 2026-09-06, so the repository does
+  not infer document metadata or dimensions from it.
+- Process images: `cad-overview-01.webp` records the Onshape authoring context;
+  `orientation-01.webp` records the multi-plate slicer overview. Neither is a
+  substitute for exported geometry or per-plate slicer settings.
+- Physical images: `printed-01.webp`, `assembled-01.webp`, and
+  `detail-{01,02}.webp` show the assembled prototype overall, from above, from
+  one side, and from below. All are uncropped in the chapter because the views
+  are evidence of different structural layers.
+- Current state: `DRAFT · PHYSICAL PROTOTYPE 01`. `PHYSICAL PROTOTYPE 01` is a
+  descriptive milestone, not a fifth evidence state. The release state remains
+  `DRAFT` because there is no frozen source version, parameter snapshot, export
+  pack, geometry manifest entry, complete print log, dimensional inspection, or
+  reproduction. The photographs prove complete assembly only; they do not prove
+  traditional fidelity, recommended clearance, load capacity, or durability.
 
 ## Animated assemblies
 

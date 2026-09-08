@@ -1,0 +1,339 @@
+{
+  "version": "0.1",
+  "date": "2026-09-07",
+  "strategy": "design-first",
+  "editorial_targets": {
+    "basic_joint_entries": 24,
+    "integrated_work_cases": 6,
+    "experiment_chapters": 4,
+    "first_design_wave": {
+      "basic_joint_entries": 10,
+      "integrated_work_cases": 3
+    }
+  },
+  "definitions": {
+    "design_stage": "Editorial progress only. It never upgrades an asset evidence state.",
+    "IMPLEMENTED": "A chapter or case page already exists; its evidence state is recorded separately.",
+    "DESIGN_BRIEF": "Name, teaching purpose, assembly action, parameter interface, work mapping, and later experiment question are defined.",
+    "CATALOG_SLOT": "Selected for the v1 architecture, but its detailed mechanism and CAD brief still require a dedicated research pass.",
+    "evidence_boundary": "DESIGN_BRIEF and CATALOG_SLOT make no claim that a joint is printable, dimensionally accurate, load-bearing, durable, or historically reconstructed. Those claims still require the ASSET_CONTRACT evidence states."
+  },
+  "families": [
+    {
+      "id": "F01",
+      "name": "插接与显隐",
+      "editorial_question": "同一条插入轴上，榫长、榫肩和是否贯通怎样改变定位、可见性与拆卸？"
+    },
+    {
+      "id": "F02",
+      "name": "斜面与钩挂",
+      "editorial_question": "怎样用扩宽、斜面或钩头改变允许的退出方向？"
+    },
+    {
+      "id": "F03",
+      "name": "楔与销",
+      "editorial_question": "第三个零件如何预紧、扩张或阻止原有装配方向上的退出？"
+    },
+    {
+      "id": "F04",
+      "name": "相交与搭接",
+      "editorial_question": "两根构件在同一平面或不同高度相交时，材料如何让位并保持定位？"
+    },
+    {
+      "id": "F05",
+      "name": "三向角部",
+      "editorial_question": "三个正交构件如何共享一个有限节点，并把装配顺序变成结构的一部分？"
+    },
+    {
+      "id": "F06",
+      "name": "板框与收缩",
+      "editorial_question": "薄板拼宽、面板入框和横向约束如何分工，而不把一整块板当作刚体？"
+    },
+    {
+      "id": "F07",
+      "name": "桌案承重节点",
+      "editorial_question": "面、腿与牙条如何在一个节点里传力，并控制侧向摇摆？"
+    },
+    {
+      "id": "F08",
+      "name": "可拆与隐藏锁定",
+      "editorial_question": "怎样把锁定动作藏进滑移、挂接或内部支撑，同时保留装拆路径？"
+    }
+  ],
+  "joints": [
+    {
+      "index": "01",
+      "id": "straight-tenon",
+      "name_cn": "直榫",
+      "family_id": "F01",
+      "wave": "FIRST_10",
+      "design_stage": "IMPLEMENTED",
+      "chapter_path": "joints/straight-tenon.html",
+      "teaching_goal": "建立榫舌、卯眼、榫肩、插入轴和总间隙的共同语言。",
+      "assembly_action": "两件沿单轴直线插合，榫肩到位后停止。",
+      "parts": ["榫件", "卯件"],
+      "key_parameters": ["构件截面", "榫宽与榫厚", "榫长", "榫肩宽度", "X/Y 总间隙"],
+      "future_experiment": "设计间隙与 X/Y 实测间隙、装配等级和榫肩贴合之间的关系。",
+      "work_ids": ["W02", "W03", "W04", "W06"],
+      "source_ids": ["research_pack_v0.3", "sstp_catalog"]
+    },
+    {
+      "index": "02",
+      "id": "dovetail",
+      "name_cn": "燕尾榫",
+      "family_id": "F02",
+      "wave": "FIRST_10",
+      "design_stage": "IMPLEMENTED",
+      "chapter_path": "joints/dovetail.html",
+      "teaching_goal": "把“摩擦”改写成更准确的几何约束：宽端和斜壁改变允许的退出方向。",
+      "assembly_action": "沿槽长方向滑入；横向拔出被斜壁限制。",
+      "parts": ["燕尾榫件", "燕尾槽件"],
+      "key_parameters": ["燕尾角", "榫宽", "槽口宽", "槽深", "侧壁与顶部间隙"],
+      "future_experiment": "燕尾角、打印方向与侧壁表面对插入力、拔出路径和破坏位置的影响。",
+      "work_ids": ["W01", "W06"],
+      "source_ids": ["research_pack_v0.3", "sstp_catalog"]
+    },
+    {
+      "index": "03",
+      "id": "keyed-tenon",
+      "name_cn": "楔钉榫",
+      "family_id": "F03",
+      "wave": "FIRST_10",
+      "design_stage": "IMPLEMENTED",
+      "chapter_path": "joints/keyed-tenon.html",
+      "teaching_goal": "分离交搭定位、小舌限位和第三零件锁定各自承担的约束。",
+      "assembly_action": "两个主体先交搭，再沿独立方向插入楔钉。",
+      "parts": ["主体 A", "主体 B", "楔钉"],
+      "key_parameters": ["搭口长度与深度", "小舌/槽尺寸", "孔截面", "楔度", "楔钉间隙与止入深度"],
+      "future_experiment": "主体配合与楔钉配合分开扫描，并记录插入力、止入深度、拆卸和孔口损伤。",
+      "work_ids": ["W05"],
+      "source_ids": ["research_pack_v0.3", "sstp_catalog"]
+    },
+    {
+      "index": "04",
+      "id": "clamp-tenon",
+      "name_cn": "夹头榫",
+      "family_id": "F07",
+      "wave": "FIRST_10",
+      "design_stage": "DESIGN_BRIEF",
+      "teaching_goal": "观察案面大边、腿足和牙条如何在同一节点中接合，并把面上载荷导向腿足。",
+      "assembly_action": "腿足上端进入面边，牙条再嵌入腿足开槽形成三件节点；具体先后在 CAD 运动研究中确认。",
+      "parts": ["面边教学件", "腿足教学件", "牙条教学件"],
+      "key_parameters": ["腿足截面", "顶榫尺寸", "腿足开槽", "牙条嵌入深度", "三件相交基准"],
+      "future_experiment": "三件误差叠加、牙条是否到底、榫肩贴合与节点侧向刚度。",
+      "work_ids": ["W02"],
+      "source_ids": ["sstp_catalog", "sjtu_clamp_tenon"]
+    },
+    {
+      "index": "05",
+      "id": "shouldered-tenon",
+      "name_cn": "插肩榫",
+      "family_id": "F07",
+      "wave": "FIRST_10",
+      "design_stage": "DESIGN_BRIEF",
+      "teaching_goal": "与夹头榫并读，突出斜肩接触面在定位和承重中的作用。",
+      "assembly_action": "牙条进入腿足上端开口，斜肩闭合后与上部构件形成三件节点。",
+      "parts": ["上部教学件", "腿足教学件", "牙条教学件"],
+      "key_parameters": ["腿足截面", "斜肩角度", "斜肩长度", "牙条厚度", "肩部接触偏置"],
+      "future_experiment": "斜肩角度、表面台阶和尺寸误差对闭合缝、承载路径与装配力的影响。",
+      "work_ids": ["W03"],
+      "source_ids": ["sstp_catalog", "hkbu_shouldered_tenon"]
+    },
+    {
+      "index": "06",
+      "id": "rice-dumpling-corner-tenon",
+      "name_cn": "粽角榫",
+      "family_id": "F05",
+      "wave": "FIRST_10",
+      "design_stage": "DESIGN_BRIEF",
+      "teaching_goal": "第一次处理三个互相正交的构件，让读者看见共享节点和装配顺序。",
+      "assembly_action": "横、纵、竖三向构件在一个角点依序合拢；具体进件顺序由无碰撞 CAD 装配确定。",
+      "parts": ["X 向构件", "Y 向构件", "Z 向构件"],
+      "key_parameters": ["统一构件截面", "格角面", "内部榫舌分区", "肩线汇交", "装配避让间隙"],
+      "future_experiment": "三件累计误差、尖角成形、最后一件是否卡死，以及角点抗扭表现。",
+      "work_ids": ["W06"],
+      "source_ids": ["sstp_catalog", "dpm_zongjiao"]
+    },
+    {
+      "index": "07",
+      "id": "tongue-groove-batten-panel",
+      "name_cn": "龙凤榫加穿带",
+      "family_id": "F06",
+      "wave": "FIRST_10",
+      "design_stage": "DESIGN_BRIEF",
+      "teaching_goal": "把纵向拼板与背面横向约束拆成两个动作，解释大平面为何不只是一个放大的实体块。",
+      "assembly_action": "板条沿长边逐件推合，再从背面横向装入穿带。",
+      "parts": ["龙口板", "凤榫板", "穿带"],
+      "key_parameters": ["板厚", "长向榫槽截面", "拼缝间隙", "带口截面", "穿带锥度或止入位置"],
+      "future_experiment": "长距离配合累计误差、拼缝错台、板面翘曲与穿带插入力。",
+      "work_ids": ["W03", "W06"],
+      "source_ids": ["sstp_catalog"]
+    },
+    {
+      "index": "08",
+      "id": "sliding-blind-pin",
+      "name_cn": "走马销",
+      "family_id": "F08",
+      "wave": "FIRST_10",
+      "design_stage": "DESIGN_BRIEF",
+      "teaching_goal": "展示“先落入宽口，再横向滑移锁住”的两段运动，以及看不见的可拆锁定。",
+      "assembly_action": "销头先进入榫眼较宽区域，再沿构件方向推向较窄区域锁住；拆卸反向执行。",
+      "parts": ["栽销构件", "阶梯榫眼构件"],
+      "key_parameters": ["销头与销根尺寸", "宽口长度", "窄口长度", "滑移行程", "止入面与间隙"],
+      "future_experiment": "滑移行程、层纹方向和销根尺寸对锁定手感、磨损与反复拆装的影响。",
+      "work_ids": ["W05"],
+      "source_ids": ["sstp_catalog"]
+    },
+    {
+      "index": "09",
+      "id": "cross-lap-tenon",
+      "name_cn": "十字榫搭接",
+      "family_id": "F04",
+      "wave": "FIRST_10",
+      "design_stage": "DESIGN_BRIEF",
+      "teaching_goal": "用最清楚的材料让位关系解释两根构件如何在交点处保持共面。",
+      "assembly_action": "两件在交点沿法向合拢，各自让出部分截面。",
+      "parts": ["横向构件", "纵向构件"],
+      "key_parameters": ["构件宽厚", "槽宽", "槽深分配", "交角", "底面与侧壁间隙"],
+      "future_experiment": "槽深误差对共面度、节点松动和截面削弱的影响。",
+      "work_ids": ["W04", "W06"],
+      "source_ids": ["sstp_catalog"]
+    },
+    {
+      "index": "10",
+      "id": "split-tenon-wedge",
+      "name_cn": "破头楔",
+      "family_id": "F03",
+      "wave": "FIRST_10",
+      "design_stage": "DESIGN_BRIEF",
+      "teaching_goal": "与楔钉榫对照：同样增加楔件，这次由楔子撑开开缝榫头形成局部预紧。",
+      "assembly_action": "开缝榫头先进入卯眼，再沿榫头方向打入楔片使两瓣张开。",
+      "parts": ["开缝榫件", "卯件", "楔片"],
+      "key_parameters": ["榫头截面", "开缝长度与宽度", "楔角", "楔片长度", "卯眼出口与止入位置"],
+      "future_experiment": "楔入深度、张开量、层方向与裂纹起点；区分可逆教学模型和不可逆传统做法。",
+      "work_ids": ["W04"],
+      "source_ids": ["sstp_catalog"]
+    },
+    {"index": "11", "id": "through-tenon", "name_cn": "明榫", "family_id": "F01", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "比较贯通可见端面与直榫基线的定位、修整和可检查性。", "work_ids": ["W04"], "source_ids": ["sstp_catalog"]},
+    {"index": "12", "id": "blind-tenon", "name_cn": "暗榫", "family_id": "F01", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "研究不贯通卯眼带来的止深、排气与不可见误差。", "work_ids": ["W01", "W03"], "source_ids": ["sstp_catalog"]},
+    {"index": "13", "id": "hook-tenon", "name_cn": "钩挂榫", "family_id": "F02", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "以钩部阻挡退出，补充燕尾之外的方向性自锁。", "work_ids": ["W05"], "source_ids": ["sstp_catalog"]},
+    {"index": "14", "id": "half-dovetail-hook-tenon", "name_cn": "半燕尾扎钩挂榫", "family_id": "F02", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "观察半燕尾与钩挂组合后，约束如何分配给不同接触面。", "work_ids": ["W05"], "source_ids": ["sstp_catalog"]},
+    {"index": "15", "id": "compression-wedge", "name_cn": "挤楔", "family_id": "F03", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "比较侧向挤紧与破头楔张开的不同预紧路径。", "work_ids": ["W04"], "source_ids": ["sstp_catalog"]},
+    {"index": "16", "id": "half-lap", "name_cn": "半搭接合", "family_id": "F04", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "建立搭接长度、厚度让位和承压面的基础模型。", "work_ids": ["W04", "W06"], "source_ids": ["sstp_catalog"]},
+    {"index": "17", "id": "double-cross-tenon", "name_cn": "双交榫", "family_id": "F04", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "把单个相交节点扩展到多构件交汇和装配先后。", "work_ids": ["W06"], "source_ids": ["sstp_catalog"]},
+    {"index": "18", "id": "three-shoulder-reduced-tenon", "name_cn": "三碰肩缩口榫", "family_id": "F05", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "研究三个肩面汇交时，缩口如何为内部榫头分配空间。", "work_ids": ["W03"], "source_ids": ["sstp_catalog"]},
+    {"index": "19", "id": "three-shoulder-wrapped-tenon", "name_cn": "三碰肩包皮榫", "family_id": "F05", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "与缩口榫比较外观连续性、内部避让和装配顺序。", "work_ids": ["W03"], "source_ids": ["sstp_catalog"]},
+    {"index": "20", "id": "shouldered-frame-tenon", "name_cn": "格肩榫", "family_id": "F06", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "解释框材交角处榫肩怎样遮缝并定位表面。", "work_ids": ["W01", "W06"], "source_ids": ["sstp_catalog"]},
+    {"index": "21", "id": "double-ended-flower-tenon", "name_cn": "夹花双头榫", "family_id": "F06", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "研究短构件两端同时进入相邻框材时的闭环装配。", "work_ids": ["W06"], "source_ids": ["sstp_catalog"]},
+    {"index": "22", "id": "waist-embracing-tenon", "name_cn": "抱肩榫", "family_id": "F07", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "补齐有束腰桌式节点，比较抱肩与夹头、插肩的传力表面。", "work_ids": ["W03"], "source_ids": ["sstp_catalog"]},
+    {"index": "23", "id": "giants-arm-brace", "name_cn": "霸王枨", "family_id": "F08", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "研究隐藏斜撑如何连接腿足与桌面并控制侧向变形。", "work_ids": ["W03"], "source_ids": ["sstp_catalog"]},
+    {"index": "24", "id": "hanging-tenon", "name_cn": "挂榫", "family_id": "F08", "wave": "LATER_14", "design_stage": "CATALOG_SLOT", "teaching_goal": "补充依靠挂入与重力方向保持位置的可拆连接。", "work_ids": ["W05"], "source_ids": ["sstp_catalog"]}
+  ],
+  "works": [
+    {
+      "index": "W01",
+      "id": "frame-panel-box",
+      "name_cn": "框板收纳盒",
+      "wave": "FIRST_3",
+      "design_stage": "DESIGN_BRIEF",
+      "position": "小尺度闭环",
+      "teaching_goal": "把四个角、框板关系和装配闭环放进一个低材料成本的完整物件。",
+      "joint_ids": ["dovetail", "blind-tenon", "shouldered-frame-tenon"],
+      "design_questions": ["第四个角如何合拢", "底板从何时装入", "盒体是否允许无损拆卸", "统一壁厚和圆角如何服务打印而不冒充传统比例"],
+      "evidence_boundary": "教学作品工作名；不是某件历史器物的复原。"
+    },
+    {
+      "index": "W02",
+      "id": "clamp-tenon-writing-table",
+      "name_cn": "夹头榫小案",
+      "wave": "FIRST_3",
+      "design_stage": "DESIGN_BRIEF",
+      "position": "三件节点到四腿框架",
+      "teaching_goal": "让夹头榫从局部节点进入完整案形结构，观察四角累计误差和载荷路径。",
+      "joint_ids": ["clamp-tenon", "straight-tenon"],
+      "design_questions": ["同一节点的三件先后", "四腿共面", "牙条闭环尺寸", "桌面与腿足的装拆路径"],
+      "evidence_boundary": "教学比例与结构提案；名称和结构来源需继续核对，当前不宣称复原具体年代或藏品。"
+    },
+    {
+      "index": "W03",
+      "id": "baxian-table",
+      "name_cn": "八仙桌",
+      "wave": "FIRST_3",
+      "design_stage": "IMPLEMENTED",
+      "case_path": "works/baxian-table.html",
+      "position": "多盘打印与完整装配",
+      "teaching_goal": "追踪零件清单、闭环尺寸、分盘制造和装配顺序如何共同决定一件完整作品。",
+      "joint_ids": ["straight-tenon", "shouldered-tenon", "tongue-groove-batten-panel", "three-shoulder-reduced-tenon", "three-shoulder-wrapped-tenon", "waist-embracing-tenon", "giants-arm-brace"],
+      "mapping_status": "PROVISIONAL",
+      "design_questions": ["由冻结 CAD 而不是照片确认实际连接", "盘点零件与装配依赖", "记录闭环尺寸与逐盘参数", "建立原型 02 的用途测试"],
+      "evidence_boundary": "已有完整实物原型，但连接映射仍是候选；冻结 CAD 审计前不得把候选 joint_ids 写成既成事实。"
+    },
+    {
+      "index": "W04",
+      "id": "square-stool",
+      "name_cn": "方凳",
+      "wave": "LATER_3",
+      "design_stage": "CATALOG_SLOT",
+      "position": "坐具与重复节点",
+      "joint_ids": ["straight-tenon", "cross-lap-tenon", "split-tenon-wedge", "through-tenon", "compression-wedge", "half-lap"],
+      "teaching_goal": "用四个重复腿枨节点研究一致性、共面和竖向载荷。"
+    },
+    {
+      "index": "W05",
+      "id": "round-back-armchair",
+      "name_cn": "圈椅",
+      "wave": "LATER_3",
+      "design_stage": "CATALOG_SLOT",
+      "position": "曲材与多轴装配",
+      "joint_ids": ["keyed-tenon", "sliding-blind-pin", "hook-tenon", "half-dovetail-hook-tenon", "hanging-tenon"],
+      "teaching_goal": "把曲材拼接、扶手/靠背安装和多轴装配放进同一个作品。"
+    },
+    {
+      "index": "W06",
+      "id": "lattice-cabinet",
+      "name_cn": "亮格柜",
+      "wave": "LATER_3",
+      "design_stage": "CATALOG_SLOT",
+      "position": "框、板、格与门",
+      "joint_ids": ["straight-tenon", "dovetail", "rice-dumpling-corner-tenon", "tongue-groove-batten-panel", "cross-lap-tenon", "half-lap", "double-cross-tenon", "shouldered-frame-tenon", "double-ended-flower-tenon"],
+      "teaching_goal": "综合框架、面板、格心与门扇，让模块化和累计误差成为全书终章问题。"
+    }
+  ],
+  "experiment_chapters": [
+    {"index": "L01", "name_cn": "配合与总间隙", "status": "IMPLEMENTED", "path": "labs/clearance.html"},
+    {"index": "L02", "name_cn": "打印方向与失效面", "status": "CATALOG_SLOT"},
+    {"index": "L03", "name_cn": "承载、刚度与破坏", "status": "CATALOG_SLOT"},
+    {"index": "L04", "name_cn": "重复拆装与耐久", "status": "CATALOG_SLOT"}
+  ],
+  "sources": {
+    "research_pack_v0.3": {
+      "title": "Printable Joinery Atlas Research Pack v0.3",
+      "path": "content/research_pack_v0.3.json",
+      "use": "现有直榫、燕尾榫和楔钉榫的机制、来源与打印边界。"
+    },
+    "sstp_catalog": {
+      "title": "《中国传统家具榫卯结构》目录页",
+      "organization": "上海科学技术出版社",
+      "url": "https://www.sstp.com.cn/hotbook/1940.html",
+      "use": "24 个条目名称与六类家具作品池的第一轮书目依据；目录出现不等于本项目已完成结构释义。"
+    },
+    "sjtu_clamp_tenon": {
+      "title": "黄花梨夹头榫画案",
+      "organization": "上海交通大学校史博物馆",
+      "url": "https://museum.sjtu.edu.cn/info/1064/3484.htm",
+      "use": "夹头榫三件关系与案面承重向腿足传递的第一轮依据。"
+    },
+    "hkbu_shouldered_tenon": {
+      "title": "插肩榫",
+      "organization": "香港浸会大学图书馆 / 视觉艺术院",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000015",
+      "use": "插肩榫的三件关系、斜肩接触与桌案应用的第一轮依据。"
+    },
+    "dpm_zongjiao": {
+      "title": "粽角榫",
+      "organization": "故宫博物院",
+      "url": "https://www.dpm.org.cn/lemmas/241779.html",
+      "use": "三向构件在一个角点汇交及名称来源的第一轮依据。"
+    }
+  }
+}

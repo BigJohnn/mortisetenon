@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>八仙桌原型 01 · 可打印的榫卯</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark"></span>可打印的榫卯</a>
+      <div class="nav-links">
+        <a href="#question">命题</a>
+        <a href="#read">读结构</a>
+        <a href="#pipeline">制作链路</a>
+        <a href="#evidence">证据边界</a>
+        <a href="#next">下一轮</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="case-hero">
+      <div class="shell case-hero-grid">
+        <div>
+          <div class="kicker">Integrated work · Prototype 01</div>
+          <h1 class="case-title">从一个榫，<br>走到一张桌。</h1>
+          <p class="lead">八仙桌原型把问题从“一个配合能否插入”推进到“许多零件能否分盘打印、按顺序装成完整物件”。这不是传统家具尺寸的复原结论，而是一件已经完成实物装配的 3D 打印教学原型。</p>
+          <div class="statusbar-inline">
+            <span class="evidence-chip">DRAFT</span>
+            <span class="evidence-chip physical">PHYSICAL PROTOTYPE 01</span>
+            <span class="evidence-chip">CAD WORKSPACE</span>
+          </div>
+          <div class="cta-row">
+            <a class="btn primary" href="https://cad.onshape.com/documents/55902b7f5c0506bdfaca81ec/w/eac67e5d46d79006432f71bd/e/589cbc08267ee433d39e1fc6" target="_blank" rel="noopener">打开 Onshape 工作区</a>
+            <a class="btn ghost" href="#read">从实物读结构 ↓</a>
+          </div>
+          <p class="mini" style="margin-top:18px">状态说明：四张照片证明这件原型已经打印并装配成整桌；工作区尚未冻结为版本，也没有参数表、导出包、打印日志或承载测试，因此不登记为 <code>PRINT_VERIFIED</code>。</p>
+        </div>
+        <figure class="case-photo case-hero-photo">
+          <img src="../assets/images/baxian-table/v0.1/printed-01.webp" alt="手持已装配完成的四色 3D 打印八仙桌原型，能看到台面、围板、腿和下方撑件" width="1600" height="2125">
+          <figcaption>八仙桌原型 01 · 完整装配照片 · 2026-09-06</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <section class="section tight">
+      <div class="shell">
+        <nav class="chapter-map" aria-label="本章结构">
+          <a href="#question"><span>01 · Question</span><b>完整作品多了什么问题？</b><small>从单个配合转向系统误差与装配顺序</small></a>
+          <a href="#read"><span>02 · Read</span><b>从四个方向读结构</b><small>顶面、侧面、底面和整体不是同一张图</small></a>
+          <a href="#pipeline"><span>03 · Make</span><b>CAD 怎样进入打印机？</b><small>参数化工作区、分盘排版、分组制造</small></a>
+          <a href="#evidence"><span>04 · Verify</span><b>照片证明了什么？</b><small>把装配成功与尺寸、复现、承载分开</small></a>
+        </nav>
+      </div>
+    </section>
+
+    <div class="shell content-layout">
+      <article>
+        <section class="block" id="question">
+          <div class="kicker">01 · The project question</div>
+          <h2>单个榫解决局部运动；一张桌要管理整条误差链。</h2>
+          <p class="lead">在直榫测试块里，一对公母件只有一个主要问题：间隙够不够。进入完整桌体以后，四条腿、四边围合、台面分块、下方撑件和锁定件会把局部误差串起来。任何一处只差一点，最后都可能表现成台面合不上、四脚不共面，或最后一个锁定件无法落位。</p>
+          <div class="concept-grid">
+            <div class="concept-card"><span>Local fit</span><h3>配合</h3><p>每个接口能否插入、贴肩、拆出。它仍受 clearance、层纹、象脚和打印方向影响。</p></div>
+            <div class="concept-card"><span>System fit</span><h3>闭环</h3><p>四边围合后，尺寸误差不再各自独立；最后一边是前面所有误差的结算处。</p></div>
+            <div class="concept-card"><span>Sequence</span><h3>顺序</h3><p>有些零件一旦锁住，就会挡住下一件的进入路径。完整作品必须把装配顺序也当成设计参数。</p></div>
+          </div>
+          <div class="note" style="margin-top:24px"><b>本章定位：</b>它不是第四个“榫卯条目”，而是第一篇综合案例。重点不是给八仙桌下一个风格定义，而是观察单个连接进入完整物件后，制造、装配与记录怎样发生变化。</div>
+        </section>
+
+        <section class="block" id="read">
+          <div class="kicker">02 · Read the object</div>
+          <h2>一张成品照只能证明“像桌子”；四个方向才开始说明它怎样成立。</h2>
+          <p class="lead">下面的判断严格分成“照片可见”和“仍待拆装确认”。照片能看见构件关系，却不能替代剖面、尺寸和逐步装配记录。</p>
+          <div class="case-gallery two-up">
+            <figure class="case-photo">
+              <img src="../assets/images/baxian-table/v0.1/assembled-01.webp" alt="八仙桌原型的俯视照片，白色斜接边框围住三块橙色台面板" width="1600" height="2125" loading="lazy">
+              <figcaption><b>顶面：</b>白色四边框围合分块台面；四角是斜接视觉缝。照片说明分块能合入同一外框，但没有尺寸数据。</figcaption>
+            </figure>
+            <figure class="case-photo">
+              <img src="../assets/images/baxian-table/v0.1/detail-01.webp" alt="八仙桌侧面细节，橙色桌腿之间有白色围板、木色横向撑件和两个黑色穿入件" width="1600" height="2125" loading="lazy">
+              <figcaption><b>侧面：</b>腿、上部围板、下方条状撑件与深色穿入件形成清楚的层次；穿入件的准确受力方式仍需 CAD 剖面确认。</figcaption>
+            </figure>
+            <figure class="case-photo wide">
+              <img src="../assets/images/baxian-table/v0.1/detail-02.webp" alt="八仙桌原型底面，显示四条腿、周边框架、分块台面和两条跨越底面的条状构件" width="1600" height="2125" loading="lazy">
+              <figcaption><b>底面：</b>能看见四腿、周边围合、台面分块和两条跨向构件。它揭示正面看不到的约束层，也是下一轮装配教程必须重点拍摄的方向。</figcaption>
+            </figure>
+          </div>
+          <div class="evidence" style="margin-top:24px">
+            <b>四色在这里也是一种结构图例</b>
+            <p class="muted">照片中的橙、白、木色和深色零件让不同构件系统容易辨认。这是当前照片的可见效果；是否把颜色正式定义为“腿 / 台面 / 围板 / 锁定件”的固定编码，要等零件清单确认后再写入规范。</p>
+          </div>
+        </section>
+
+        <section class="block" id="pipeline">
+          <div class="kicker">03 · CAD → plates → object</div>
+          <h2>完整作品的数字链路，比“导出一个 STL”长得多。</h2>
+          <div class="case-gallery process-pair">
+            <figure class="case-photo">
+              <img src="../assets/images/baxian-table/v0.1/cad-overview-01.webp" alt="Onshape 中的八仙桌 CAD 工作区截图，可见完整桌体、特征树和 Assembly 1 标签" width="1920" height="911" loading="lazy">
+              <figcaption>2026-09-05 · Onshape 文档“八仙桌”的 Main 工作区截图。画面记录 <code>Features (119)</code>、<code>Part Studio 1</code> 与独立的 <code>Assembly 1</code>；这是建模过程证据，不是冻结版本。</figcaption>
+            </figure>
+            <figure class="case-photo">
+              <img src="../assets/images/baxian-table/v0.1/orientation-01.webp" alt="切片软件中八仙桌零件被分配到多个打印板的总览截图" width="1150" height="699" loading="lazy">
+              <figcaption>2026-09-05 · 六个打印板的排版总览。长杆、腿、面板和小连接件按类型分盘；截图记录了分组思路，尚未记录切片器版本和逐盘参数。</figcaption>
+            </figure>
+          </div>
+          <ol class="protocol-steps case-steps">
+            <li><span>01</span><div><h3>在 CAD 里先做总装</h3><p>先回答构件之间怎样定位，尤其是围合后的最后一个自由度如何被消除。</p></div></li>
+            <li><span>02</span><div><h3>按制造条件拆成零件</h3><p>零件拆分要同时考虑成型方向、支撑、配合面和打印机成型空间，而不是只看能否塞进热床。</p></div></li>
+            <li><span>03</span><div><h3>按零件类型分成六盘</h3><p>截图显示长条构件、腿、面板和小件分别排版。这样便于改变单类零件的方向，也降低整盘失败的损失。</p></div></li>
+            <li><span>04</span><div><h3>重新合并成一个系统</h3><p>实物装配会暴露 CAD 里看不到的累积误差、表面摩擦和进入路径冲突。成功合拢只是第一条结果，不是最后一条。</p></div></li>
+          </ol>
+          <div class="warning"><b>当前 Onshape 链接是 <code>/w/</code> 工作区：</b>它会继续变化，而且匿名 API 访问返回 403。页面保留它作为设计现场；若要发布可复现模型，下一轮必须先冻结 <code>/v/</code> 版本，再从那个版本导出 STEP / STL / GLB。</div>
+        </section>
+
+        <section class="block" id="assembly">
+          <div class="kicker">04 · Assembly reading</div>
+          <h2>先写“候选顺序”，再用拆装照片把它证实。</h2>
+          <p class="lead">仅凭完工照片，可以提出下面这条装配假设，但不能把它伪装成已经记录过的教程。下一轮最有价值的工作不是再拍一张成品，而是按顺序拆一次、装一次。</p>
+          <div class="table-wrap" style="margin-top:26px">
+            <table>
+              <thead><tr><th>候选阶段</th><th>从照片推测的动作</th><th>下一轮要确认</th></tr></thead>
+              <tbody>
+                <tr><td>1 · 建立角点</td><td>腿与上部围合构件先形成四角基准。</td><td>角部接口形式；哪一面是定位面；是否需要按对角顺序装。</td></tr>
+                <tr><td>2 · 闭合四边</td><td>围板或框件把四角连成闭环。</td><td>最后一边如何进入；闭环是否需要弹性变形或临时松配。</td></tr>
+                <tr><td>3 · 加入撑件</td><td>条状构件与深色穿入件限制侧向变形或零件退出。</td><td>深色件是销、键还是楔；插入方向；是否承担预紧。</td></tr>
+                <tr><td>4 · 安放台面</td><td>分块台面进入白色周边框，底部跨向件参与保持位置。</td><td>台面是滑入、压入还是自由落位；热胀冷缩与打印收缩如何处理。</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mini" style="margin-top:14px">以上均为根据现有照片作出的编辑推断，不是 CAD 尺寸或作者操作记录。</p>
+        </section>
+
+        <section class="block" id="evidence">
+          <div class="kicker">05 · Evidence boundary</div>
+          <h2>“打出来了”是重要证据，但它只回答了一部分问题。</h2>
+          <div class="evidence-split">
+            <div class="evidence evidence-positive">
+              <b>现在可以写进书里的事实</b>
+              <ul>
+                <li>存在一个可继续编辑的 Onshape 八仙桌工作区。</li>
+                <li>2026-09-05 的 CAD 截图记录了 119 个特征，以及 Part Studio / Assembly 两个工作层级。</li>
+                <li>模型被拆成多类零件，并在切片器中分到六个打印板。</li>
+                <li>完整桌体已经打印并成功装配；四张实物照覆盖整体、顶面、侧面和底面。</li>
+                <li>分色让读者可以追踪腿、框、台面、撑件和穿入件之间的关系。</li>
+              </ul>
+            </div>
+            <div class="evidence evidence-pending">
+              <b>现在还不能下的结论</b>
+              <ul>
+                <li>不能声称它复原了传统八仙桌的尺度、比例或具体榫卯做法。</li>
+                <li>不能给出 clearance 推荐值：设计尺寸与实测尺寸都未登记。</li>
+                <li>不能声称他人可复现：没有冻结版本、导出包、逐盘打印参数和装配日志。</li>
+                <li>不能声称可承重或耐久：照片不是载荷、摇摆、循环拆装或破坏测试。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="table-wrap" style="margin-top:26px">
+            <table>
+              <thead><tr><th>证据层</th><th>当前材料</th><th>状态</th><th>升级条件</th></tr></thead>
+              <tbody>
+                <tr><td>设计现场</td><td>Onshape workspace + CAD 截图</td><td>DRAFT</td><td>命名参数、零件清单并冻结版本</td></tr>
+                <tr><td>制造现场</td><td>多打印板切片总览</td><td>有过程图，记录不完整</td><td>逐盘导出、方向、支撑、耗时、材料与失败记录</td></tr>
+                <tr><td>物理装配</td><td>四张完整装配照片</td><td>原型 01 已装成</td><td>加入尺寸、手感、装配顺序和问题清单</td></tr>
+                <tr><td>结构性能</td><td>无</td><td>未测试</td><td>先定义用途，再设计摇摆 / 静载 / 循环测试</td></tr>
+                <tr><td>外部复现</td><td>无</td><td>未测试</td><td>冻结资产包后由陌生用户独立打印与装配</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block" id="next">
+          <div class="kicker">06 · Prototype 02 brief</div>
+          <h2>下一轮不急着改造型，先把这件原型变成可复现记录。</h2>
+          <div class="comparison-grid">
+            <div><span>Freeze</span><h3>冻结 CAD</h3><p>从工作区切出 <code>baxian-table v0.1</code>，保存版本 URL、零件数量、参数快照和总装状态。</p></div>
+            <div><span>Inventory</span><h3>列零件与打印板</h3><p>给每类零件编号，登记数量、颜色/材料、方向、支撑、打印时长和所属板号。</p></div>
+            <div><span>Assemble</span><h3>记录拆装顺序</h3><p>每一步只移动一类零件，拍进入方向、卡点和最终落位；同时记录需要多大手力。</p></div>
+            <div><span>Measure</span><h3>测关键闭环</h3><p>至少记录四腿间距、对角线、台面框内口、台面分块总宽，以及最关键公母配合的 X/Y 尺寸。</p></div>
+            <div><span>Test</span><h3>定义用途后再承载</h3><p>这是展示模型、杯垫尺寸样件，还是小型置物架？用途不同，静载、侧推和循环次数都不同。</p></div>
+            <div><span>Publish</span><h3>再做资产包</h3><p>从冻结版本导出 STEP / STL / GLB，加入 manifest；完整打印日志之后才讨论 <code>PRINT_VERIFIED</code>。</p></div>
+          </div>
+          <div class="chapter-footer" style="margin-top:34px">
+            <a class="btn ghost" href="../joints/keyed-tenon.html">← 前一章：楔钉榫</a>
+            <a class="btn primary" href="../joinery_book_roadmap.html#backlog">下一步：查看项目 Roadmap →</a>
+          </div>
+        </section>
+      </article>
+
+      <aside class="side-toc" aria-label="章节目录">
+        <a href="#question">01 · 命题</a>
+        <a href="#read">02 · 读结构</a>
+        <a href="#pipeline">03 · 制作链路</a>
+        <a href="#assembly">04 · 装配推断</a>
+        <a href="#evidence">05 · 证据边界</a>
+        <a href="#next">06 · 下一轮</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="shell">Printable Joinery Atlas · 综合案例 01 · 八仙桌原型 · 2026-09-06</div></footer>
+</body>
+</html>
