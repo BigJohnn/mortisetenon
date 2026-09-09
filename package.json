@@ -1,11 +1,13 @@
 {
   "name": "printable-joinery-atlas",
   "private": true,
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "Local development server for Printable Joinery Atlas",
   "scripts": {
     "dev": "python3 tools/serve_site.py",
     "start": "python3 tools/serve_site.py",
-    "check:catalog": "python3 tools/validate_design_catalog.py"
+    "check:catalog": "python3 tools/validate_design_catalog.py",
+    "build:book": "python3 tools/build_manuscript.py",
+    "check:book": "python3 tools/build_manuscript.py --check && python3 tools/validate_manuscript.py"
   }
 }

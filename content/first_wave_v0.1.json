@@ -64,7 +64,7 @@
       "name_en": "Sliding Dovetail",
       "family": "斜面与钩挂",
       "review_state": "EXISTING_CHAPTER",
-      "evidence_state": "GEOMETRY_VERIFIED；打印证据仍不完整",
+      "evidence_state": "DRAFT；CAD 与首轮实物已有，未形成验证资产包",
       "chapter_path": "joints/dovetail.html",
       "one_sentence": "把“抗拔”从模糊的摩擦感改写成由斜壁和宽端控制的退出方向。",
       "teaching_question": "斜壁为何允许沿槽长滑动，却限制垂直于槽长的直接拔出？",
@@ -105,12 +105,12 @@
       "name_en": "Keyed Cross-lap Tenon",
       "family": "楔与销",
       "review_state": "EXISTING_CHAPTER",
-      "evidence_state": "GEOMETRY_VERIFIED；已有首轮实物照片",
+      "evidence_state": "DRAFT；CAD 与首轮实物已有，楔钉改画件与 v0.7 必须区分",
       "chapter_path": "joints/keyed-tenon.html",
       "one_sentence": "把主体定位和第三零件锁定拆开，让读者看到约束是如何分工的。",
       "teaching_question": "当两个主体已经能定位时，第三个楔钉具体阻止哪一个退出运动？",
       "confirmed": [
-        "现有三件式 CAD、装配模型、STL 和实物照片已进入页面。",
+        "现有三件式 CAD、装配模型与实物照片已进入页面；未发布 STEP / STL 资产包。",
         "主体交搭、小舌限位与楔钉锁定在模型中可以分别观察。",
         "楔钉止入深度、拆卸性和孔口损伤仍缺系统记录。"
       ],
@@ -143,11 +143,12 @@
     {
       "index": "04",
       "id": "clamp-tenon",
+      "chapter_path": "joints/clamp-tenon.html",
       "name_cn": "夹头榫",
       "name_en": "Clamp Tenon",
       "family": "桌案承重节点",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；三件教学拆件策略已冻结，尚无本项目 CAD 与实物",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "把案面边材、腿足与牙条压缩成一个三件教学节点，追踪面上载荷如何进入腿足。",
       "teaching_question": "腿足为什么要同时接住面边和牙条，而不是只靠一个普通直榫？",
       "confirmed": [
@@ -195,11 +196,12 @@
     {
       "index": "05",
       "id": "shouldered-tenon",
+      "chapter_path": "joints/shouldered-tenon.html",
       "name_cn": "插肩榫",
       "name_en": "Shouldered Tenon",
       "family": "桌案承重节点",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；尚无本项目 CAD 与实物",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "与夹头榫并读，把注意力放到腿足八字斜肩和牙条接触面的闭合。",
       "teaching_question": "斜肩增加的接触面，怎样改变定位、表面连续性和载荷传递？",
       "confirmed": [
@@ -236,11 +238,12 @@
     {
       "index": "06",
       "id": "rice-dumpling-corner-tenon",
+      "chapter_path": "joints/rice-dumpling-corner-tenon.html",
       "name_cn": "粽角榫",
       "name_en": "Three-way Mitered Corner Tenon",
       "family": "三向角部",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；尚无本项目 CAD 与实物",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "第一次让 X、Y、Z 三向构件在一个有限角点共享材料，并把装配顺序变成结构的一部分。",
       "teaching_question": "三个正交构件都想占据同一个角点时，怎样用格角面、长短榫和内部避让分配空间？",
       "confirmed": [
@@ -277,11 +280,12 @@
     {
       "index": "07",
       "id": "tongue-groove-batten-panel",
+      "chapter_path": "joints/tongue-groove-batten-panel.html",
       "name_cn": "龙凤榫加穿带",
       "name_en": "Tongue-and-groove Panel with Sliding Battens",
       "family": "板框与收缩",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；尚无本项目 CAD 与实物",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "把板条长边拼宽和背面横向约束拆成两个连续但不同的装配动作。",
       "teaching_question": "为什么大平面需要同时处理拼缝、横向约束和材料/制造误差，而不能只把板做厚？",
       "confirmed": [
@@ -318,11 +322,12 @@
     {
       "index": "08",
       "id": "sliding-blind-pin",
+      "chapter_path": "joints/sliding-blind-pin.html",
       "name_cn": "走马销",
       "name_en": "Sliding Blind Pin",
       "family": "可拆与隐藏锁定",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；侧进式宽口—窄槽教学变体已冻结，尚无本项目 CAD 与实物",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "用“落入—滑移”两段运动解释一个安装后隐藏、可反向拆卸的锁定。",
       "teaching_question": "怎样在看不见锁定件的情况下，让两个部件只需一次短行程滑移就完成扣合？",
       "confirmed": [
@@ -369,11 +374,12 @@
     {
       "index": "09",
       "id": "cross-lap-tenon",
+      "chapter_path": "joints/cross-lap-tenon.html",
       "name_cn": "十字半搭接",
       "name_en": "Cross-lap Joint",
       "family": "相交与搭接",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；中文条目名已冻结为“十字半搭接”",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "用两件各让出部分厚度的最清楚模型，解释交点共面与截面削弱。",
       "teaching_question": "两根等厚构件要在交点保持共面，各自应让出多少材料，误差又会出现在哪里？",
       "confirmed": [
@@ -420,11 +426,12 @@
     {
       "index": "10",
       "id": "split-tenon-wedge",
+      "chapter_path": "joints/split-tenon-wedge.html",
       "name_cn": "破头楔",
       "name_en": "Wedged Split Tenon",
       "family": "楔与销",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；可逆教学版与硬止位策略已冻结",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "与楔钉榫对照：第三件楔片不再横穿节点，而是在榫头内部制造张开和预紧。",
       "teaching_question": "同样增加一个楔件，为什么把它打进开缝榫头会从“锁销”变成“扩张”？",
       "confirmed": [
@@ -474,10 +481,11 @@
     {
       "index": "W01",
       "id": "frame-panel-box",
+      "case_path": "works/frame-panel-box.html",
       "name_cn": "框板收纳盒",
       "name_en": "Frame-and-panel Storage Box",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；开放式 160 × 110 × 70 mm 首轮方案已冻结",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "用一个低材料成本的闭环物件，集中处理四角合拢、底板入槽和最后一件怎么装。",
       "teaching_question": "当四个角和一块板形成闭环时，局部上都能装的榫卯为什么可能让整件作品无法收口？",
       "confirmed": [
@@ -537,10 +545,11 @@
     {
       "index": "W02",
       "id": "clamp-tenon-writing-table",
+      "case_path": "works/clamp-tenon-writing-table.html",
       "name_cn": "夹头榫小案",
       "name_en": "Clamp-tenon Mini Table",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "DESIGN_BRIEF；220 × 140 × 150 mm、2–3 盘与合并上部策略已冻结",
+      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
       "one_sentence": "把一个夹头榫角点复制成四角框架，让共面、牙条闭环和装配依赖第一次同时出现。",
       "teaching_question": "单个节点成立之后，四条腿和四条牙条为什么仍可能因为闭环尺寸而装不成一张案？",
       "confirmed": [

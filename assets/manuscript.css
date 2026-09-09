@@ -1,0 +1,58 @@
+/* Reading pages: static content, shared with the printable HTML manuscript. */
+.reading-shell{width:min(1100px,calc(100% - 40px));margin:auto}
+.reading-nav{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);font-size:13px}
+.reading-nav>div{display:flex;gap:18px;flex-wrap:wrap}
+.reading-nav a,.reading-links a{ text-decoration:underline;text-underline-offset:4px }
+.reading-hero{padding:65px 0 42px;max-width:900px}
+.reading-hero h1{font-size:clamp(38px,6vw,74px);line-height:1.12;letter-spacing:-.045em;margin:18px 0}
+.reading-deck{font-size:clamp(19px,2.5vw,25px);color:var(--muted);line-height:1.6;max-width:790px}
+.reading-status{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+.reading-status span{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--paper)}
+.reading-status .draft{color:var(--accent);border-color:var(--accent)}
+.reading-layout{display:grid;grid-template-columns:minmax(0,780px) 190px;gap:64px;align-items:start}
+.reading-body{font-size:16px;line-height:1.95;min-width:0}
+.reading-body section{padding:32px 0;border-top:1px solid var(--line);scroll-margin-top:24px}
+.reading-body h2{font-size:28px;line-height:1.4;letter-spacing:-.02em;margin:0 0 16px}
+.reading-body h3{font-size:19px;line-height:1.5;margin:12px 0}
+.reading-body p{margin:0 0 18px}
+.reading-intro{font-size:19px;line-height:1.95}
+.reading-body a{color:var(--accent);text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
+.reading-toc{position:sticky;top:28px;display:grid;gap:12px;border-left:1px solid var(--line);padding-left:18px;font-size:13px;color:var(--muted)}
+.reading-toc strong{color:var(--ink);margin-bottom:5px}
+.reading-table{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+.reading-table table{border-collapse:collapse;width:100%;min-width:580px}
+.reading-table th,.reading-table td{padding:13px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.reading-table th{font-size:12px;color:var(--muted);background:#f2efe7}
+.reading-table tr:last-child td{border-bottom:0}
+.reading-table td:first-child{font-weight:700;min-width:112px}
+.reading-figure{margin:25px 0;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.reading-figure svg{width:100%;height:auto;display:block;padding:20px}
+.reading-figure svg text{font:15px system-ui,-apple-system,"PingFang SC",sans-serif;fill:#171816}
+.reading-figure figcaption{padding:12px 18px;border-top:1px solid var(--line);font-size:12px;line-height:1.7;color:var(--muted)}
+.reading-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:20px;gap:12px}
+.reading-flow>div{padding:16px 10px;border-top:3px solid var(--accent);background:#f3f0e9}
+.reading-flow b{display:block;font-size:15px;line-height:1.6;margin:6px 0}
+.reading-flow span{font-size:11px;color:var(--accent)}
+.reading-flow small{display:block;font-size:12px;line-height:1.7;color:var(--muted)}
+.reading-note{padding:20px 22px;background:#f2e8df;border-left:3px solid var(--accent);border-radius:0 12px 12px 0;font-size:14px;line-height:1.85;margin:24px 0}
+.reading-note p:last-child{margin-bottom:0}
+.reading-exercise{padding:22px;background:var(--paper);border:1px solid var(--line);border-radius:16px;margin:22px 0}
+.reading-exercise strong{font-size:12px;color:var(--accent);letter-spacing:.12em}
+.reading-exercise p{margin:8px 0 0}
+.reading-links{display:flex;flex-wrap:wrap;gap:14px;margin:26px 0;font-size:14px}
+.reading-footer{border-top:1px solid var(--line);padding:28px 0;margin-top:40px;font-size:12px;color:var(--muted)}
+.reading-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:26px 0}
+.reading-card{display:block;border:1px solid var(--line);border-radius:18px;padding:25px;background:var(--paper);transition:border-color .15s}
+.reading-card:hover{border-color:var(--accent)}
+.reading-card small{display:block;font-size:11px;color:var(--accent);letter-spacing:.08em}
+.reading-card h3{font-size:24px;margin:8px 0}
+.reading-card p{font-size:14px;line-height:1.75;color:var(--muted);margin:8px 0}
+.reading-card span{font-size:12px;color:var(--muted)}
+.reading-body ul,.reading-body ol{padding-left:22px;margin:16px 0}
+.reading-body li{margin:9px 0}
+.skip-reading{position:absolute;left:12px;top:-90px;padding:12px;background:var(--paper);z-index:100}
+.skip-reading:focus{top:10px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+@media(max-width:900px){.reading-layout{grid-template-columns:minmax(0,1fr);gap:20px}.reading-toc{position:static;grid-row:1;display:flex;flex-wrap:wrap;border:0;padding:0 0 20px}.reading-toc strong{width:100%}.reading-body{max-width:780px}.reading-hero{padding-top:40px}}
+@media(max-width:600px){.reading-shell{width:calc(100% - 28px)}.reading-nav{align-items:start;flex-direction:column;font-size:12px}.reading-nav>div{gap:14px}.reading-card-grid{grid-template-columns:1fr}.reading-flow{grid-template-columns:1fr 1fr;padding:14px}.reading-body{font-size:15px}.reading-intro{font-size:17px}.reading-figure svg{padding:8px}.reading-hero h1{font-size:38px}.reading-note{padding:16px}.reading-body h2{font-size:25px}}
+@media print{@page{size:A4;margin:18mm}.reading-nav,.reading-toc,.reading-links,.skip-reading{display:none}body{background:white;color:#111}.reading-shell{width:100%}.reading-layout{display:block}.reading-hero{padding:0 0 18px}.reading-hero h1{font-size:30pt}.reading-deck{font-size:14pt}.reading-body{font-size:10.5pt;max-width:none}.reading-body h2{font-size:17pt;break-after:avoid}.reading-body section{padding:18px 0}.reading-table{overflow:visible}.reading-table table{min-width:0}.reading-table th,.reading-table td{font-size:9pt;padding:8px}.reading-table tr,.reading-figure,.reading-exercise,.reading-card{break-inside:avoid}.reading-figure svg{max-height:65mm}.reading-figure{print-color-adjust:exact}.reading-card-grid{display:block}.reading-card{margin:12px 0}.reading-status span{font-size:9pt}.reading-footer{font-size:8pt}.reading-note{font-size:10pt}}

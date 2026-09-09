@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+- Added the first-wave reading edition (`book.html`): seven new joint chapters and two new work chapters join the existing four pages to cover all 10+3 entries. Each new chapter includes original explanatory prose, bounded source citations, parameter relations, candidate assembly, failure interpretation and a reader exercise.
+- Froze teaching-interface v0.1: ten-entry size-profile mapping, author-approved work envelopes, total versus normal clearance, stop versus relief surfaces, coordinate frames and versioned derivative rules. This is an editorial interface, not a validated CAD snapshot.
+- Documented unresolved geometry explicitly: the storage box's last-edge versus bottom-groove motion, the mini table's orthogonal apron occupancy and assembly closure, the three-way corner's final insertion, and the split wedge's deformation stage.
+- Corrected the first-wave workspace's dovetail and keyed-tenon evidence labels to `DRAFT`, consistent with their existing chapters and asset contract; removed an incorrect claim that a keyed-tenon STL release was available.
+- Added a deterministic static-page builder and validation for chapter coverage, parameter mappings, generated-page drift, local links and evidence boundaries. No CAD, released assets, manifest entries or physical-evidence states were added or promoted in this writing iteration.
 - Resolved the remaining six author decisions with their documented defaults: the clamp-tenon lesson stays three-part; the split-tenon wedge uses a reversible hard stop with a traditional comparison; the box is open and 160 × 110 × 70 mm; the mini table is 220 × 140 × 150 mm across 2–3 plates with a combined v0.1 top.
 - Advanced every newly unblocked first-wave joint and proposed work to `READY_FOR_CAD`; all U01–U09 decisions now retain explicit resolutions, with no open author decisions remaining.
 - Resolved U02 / U03 / U09: froze the first sliding-blind-pin design as the side-entry wide-mouth/narrow-slot teaching variant, renamed catalog item 09 to `十字半搭接`, and recorded the author-supplied Baxian-table source CAD.
