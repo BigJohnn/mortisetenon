@@ -7,24 +7,24 @@
 <body><a class="skip-reading" href="#reading">跳至正文</a><div class="reading-shell">
 <nav class="reading-nav" aria-label="全书导航"><a href="../index.html">可打印的榫卯</a><div><a href="../book.html">阅读目录</a><a href="../cad/teaching-spec.html">公共参数</a><a href="../first-wave.html">10+3 工作台</a><a href="../joinery_book_roadmap.html">路线图</a></div></nav>
 <header class="reading-hero"><div class="kicker">06 · Three-way Mitered Corner Tenon</div><h1>粽角榫</h1><p class="reading-deck">三条角线汇在一点，三件材料却不能占据同一空间。</p>
-<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">设计正文 · CAD 待实现 · 未经实物验证</span><span>2026-09-08</span></div></header>
+<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">DRAFT · FreeCAD 本地母版 · 未经实物验证</span><span>2026-09-08</span></div></header>
 <div class="reading-layout"><main id="reading" class="reading-body"><section id="opening"><h2>三条角线汇在一点，三件材料却不能占据同一空间。</h2>
 <p class="reading-intro">粽角榫最容易被记住的是外观：三向方材在一个角点相交，几条斜线收拢得很整齐。真正需要解释的结构藏在里面。每根构件都要留下足够的材料，也都需要给其他构件让出榫区；最后一件还必须能从外部走到它的终点。</p>
-</section><div class="reading-note"><p>故宫博物院词条支持横、纵、竖三向结合及拼缝汇交的定义；香港浸会大学资料提供格角与长短榫的观察线索。本章的等截面三件角是教学提案，内部榫区尚未冻结，不从三条外缝反推唯一传统做法。</p><p>结构来源：<a href="https://www.dpm.org.cn/lemmas/241779.html">粽角榫</a> · <a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000010">粽角榫</a></p></div><figure class="reading-figure"><div class="reading-flow"><div><span>候选步骤 01</span><b>水平预合</b><small>这一步是否会封死 Z 向路径。</small></div><div><span>候选步骤 02</span><b>竖向接入</b><small>长短榫和内部避让必须无碰撞。</small></div><div><span>候选步骤 03</span><b>三肩闭合</b><small>累计误差会在尖角最明显。</small></div><div><span>候选步骤 04</span><b>反向拆解</b><small>动画必须服从实体装配路径。</small></div></div><figcaption>图解 · 候选装配依赖；水平预合可能封死 Z 向路径，必须经 CAD 复核。</figcaption></figure><section id="section-1"><h2>先分配内部，再画完整外表</h2>
+</section><div class="reading-note"><p>故宫博物院词条支持横、纵、竖三向结合及拼缝汇交的定义；香港浸会大学资料提供格角与长短榫的观察线索。本轮等截面三件角已建立 FreeCAD 教学变体，内部长短榫与开放入口是本项目为检验路径作出的设计，不从三条外缝反推唯一传统做法。</p><p>结构来源：<a href="https://www.dpm.org.cn/lemmas/241779.html">粽角榫</a> · <a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000010">粽角榫</a></p></div><figure class="reading-figure"><div class="reading-flow"><div><span>候选步骤 01</span><b>水平预合</b><small>这一步是否会封死 Z 向路径。</small></div><div><span>候选步骤 02</span><b>竖向接入</b><small>长短榫和内部避让必须无碰撞。</small></div><div><span>候选步骤 03</span><b>三肩闭合</b><small>累计误差会在尖角最明显。</small></div><div><span>候选步骤 04</span><b>反向拆解</b><small>动画必须服从实体装配路径。</small></div></div><figcaption>图解 · 选定装配顺序示意；开放入口通过本轮 CAD 检查，封闭入口对照阻挡 Z 最后接入。其他顺序另见审阅页。</figcaption></figure><section id="section-1"><h2>先分配内部，再画完整外表</h2>
 <p>把角点看成 24 mm 母截面的共享空间。X、Y、Z 三件各自占哪些区域、哪些区域必须挖空，应当在同一个坐标系里标出。榫区比例 Rₓ、Rᵧ、R𝓏 只是设计参数；三者相加等于某个数，并不能证明榫头彼此避让。</p>
 <p>先用剖面查看长短榫、卯眼和剩余壁厚，再恢复外观面。外表能拼成完整立方角，可能仍隐藏实体交叠；反过来，内部不交叠，也可能留下无法从外部装入的封闭路径。</p>
 </section><section id="section-2"><h2>装得下和走得进去是两次检查</h2>
-<p>最终位姿检查回答三件是否重叠；运动检查回答每件能否在其他件已经存在的条件下进入。把零件在动画中从三个方向同时飞进一个角，不能替代装配顺序。应先确定最后一件，再检查它的扫掠空间是否被前两件封死。</p>
-<p>现有简报中的“水平预合，再接入竖件”保留为待检假设。若 CAD 证明它封死入口，应调整内部榫区或采用有明确行程的预装配，而不是让零件在动画里穿过材料。两条路径都需要更新步骤依赖。</p>
+<p>最终位姿检查回答三件是否重叠；运动检查回答每件能否在其他件已经存在的条件下进入。把零件在动画中从三个方向同时飞进一个角，不能替代装配顺序。应先确定本次要检查的最后一件，再检查它的扫掠空间是否被前两件封死。</p>
+<p>本轮开放入口变体通过了“X/Y 水平预合，再接入 Z”的采样与边界面扫掠检查。封闭入口对照在终态仍不重叠，但 Z 最后进入会碰撞。六种顺序的补充采样又显示：对照若先装 Z，仍存在未发现碰撞的顺序。因此应报告具体哪个顺序失败，不能把它写成整个节点都装不上；开放方案也不是唯一顺序的机械自锁。</p>
 </section><section id="section-3"><h2>尖角是误差的放大镜</h2>
 <p>三个外角线的汇交点适合观察累计误差，但不适合作为唯一测量基准。尖端缺料、翘起或修整，都可能改变看起来的交点。测量时应在距离尖端固定位置取基准，再把可见角线偏差作为另一项记录。</p>
-<p>尖端保护量 m 若改变了可见角线，必须在版本说明中写明，不能一边削平尖角一边声称保持原外观。当前只冻结母截面与图解问题，尚不提供可打印角点。</p>
+<p>尖端保护量 m 若改变了可见角线，必须在版本说明中写明，不能一边削平尖角一边声称保持原外观。本轮保留理想尖角，原生母版和内部观察图仍是 DRAFT；尖端保护、误差放大图和真实打印表现未完成，不提供推荐打印包。</p>
 </section><section id="parameters"><h2>把关系写成参数</h2>
 <p>以下数值是教学设计起点或明确限定的算例。没有实测的字段仍待指定，不能当作推荐打印参数。</p><div class="reading-table" tabindex="0" role="region" aria-label="对象表，可横向滚动"><table><thead><tr><th scope="col">对象</th><th scope="col">定义 / 关系</th><th scope="col">适用边界</th></tr></thead><tbody><tr><td>母截面</td><td>X/Y/Z 向方材均 24×24 mm</td><td>只便于对照，不代表历史构件比例。</td></tr>
 <tr><td>几何交叠</td><td>V(A∩B)、V(A∩C)、V(B∩C)</td><td>必须分别检查；终态为零还需检查进入路径。</td></tr>
 <tr><td>最后一件</td><td>s∈[0,L] 上均有可行姿态</td><td>报告扫掠方法、容差和近接触区；抽几帧不能证明全程。</td></tr></tbody></table></div><a href="../cad/teaching-spec.html">完整公共参数规范 →</a>
 </section><section id="assembly"><h2>候选装配与观察记录</h2>
-<p>这是下一轮 CAD 要验证的步骤，尚非经验证的装配教程；上文指出的路径冲突与变形问题仍须解决。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 水平预合</td><td>X 与 Y 构件先形成可观察的格角关系。</td><td>这一步是否会封死 Z 向路径。</td></tr>
+<p>下表保留设计阶段的观察任务。FreeCAD 教学母版已完成 1 mm 步长装配采样，摘要与限制见章末 CAD 对照审阅；完整母版与交互预览留在本地，尚非实物装配教程。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 水平预合</td><td>X 与 Y 构件先形成可观察的格角关系。</td><td>这一步是否会封死 Z 向路径。</td></tr>
 <tr><td>02 · 竖向接入</td><td>Z 构件沿候选路径进入共享节点。</td><td>长短榫和内部避让必须无碰撞。</td></tr>
 <tr><td>03 · 三肩闭合</td><td>三条外角线在同一点收敛。</td><td>累计误差会在尖角最明显。</td></tr>
 <tr><td>04 · 反向拆解</td><td>验证是否存在明确的最后一件和第一件。</td><td>动画必须服从实体装配路径。</td></tr></tbody></table></div>
@@ -33,7 +33,7 @@
 <tr><td>三条外缝在角点错开</td><td>肩位累计偏差、尖角成形误差</td><td>测基准面再量可见缝</td></tr>
 <tr><td>终态不重叠，动画却穿模</td><td>只检查了最终坐标</td><td>重新核查每一步扫掠空间</td></tr></tbody></table></div><div class="reading-exercise"><strong>读者练习</strong><p>不看爆炸图，先在纸上写出最后装入的构件、它的进入方向和被哪两件包围。若无法说明入口在哪里，就还没有完成这个节点的装配设计。</p></div>
 </section><section id="evidence"><h2>本章做到哪里</h2>
-<p>已完成本章正文与设计约束；尚无本章新增 CAD、可下载几何或实物验证。编辑进度为 IMPLEMENTED（页面已存在），不代表资产证据升级。Gate A 保持未通过。</p><h3>待补的 CAD 与图稿</h3><ul><li>三件参数化教学角</li><li>半透明/剖切内部榫区图</li><li>装配顺序动画</li><li>角线误差放大图</li></ul><h3>后续实验问题</h3><ul><li>三件累计误差与最后一件卡死</li><li>尖角成形和修整</li><li>角点抗扭与循环拆装</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
+<p>已完成 FreeCAD 原生参数化母版、改参重算和同源几何检查；母版及精确派生文件留在本地，Onshape 仅可选同步。没有实物验证，状态保持 DRAFT，Gate A 未通过。</p><p><a href="../cad/rice-dumpling-corner-tenon.html">查看同尺度静态 CAD 对照与检查摘要 →</a></p><h3>CAD 与图稿交付清单（已完成项见审阅页）</h3><ul><li>三件参数化教学角</li><li>半透明/剖切内部榫区图</li><li>装配顺序动画</li><li>角线误差放大图</li></ul><h3>后续实验问题</h3><ul><li>三件累计误差与最后一件卡死</li><li>尖角成形和修整</li><li>角点抗扭与循环拆装</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
 </section><div class="reading-links"><a href="../joints/cross-lap-tenon.html">十字半搭接 →</a><a href="../works/frame-panel-box.html">框板收纳盒 →</a></div></main><aside class="reading-toc" aria-label="本页目录"><strong>本页阅读</strong><a href="#opening">读懂问题</a><a href="#section-1">先分配内部，再画完整外表</a><a href="#section-2">装得下和走得进去是两次检查</a><a href="#section-3">尖角是误差的放大镜</a><a href="#parameters">参数与约束</a><a href="#assembly">候选装配</a><a href="#failures">异常与练习</a><a href="#evidence">证据与下一步</a></aside></div>
 <footer class="reading-footer">Printable Joinery Atlas · 首批正文 v0.1 · 网页正文可独立阅读和打印；概念图不替代 CAD 或实物证据。</footer>
 </div></body></html>

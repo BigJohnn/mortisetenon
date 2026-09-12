@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
@@ -58,9 +59,45 @@ def main() -> int:
         require(bool(path) and (ROOT / path).is_file(), f"Missing first-wave reading page: {e['id']}")
         if e["id"] in authored:
             if e.get("local_cad_review"):
-                require(e["evidence_state"].startswith("DRAFT") and "云端未编译" in e["evidence_state"], f"Local CAD must retain its evidence boundary: {e['id']}")
+                require(e["evidence_state"].startswith("DRAFT") and "FreeCAD" in e["evidence_state"], f"Local CAD must retain its evidence boundary: {e['id']}")
                 require((ROOT/e["local_cad_review"]).is_file(), f"Missing CAD review: {e['id']}")
-                require((ROOT/"cad/table-node-pair_local-check/report.json").is_file(), f"Missing local CAD check report: {e['id']}")
+                review_path=ROOT/e['local_cad_review']
+                if review_path.is_file():
+                    for href in Page(review_path.read_text()).links:
+                        url=urlsplit(href)
+                        if url.scheme or url.netloc or not url.path:continue
+                        target=(review_path.parent/unquote(url.path)).resolve()
+                        require(target.is_relative_to(ROOT) and target.is_file(), f"Broken CAD review link: {href}")
+                        require('/cad/private/' not in str(target) and '/table-node-pair_freecad_' not in str(target), f"Private CAD linked from public review: {href}")
+                        require(target.suffix.lower() not in {'.fcstd','.step','.stp','.stl','.glb','.gltf','.3mf'}, f"Geometry linked from static-only review: {href}")
+                summary_path=ROOT/e.get("cad_status_path", "content/cad_status_v0.1.json")
+                require(summary_path.is_file(), f"Missing non-geometric CAD status summary: {e['id']}")
+                if summary_path.is_file():
+                    summary=json.loads(summary_path.read_text())
+                    require(summary.get("state")=="DRAFT" and summary.get("print_verified") is False, f"Invalid CAD summary evidence boundary: {e['id']}")
+                    require(summary.get("id")==e['id'] or e['id'] in summary.get("nodes",{}), f"CAD summary belongs to another chapter: {e['id']}")
+                    for name,digest in summary.get('static_images',{}).items():
+                        target=ROOT/'assets/images'/e['id']/'v0.1'/name
+                        require(target.is_file() and hashlib.sha256(target.read_bytes()).hexdigest()==digest, f"Static CAD image differs from checked summary: {name}")
+                for extra in e.get('cad_supplements',[]):
+                    review=ROOT/extra['review'];status=ROOT/extra['summary']
+                    require(review.is_file() and status.is_file(), f"Missing supplemental CAD review: {e['id']}")
+                    if not review.is_file() or not status.is_file():continue
+                    parsed=Page(review.read_text());data=json.loads(status.read_text())
+                    require(parsed.h1_count==1 and len(parsed.ids)==len(set(parsed.ids)), f"Invalid supplemental review structure: {review.name}")
+                    require(data.get('id')==e['id'] and data.get('state')=='DRAFT' and data.get('print_verified') is False, f"Invalid supplemental evidence boundary: {e['id']}")
+                    for href in parsed.links:
+                        url=urlsplit(href)
+                        if url.scheme or url.netloc or not url.path:continue
+                        target=(review.parent/unquote(url.path)).resolve()
+                        require(target.is_relative_to(ROOT) and target.is_file(), f"Broken supplemental link: {href}")
+                        require('/cad/private/' not in str(target) and '/table-node-pair_freecad_' not in str(target) and target.suffix.lower() not in {'.fcstd','.step','.stp','.stl','.glb','.gltf','.3mf'}, f"Protected geometry linked from static supplement: {href}")
+                    for name,digest in data.get('static_images',{}).items():
+                        target=ROOT/'assets/images'/e['id']/'v0.1'/name
+                        require(target.is_file() and hashlib.sha256(target.read_bytes()).hexdigest()==digest, f"Supplemental image identity mismatch: {name}")
+                    for grid in data.get('grids',{}).values():
+                        require(grid['clear']+grid['colliding']==grid['case_count'], 'Invalid finite-grid counts')
+                        require(grid.get('clear_but_lap_gap',0)<=grid['clear'], 'Invalid gap subset')
             else:
                 require("尚无本项目 CAD" in e["evidence_state"], f"New chapter has unexpected evidence: {e['id']}")
         if e["id"] in {"dovetail", "keyed-tenon"}:

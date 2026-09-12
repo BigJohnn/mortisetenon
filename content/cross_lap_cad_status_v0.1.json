@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-12",
+  "id": "cross-lap-tenon",
+  "master_type": "FREECAD_LOCAL",
+  "state": "DRAFT",
+  "print_verified": false,
+  "onshape_sync": "NOT_PERFORMED",
+  "private_artifacts_not_published": true,
+  "variants": {
+    "nominal": {
+      "source_sha256": "4c09a73974bb29cc9da55ef5418fed8186d451c4ff7bd6e8f986018c55858ce7",
+      "solid_count": 2,
+      "fully_constrained_sketches": 4,
+      "fresh_process_edit_tests": 6,
+      "motion_samples": 49,
+      "motion_step_mm": 1,
+      "step_reference_match": true,
+      "meshes_watertight": true,
+      "overtravel_control_passed": true
+    },
+    "shallow": {
+      "source_sha256": "8c3bec60aab2240e40d8e04908da533bc6ac776de9ad6be2ea5205bf455ec36e",
+      "solid_count": 2,
+      "fully_constrained_sketches": 4,
+      "fresh_process_edit_tests": 6,
+      "motion_samples": 49,
+      "motion_step_mm": 1,
+      "step_reference_match": true,
+      "meshes_watertight": true,
+      "overtravel_control_passed": true
+    },
+    "deep": {
+      "source_sha256": "680d346841d2c77ea2d25d1d7b9f6879a4d59576adacc9202cebdfb691c74ae7",
+      "solid_count": 2,
+      "fully_constrained_sketches": 4,
+      "fresh_process_edit_tests": 6,
+      "motion_samples": 49,
+      "motion_step_mm": 1,
+      "step_reference_match": true,
+      "meshes_watertight": true,
+      "overtravel_control_passed": true
+    }
+  },
+  "static_images": {
+    "nominal_assembled.webp": "fc636165e09742b1be53e436b1b75eb253aa24fbdff13808830702cc4d30ada4",
+    "nominal_exploded.webp": "3d3cf5b6b6c98f48ce547940a378ef4c00e3fd28dd186b18431737046f9172c1",
+    "shallow_assembled.webp": "4e609207583e2051adefacebd116278bec1f22bb4949deb7f7ce016ce01720b4",
+    "deep_assembled.webp": "93ec86e3abbb99f1c3e5b372f30105316c20ac835d27fb600912b31fe52320c5"
+  }
+}

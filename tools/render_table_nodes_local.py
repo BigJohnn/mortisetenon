@@ -5,6 +5,7 @@ Requires trimesh, numpy and Pillow. No Blender or GPU is needed.
 Geometry is unchanged; STL mm convert once to glTF metres / Y-up.
 """
 from pathlib import Path
+import argparse
 import json
 import struct
 import numpy as np
@@ -16,7 +17,7 @@ OUTPUT=ROOT/"cad/table-node-pair_local-check"
 COLORS={"Leg":(0.73,0.42,0.27),"Apron":(0.84,0.65,0.40),"Top":(0.73,0.76,0.71)}
 
 
-def animated_glb(parts, target):
+def animated_glb(parts, target, provenance):
     scene=trimesh.Scene()
     rotation=np.array([[1,0,0,0],[0,0,1,0],[0,-1,0,0],[0,0,0,1]],dtype=float)
     for name,mesh in parts.items():
@@ -29,7 +30,7 @@ def animated_glb(parts, target):
     json_length=struct.unpack_from("<I",raw,12)[0]
     data=json.loads(raw[20:20+json_length])
     binary=bytearray(raw[28+json_length:])
-    data["asset"]["extras"]={"source":"Independent local CAD check, not an Onshape export","evidence_state":"DRAFT","length_unit":"m","up_axis":"Y","mm_to_m_applied_once":True}
+    data["asset"]["extras"]={**provenance,"evidence_state":"DRAFT","length_unit":"m","up_axis":"Y","mm_to_m_applied_once":True}
     def accessor(values,kind):
         array=np.array(values,dtype="<f4")
         binary.extend(b"\0"*((-len(binary))%4))
@@ -102,11 +103,16 @@ def render(parts, target, exploded):
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--input-dir",type=Path,default=OUTPUT)
+    output=parser.parse_args().input_dir
+    source=json.loads((output/"source-report.json").read_text()) if (output/"source-report.json").exists() else None
     for slug in ["clamp-tenon","shouldered-tenon"]:
-        parts={name:trimesh.load(str(OUTPUT/f"{slug}_{name}.stl"),force="mesh") for name in COLORS}
-        animated_glb(parts,OUTPUT/f"{slug}_preview.glb")
+        parts={name:trimesh.load(str(output/f"{slug}_{name}.stl"),force="mesh") for name in COLORS}
+        provenance={"source":"FreeCAD native master","source_sha256":source["nodes"][slug]["source_sha256"]} if source else {"source":"Independent local CAD check, not an Onshape export"}
+        animated_glb(parts,output/f"{slug}_preview.glb",provenance)
         for label,exploded in [("assembled",False),("exploded",True)]:
-            render(parts,OUTPUT/f"{slug}_{label}.webp",exploded)
+            render(parts,output/f"{slug}_{label}.webp",exploded)
         print(slug,"GLB (3 parts, 1 ordered animation, metre bounds checked) and two renders generated")
 
 

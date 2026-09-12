@@ -1,5 +1,6 @@
 # Secrets — Onshape API keys live here, never commit
 .env
+.env.*
 
 # Python
 __pycache__/
@@ -7,3 +8,36 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Private CAD working area. Ignore is NOT retroactive for tracked files.
+/cad/private/
+/cad/table-node-pair_freecad_v*/
+
+# Native CAD masters, backups, and new exact-geometry derivatives.
+*.FCStd
+*.FCStd[0-9]*
+*.FCBak
+*.FCMacro
+*.step
+*.stp
+*.iges
+*.igs
+*.brep
+*.stl
+*.3mf
+*.glb
+*.gltf
+*.dxf
+*.dwg
+/cad/**/*.scad
+/cad/**/*.fs
+
+# Table-node source/parameters already tracked must be audited separately.
+# These patterns also prevent accidentally adding future versions.
+/cad/table-node-pair_parameters_*.json
+/cad/table-node-pair_*.fs
+/tools/build_table_nodes_freecad.py
+/tools/build_table_nodes_onshape.py
+/tools/check_table_nodes_local.py
+/tools/check_freecad_table_nodes.py
+/tools/render_table_nodes_local.py

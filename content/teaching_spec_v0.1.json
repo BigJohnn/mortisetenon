@@ -9,7 +9,7 @@
     "x": "主横材长度 / 作品长边",
     "y": "次横材方向 / 作品短边",
     "z": "作品竖向；不是自动等同于打印机 Z",
-    "origin": "节点的主承压基准面中心；作品原点另取底面中心，逐件记录局部到作品的变换。",
+    "origin": "通常取节点的主承压基准面中心；作品原点取底面中心。粽角三向教学变体 v0.1 明确另取外角线汇交点为局部原点，三材向 +X/+Y/+Z 延伸；不得把此局部坐标直接当作桌腿摆放或打印坐标。逐件记录局部到作品的变换。",
     "print_frame": "每一打印件另记 build_direction_local 和 print_transform；不从网页朝向推断打印方向。"
   },
   "profiles": [
@@ -20,7 +20,7 @@
   ],
   "work_envelopes": [
     {"id": "frame-panel-box", "dimensions_mm": [160, 110, 70], "wall_mm": 8, "note": "U05/U06：无盖、5 件基础 BOM；底板厚、槽深与燕尾角拓扑另定，不按 8 mm 壁厚自动推定。"},
-    {"id": "clamp-tenon-writing-table", "dimensions_mm": [220, 140, 150], "wall_mm": null, "note": "U07/U08：合并上部、9 件基础 BOM、2–3 盘目标；节点复制必须解决两根正交牙条的内部避让。"},
+    {"id": "clamp-tenon-writing-table", "dimensions_mm": [220, 140, 150], "wall_mm": null, "note": "U07/U08：合并上部、9 件基础 BOM、2–3 盘目标。2026-09-12 本地 DRAFT 采用两向牙条局部半搭接、四角顶榫与对应盲卯；与旧双顶榫单节点不混装。指定装配路径已检查，分盘、联合公差与实物验证未完成。"},
     {"id": "baxian-table", "dimensions_mm": null, "wall_mm": null, "note": "U09：只引用既有源 microversion，不用教学母尺寸重缩放既有八仙桌。"}
   ],
   "fields": [
@@ -45,7 +45,7 @@
     "配合面分类为 FIT、STOP、CLEAR、DEFORMING_CONTACT 或 COSMETIC；同一面若有多种职责必须拆分区域。",
     "装配表含 moving_part_ids、fixed_part_ids、axis_local、travel_mm、depends_on、contact_event；刚性旋转另存 pivot 和 angle_deg。",
     "先检查最终交叠，再检查完整运动路径；离散采样必须公布步长和最小余量，不能把有限帧无交叠写成连续无碰撞证明。",
-    "Onshape 冻结 version/microversion、读取参数与非空实例表，再从同一身份导出 STEP、逐件 STL、GLB；不以工作区链接作为发布身份。",
+    "2026-09-12 起新母版默认采用 FreeCAD 原生 FCStd：保存后重新打开重算，读取参数表并记录源文件 SHA-256，再同源导出。Onshape 仅可选同步；既有 Onshape 资产仍固定 version/microversion，不以工作区链接作发布身份。精确母版与派生件默认私有，发布需单独审阅。",
     "STEP 读取文件单位元数据；STL 无内嵌单位，manifest 明示 mm；glTF/GLB 依规范以米表达，mm 源在输出时缩放 0.001，转换只做一次。既有资产另按原 manifest 审计。",
     "几何世界为 Z-up；网页 glTF 采用 Y-up，根节点绕 X 转 -90°，记录变换而不逐件手工重摆；源角度 deg 转为 glTF 所需的 rad，节点旋转存为四元数。",
     "Explode 从真实装配终态到可拆起态，固定至少一件；输出帧号与时间。破头楔变形段另作概念图，不能冒充同源刚体拆装。",

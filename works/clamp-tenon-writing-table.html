@@ -7,37 +7,42 @@
 <body><a class="skip-reading" href="#reading">跳至正文</a><div class="reading-shell">
 <nav class="reading-nav" aria-label="全书导航"><a href="../index.html">可打印的榫卯</a><div><a href="../book.html">阅读目录</a><a href="../cad/teaching-spec.html">公共参数</a><a href="../first-wave.html">10+3 工作台</a><a href="../joinery_book_roadmap.html">路线图</a></div></nav>
 <header class="reading-hero"><div class="kicker">W02 · Clamp-tenon Mini Table</div><h1>夹头榫小案</h1><p class="reading-deck">从三件节点到九件作品，中间隔着一个闭环。</p>
-<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">设计正文 · CAD 待实现 · 未经实物验证</span><span>2026-09-08</span></div></header>
+<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">DRAFT · FreeCAD 本地母版 · 未经实物验证</span><span>2026-09-08</span></div></header>
 <div class="reading-layout"><main id="reading" class="reading-body"><section id="opening"><h2>从三件节点到九件作品，中间隔着一个闭环。</h2>
 <p class="reading-intro">单个夹头节点只是小案的一角。把它复制四次，四条腿就要同时对应同一块上部件，两条长牙条和两条短牙条也要围成一个尺寸一致的框架。一个角点里的局部自由度，到了最后一角往往已经被其他三角用完。</p>
-</section><div class="reading-note"><p>上海交通大学夹头榫画案说明与香港浸会大学数字资料提供构件关系背景。本项目按 U07/U08 制作 220×140×150 mm 的比例教学方案，上部合并成一件，牙头并入牙条；不复原馆藏比例，也不把模型标为可承重家具。</p><p>结构来源：<a href="https://museum.sjtu.edu.cn/info/1064/3484.htm">黄花梨夹头榫画案</a> · <a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000033">夹头榫</a></p></div><figure class="reading-figure"><div class="reading-flow"><div><span>候选步骤 01</span><b>建立两片腿架</b><small>确认夹头节点先后和左右件镜像。</small></div><div><span>候选步骤 02</span><b>短牙条闭环</b><small>四角同时配合带来的累计误差。</small></div><div><span>候选步骤 03</span><b>接入上部</b><small>四腿共面与孔位公差链。</small></div><div><span>候选步骤 04</span><b>整体审计</b><small>先记录几何，不提前作强度结论。</small></div></div><figcaption>图解 · 整案候选装配依赖；短牙条闭环与正交接口仍需实体 CAD 检查。</figcaption></figure><section id="section-1"><h2>九件是数量，两向牙条才是新问题</h2>
+</section><div class="reading-note"><p>上海交通大学夹头榫画案说明与香港浸会大学数字资料提供构件关系背景。本项目按 U07/U08 制作 220×140×150 mm 的比例教学方案，上部合并成一件，牙头并入牙条；不复原馆藏比例，也不把模型标为可承重家具。</p><p>结构来源：<a href="https://museum.sjtu.edu.cn/info/1064/3484.htm">黄花梨夹头榫画案</a> · <a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000033">夹头榫</a></p></div><figure class="reading-figure"><div class="reading-flow"><div><span>候选步骤 01</span><b>建立两片腿架</b><small>确认夹头节点先后和左右件镜像。</small></div><div><span>候选步骤 02</span><b>短牙条闭环</b><small>四角同时配合带来的累计误差。</small></div><div><span>候选步骤 03</span><b>接入上部</b><small>四腿共面与孔位公差链。</small></div><div><span>候选步骤 04</span><b>整体审计</b><small>先记录几何，不提前作强度结论。</small></div></div><figcaption>图解 · 九件教学变体的装配依赖；五段指定行程已检查，预装需要定位支撑，实物配合仍待验证。</figcaption></figure><section id="section-1"><h2>九件是数量，两向牙条才是新问题</h2>
 <p>基础 BOM 为上部件一件、腿足四件、长牙条两件、短牙条两件。直榫枨属于 v0.2；首轮不能因为目录引用了直榫章节，就在作品 BOM 中写成已经存在。</p>
-<p>单节点只展示一根牙条，整案每个角还会遇到另一根正交牙条。两条牙条的端部、腿足顶榫和肩面都想占用腿顶附近的材料。复制节点之前，先在剖面上检查两向接口是否相撞、是否遮挡彼此的入口，以及是否削弱了顶榫根部。</p>
+<p>单节点只展示一根牙条，整案每个角还会遇到另一根正交牙条。本轮在两向牙条端部加入局部半搭接，腿顶采用四角顶榫避开正交槽，上部提供对应盲卯。它是夹头节点的教学变体，不是直接复制旧双顶榫版本，二者不能混装。单角审阅图从同一总装实体取得；顶榫根部和槽边余料仍需试打检查。</p>
 </section><section id="section-2"><h2>用孔距驱动牙条，不让九件各自输入尺寸</h2>
-<p>设上部外廓为 L×B，腿足中心离两侧边分别为 aₓ、aᵧ，则对应顶榫中心距 Pₓ=L−2aₓ，Pᵧ=B−2aᵧ。腿宽为 Wₗ，两腿内侧间距候选值为 P−Wₗ；牙条若以该内侧面为肩面，其肩间长度应由它驱动。</p>
-<p>牙条总长还包括两端嵌入量，不能把肩间距直接当作切料总长。顶榫中心、牙条肩位和上部卯眼应从同一组参数派生；分别手输四次相近尺寸，会把闭环变成四套难以审计的误差。</p>
-</section><section id="section-3"><h2>两片腿架只是候选装配顺序</h2>
-<p>简报先组成两片长向腿架，再用短牙条闭合，最后从上方装入合并上部件。第二步必须证明短牙条的两个端部都能接入：如果两端是封闭直榫，已经固定距离的两片腿架可能需要同步移动，而不是在两架不动时把牙条横塞进去。</p>
-<p>采用同步运动时，应明确哪些件一起移动、先保留多少预装距离、哪一张肩最后接触。不能只以“先松装再敲紧”替代位移与依赖。上部件的四个卯眼也必须在同一时刻容纳四个顶榫的扫掠体。</p>
+<p>设上部外廓为 L×B，腿足中心离两侧边分别为 aₓ、aᵧ，则腿中心距 Pₓ=L−2aₓ，Pᵧ=B−2aᵧ。本变体每腿四个顶榫再相对此中心偏置，不能把腿距当成所有孔之间的距离。腿宽为 Wₗ，两腿内侧基准间距为 P−Wₗ；牙条长度应从此同源尺寸链派生。</p>
+<p>牙条总长还包括两端嵌入量，不能把内侧基准间距直接当作切料总长。顶榫中心、牙条端部和上部卯眼应从同一组参数派生；分别手输四次相近尺寸，会把闭环变成四套难以审计的误差。本变体采用顶部开口及局部半搭接，没有另加封闭双端直榫的端肩。</p>
+</section><section id="section-3"><h2>两片腿架之后，从上方闭合</h2>
+<p>本轮先把四腿保持在共同基准位置，依次从上方装入两根长牙条，形成两片腿架；再让两根短牙条从上方接入局部半搭接，最后下落合并上部件。短牙条不是封闭双端直榫，因此不需要在两架不动时横塞进去。五段指定行程已完成采样与边界面平移扫掠检查。</p>
+<p>预装阶段需要手扶或临时定位支撑，不能把暂时摆到坐标上当成无摩擦条件下已经自立。本变体的四角顶榫对应上部 16 个盲卯，必须同时容纳其进入路径。负对照显示：短牙条不让位时会与长牙条相撞，上部孔位偏移时也会阻挡顶榫；“先松装再敲紧”不能替代这些检查。</p>
 </section><section id="section-4"><h2>高度、共面与打印盘各自记录</h2>
-<p>150 mm 是装配总高，不是腿件总长。若上部厚 T_top，腿肩到足底高度为 150−T_top，腿件总长还要加上进入上部的顶榫长。上部厚度和顶榫长度尚待 CAD 冻结，不能现在凭总高导出腿部 STL。</p>
-<p>检查摇摆前，先确认支承基准面。记录四足相对于同一平面的高度、两组对角线和各节点肩缝；一角悬空可能来自腿长，也可能来自框架扭曲。2–3 盘是制作目标，具体排版还取决于零件包络、朝向、支撑和所用设备，当前不是已完成切片的事实。</p>
+<p>150 mm 是装配总高，不是腿件总长。若上部厚 T_top，腿肩到足底高度为 150−T_top，腿件总长还要加上进入上部的顶榫长。本轮上部厚度、顶榫长度和孔位已由同一本地母参数表驱动，不从总高直接猜腿部尺寸；精确母版与派生文件保留在本地。</p>
+<p>本轮 STEP 名义几何中四足底共面、两条基准对角线相等，但不能据此宣布实物不摇摆。一角悬空可能来自腿长，也可能来自框架扭曲，仍需记录实测足底、肩缝和对角线。2–3 盘是制作目标，具体排版取决于朝向、支撑和设备，尚未完成切片，也没有承载结论。</p>
+</section><section id="section-5"><h2>设计联动与制造误差，不是同一项测试</h2>
+<p>共同母尺寸改变时，孔与榫可能一起变大。这能检查参数联动，却不能代表孔偏小而榫不变的情形。本轮让孔位置、孔尺寸、腿槽宽和半搭接槽深独立变化：已复现孔位偏移与孔尺寸缩小各自不干涉，但同时出现便卡住的组合。</p>
+<p>局部 81 个组合中，20 个终态不干涉，其中 10 个仍有半搭接内部空隙；外肩到位没有保证内部接触。另以完整四角孔组做 27 个 X 向配准组合，11 个终态无干涉。这些人为取点不是合格率，也不代表所有进入路径通过；整案 Y 向、腿高差和扭曲还没覆盖。</p>
+<p>六种四件局部试件已建立原生母版。名义试件与整案局部裁取相符，保留原榫根和槽边余料，只缩短杆件；它们用于后续观察局部配合与损伤，不能替代四角闭环或整案承载试验。详细静态审阅从章末 CAD 页面进入，精确误差表和实测空白模板留在本地。</p>
 </section><section id="parameters"><h2>把关系写成参数</h2>
-<p>以下数值是教学设计起点或明确限定的算例。没有实测的字段仍待指定，不能当作推荐打印参数。</p><div class="reading-table" tabindex="0" role="region" aria-label="对象表，可横向滚动"><table><thead><tr><th scope="col">对象</th><th scope="col">定义 / 关系</th><th scope="col">适用边界</th></tr></thead><tbody><tr><td>基础 BOM</td><td>上部×1 + 腿×4 + 长牙条×2 + 短牙条×2 = 9 件</td><td>同形腿是否能复用一个几何，须先检查左右接口。</td></tr>
-<tr><td>顶榫中心距</td><td>Pₓ=220−2aₓ；Pᵧ=140−2aᵧ</td><td>aₓ/aᵧ 为中心到边距离，尚待定。</td></tr>
-<tr><td>牙条长度</td><td>肩间距=P−Wₗ；总长=肩间距+两端嵌入量</td><td>适用于所述内侧肩面基准。</td></tr>
-<tr><td>腿部高度</td><td>腿肩高=150−T_top；总长=腿肩高+Lₜ</td><td>T_top 与 Lₜ 尚待 CAD；150 不能直接作腿长。</td></tr></tbody></table></div><a href="../cad/teaching-spec.html">完整公共参数规范 →</a>
+<p>以下数值是教学设计起点或明确限定的算例。没有实测的字段仍待指定，不能当作推荐打印参数。</p><div class="reading-table" tabindex="0" role="region" aria-label="对象表，可横向滚动"><table><thead><tr><th scope="col">对象</th><th scope="col">定义 / 关系</th><th scope="col">适用边界</th></tr></thead><tbody><tr><td>基础 BOM</td><td>上部×1 + 腿×4 + 长牙条×2 + 短牙条×2 = 9 件</td><td>本轮四腿共用对称局部接口，由母参数定位到四角。</td></tr>
+<tr><td>腿中心距</td><td>Pₓ=220−2aₓ；Pᵧ=140−2aᵧ</td><td>aₓ/aᵧ 由本地母参数驱动；每腿四个顶榫再相对此中心偏置。</td></tr>
+<tr><td>牙条长度</td><td>内侧基准间距=P−Wₗ；总长=内侧间距+两端嵌入量</td><td>本变体以内侧面记账，没有另增一个封闭双端直榫接口。</td></tr>
+<tr><td>腿部高度</td><td>腿肩高=150−T_top；总长=腿肩高+Lₜ</td><td>由本地母版派生；150 不能直接作腿长。</td></tr></tbody></table></div><a href="../cad/teaching-spec.html">完整公共参数规范 →</a>
 </section><section id="assembly"><h2>候选装配与观察记录</h2>
-<p>这是下一轮 CAD 要验证的步骤，尚非经验证的装配教程；上文指出的路径冲突与变形问题仍须解决。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 建立两片腿架</td><td>每片由两腿和一条长牙条组成。</td><td>确认夹头节点先后和左右件镜像。</td></tr>
+<p>下表保留设计阶段的观察任务。FreeCAD 教学母版已完成 1 mm 步长装配采样，摘要与限制见章末 CAD 对照审阅；完整母版与交互预览留在本地，尚非实物装配教程。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 建立两片腿架</td><td>每片由两腿和一条长牙条组成。</td><td>确认夹头节点先后和左右件镜像。</td></tr>
 <tr><td>02 · 短牙条闭环</td><td>两片腿架通过短牙条连接。</td><td>四角同时配合带来的累计误差。</td></tr>
 <tr><td>03 · 接入上部</td><td>四条腿足顶榫对准上部件。</td><td>四腿共面与孔位公差链。</td></tr>
 <tr><td>04 · 整体审计</td><td>检查摇摆、对角线和各肩缝。</td><td>先记录几何，不提前作强度结论。</td></tr></tbody></table></div>
 </section><section id="failures"><h2>遇到异常，先定位原因</h2>
-<div class="reading-table" tabindex="0" role="region" aria-label="观察到什么表，可横向滚动"><table><thead><tr><th scope="col">观察到什么</th><th scope="col">待核查原因</th><th scope="col">如何记录</th></tr></thead><tbody><tr><td>单角能合，短牙条收不进</td><td>闭环后缺少第二端进入的空间</td><td>记录同步移动和预装距离</td></tr>
-<tr><td>上部四孔只有三孔能对上</td><td>孔距、肩距或框架对角线累计偏差</td><td>回查共用母参数和终态位置</td></tr>
+<div class="reading-table" tabindex="0" role="region" aria-label="观察到什么表，可横向滚动"><table><thead><tr><th scope="col">观察到什么</th><th scope="col">待核查原因</th><th scope="col">如何记录</th></tr></thead><tbody><tr><td>单角能合，短牙条收不进</td><td>其他拓扑可能缺少第二端入口；本变体还应查半搭接槽深与槽宽</td><td>先确认版本和装入方向，再量局部尺寸</td></tr>
+<tr><td>上部某一角的孔组对不上</td><td>跨距、整体配准与孔尺寸偏差叠加</td><td>分别记录每角孔位，不只看平均值</td></tr>
+<tr><td>外肩到位但内部有缝</td><td>半搭接槽开深，其他接触面阻止继续下沉</td><td>把内部间隙与外肩到位分开记录</td></tr>
 <tr><td>一足悬空</td><td>腿肩高不同或总装扭曲</td><td>先测各肩缝，再区分长度误差与角度误差</td></tr></tbody></table></div><div class="reading-exercise"><strong>读者练习</strong><p>画一张依赖图：上部孔距决定腿中心距，腿中心距与腿宽决定牙条肩间距，肩间距再决定牙条总长。任何一个尺寸若还需独立抄写到另一零件，就标出它的漂移风险。</p></div>
 </section><section id="evidence"><h2>本章做到哪里</h2>
-<p>已完成本章正文与设计约束；尚无本章新增 CAD、可下载几何或实物验证。编辑进度为 IMPLEMENTED（页面已存在），不代表资产证据升级。Gate A 保持未通过。</p><h3>待补的 CAD 与图稿</h3><ul><li>9 件基础 BOM</li><li>单角节点与整案共用参数</li><li>两片腿架—闭环—上部装配动画</li><li>四腿共面/闭环误差图</li></ul><h3>后续实验问题</h3><ul><li>四腿共面和对角线差</li><li>四个夹头节点装配顺序</li><li>面上载荷、侧向摇摆与长期松动</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
-</section><div class="reading-links"><a href="../joints/clamp-tenon.html">夹头榫 →</a><a href="../works/baxian-table.html">八仙桌 →</a></div></main><aside class="reading-toc" aria-label="本页目录"><strong>本页阅读</strong><a href="#opening">读懂问题</a><a href="#section-1">九件是数量，两向牙条才是新问题</a><a href="#section-2">用孔距驱动牙条，不让九件各自输入尺寸</a><a href="#section-3">两片腿架只是候选装配顺序</a><a href="#section-4">高度、共面与打印盘各自记录</a><a href="#parameters">参数与约束</a><a href="#assembly">候选装配</a><a href="#failures">异常与练习</a><a href="#evidence">证据与下一步</a></aside></div>
+<p>已完成 FreeCAD 原生参数化母版、改参重算和同源几何检查；母版及精确派生文件留在本地，Onshape 仅可选同步。没有实物验证，状态保持 DRAFT，Gate A 未通过。</p><p><a href="../cad/clamp-tenon-writing-table.html">查看同尺度静态 CAD 对照与检查摘要 →</a></p><h3>CAD 与图稿交付清单（已完成项见审阅页）</h3><ul><li>9 件基础 BOM</li><li>单角节点与整案共用参数</li><li>两片腿架—闭环—上部装配动画</li><li>四腿共面/闭环误差图</li></ul><h3>后续实验问题</h3><ul><li>四腿共面和对角线差</li><li>四个夹头节点装配顺序</li><li>面上载荷、侧向摇摆与长期松动</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
+</section><div class="reading-links"><a href="../joints/clamp-tenon.html">夹头榫 →</a><a href="../works/baxian-table.html">八仙桌 →</a></div></main><aside class="reading-toc" aria-label="本页目录"><strong>本页阅读</strong><a href="#opening">读懂问题</a><a href="#section-1">九件是数量，两向牙条才是新问题</a><a href="#section-2">用孔距驱动牙条，不让九件各自输入尺寸</a><a href="#section-3">两片腿架之后，从上方闭合</a><a href="#section-4">高度、共面与打印盘各自记录</a><a href="#section-5">设计联动与制造误差，不是同一项测试</a><a href="#parameters">参数与约束</a><a href="#assembly">候选装配</a><a href="#failures">异常与练习</a><a href="#evidence">证据与下一步</a></aside></div>
 <footer class="reading-footer">Printable Joinery Atlas · 首批正文 v0.1 · 网页正文可独立阅读和打印；概念图不替代 CAD 或实物证据。</footer>
 </div></body></html>

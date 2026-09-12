@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>十字半搭接 · FreeCAD 静态审阅</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../assets/styles.css"><link rel="stylesheet" href="../assets/manuscript.css">
+<style>.cad-images{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.cad-images figure{margin:0}.cad-images img{display:block;width:100%;height:auto}.cad-images figcaption{font-size:14px;margin:8px 0 24px}@media(max-width:600px){.cad-images{grid-template-columns:1fr}}</style></head>
+<body><a class="skip-reading" href="#reading">跳至正文</a><div class="reading-shell">
+<nav class="reading-nav" aria-label="全书导航"><a href="../book.html">可打印的榫卯</a><div><a href="../joints/cross-lap-tenon.html">本章正文</a><a href="../joinery_book_roadmap.html">路线图</a></div></nav>
+<header class="reading-hero"><div class="kicker">FreeCAD local master · v0.1 · 2026-09-12</div><h1>十字半搭接 · CAD 静态审阅</h1><p class="reading-deck">两件构件，一条高度尺寸链；共面不是自锁，也不是强度证明。</p><div class="reading-status"><span class="draft">DRAFT · 数字检查通过 · 未试打</span></div></header>
+<main id="reading" class="reading-body">
+<section><h2>原生母版已建立，精确文件留在本地</h2><p>母版由 FreeCAD 参数表、完全约束草图、PartDesign 拉伸和切除组成，不是 STEP 改存。已保存名义、浅槽、深槽三个独立配置，并在独立进程重开、改参和恢复。本页仅展示静态图与检查摘要；不提供原生母版、STEP、STL 或交互网格下载，未同步 Onshape。</p></section>
+<section><h2>装合与拆分</h2><div class="cad-images">
+<figure><img src="../assets/images/cross-lap-tenon/v0.1/nominal_assembled.webp" alt="名义状态，两根构件顶面共面"><figcaption>名义态 · A 红褐色，B 黄褐色；真实同源几何渲染。</figcaption></figure>
+<figure><img src="../assets/images/cross-lap-tenon/v0.1/nominal_exploded.webp" alt="B 向上拆离，露出上下相对的半厚槽"><figcaption>拆分态 · A 固定，B 沿 +Z 抬离；两件没有第三件锁止。</figcaption></figure></div></section>
+<section><h2>槽深误差三态：先说明边界条件</h2><p>沿用正文定义：A 底面固定，槽底接触时 B 的高度差 h=T−d₁−d₂。以下是设计算例和 CAD 检查，不是实测值或推荐补偿量。</p>
+<div class="reading-table" tabindex="0" role="region" aria-label="槽深三态比较"><table><thead><tr><th>状态</th><th>相对名义槽深</th><th>自由落位</th><th>外框强制共面</th></tr></thead><tbody>
+<tr><td>浅槽</td><td>A −0.2 mm；B 不变</td><td>B 抬高 0.2 mm</td><td>刚体干涉，不能强压视为装合</td></tr>
+<tr><td>名义</td><td>两槽各半厚</td><td>共面且槽底接触</td><td>同一位置</td></tr>
+<tr><td>深槽</td><td>A +0.2 mm；B 不变</td><td>B 下沉 0.2 mm</td><td>槽底间隙 0.2 mm</td></tr>
+</tbody></table></div><p>“槽底间隙”不是两实体所有表面的最小距离：槽侧壁的配合间隙可能更小，验证时分开记录。</p>
+<div class="cad-images"><figure><img src="../assets/images/cross-lap-tenon/v0.1/shallow_assembled.webp" alt="浅槽自由接触配置"><figcaption>浅槽 · 按真实比例渲染，0.2 mm 高差未夸大。</figcaption></figure><figure><img src="../assets/images/cross-lap-tenon/v0.1/deep_assembled.webp" alt="深槽自由接触配置"><figcaption>深槽 · 自由下沉配置，不是强制共面配置。</figcaption></figure></div></section>
+<section><h2>这一轮验证到了哪里</h2><ul><li>每个配置：2 件有效实体、4 张完全约束草图。</li><li>三个配置分别重开重算；独立进程共 18 次改参测试，恢复后未改写保存的源文件。</li><li>三套 STEP 与独立几何构造匹配；六份 STL 水密、绕向一致，体积和包围盒相符。</li><li>每个配置沿装入轴取 49 个位置，步长 1 mm，未发现体积相交；越过停止位置的负对照出现预期干涉。</li><li>本地 GLB：两件、一条拆分动画；单位与位移数据已核对。</li></ul><p>离散采样不是连续扫掠证明，也没有覆盖整个参数空间。打印配合、层方向、剩余截面破坏与重复拆装仍待实验；不升级 PRINT_VERIFIED，Gate A 未通过。</p><p><a href="../content/cross_lap_cad_status_v0.1.json">非几何检查摘要及源文件哈希</a> · <a href="../joints/cross-lap-tenon.html">回到本章</a> · <a href="../CAD_PRIVACY.md">CAD 发布边界</a></p></section>
+</main></div></body></html>

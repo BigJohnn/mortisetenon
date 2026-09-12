@@ -7,7 +7,7 @@
 <body><a class="skip-reading" href="#reading">跳至正文</a><div class="reading-shell">
 <nav class="reading-nav" aria-label="全书导航"><a href="../index.html">可打印的榫卯</a><div><a href="../book.html">阅读目录</a><a href="../cad/teaching-spec.html">公共参数</a><a href="../first-wave.html">10+3 工作台</a><a href="../joinery_book_roadmap.html">路线图</a></div></nav>
 <header class="reading-hero"><div class="kicker">05 · Shouldered Tenon</div><h1>插肩榫</h1><p class="reading-deck">斜肩改变了接触方向，也改变了误差被看见的位置。</p>
-<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">DRAFT · 本地 CAD 已检查 · 云端未编译 · 未经实物验证</span><span>2026-09-08</span></div></header>
+<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">DRAFT · FreeCAD 本地母版 · 未经实物验证</span><span>2026-09-08</span></div></header>
 <div class="reading-layout"><main id="reading" class="reading-body"><section id="opening"><h2>斜肩改变了接触方向，也改变了误差被看见的位置。</h2>
 <p class="reading-intro">把夹头榫和插肩榫摆在一起，先遮住名称，只看腿足上端与牙条相遇的地方。本章的观察对象是左右斜肩：两个斜面是否一起闭合，哪一侧先碰到，以及上部件接入后是否改变这一关系。外表接缝的整齐与内部接触的完整，是需要分别回答的问题。</p>
 </section><div class="reading-note"><p>2026-09-11 已重新核对香港浸会大学英文页面对三件节点与腿顶斜肩的描述。具体肩角和尺寸仍是项目设计变量，不能从资料中的结构名称直接取得。本轮本地 CAD 采用双斜肩与一体牙头的原创教学变体，不宣称历史器物复原。</p><p>结构来源：<a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000015&amp;lang=en">插肩榫</a></p></div><figure class="reading-figure"><svg viewBox="0 0 620 310" role="img" aria-label="与夹头榫共用的三件职责示意，非 CAD 剖面；本轮实际教学几何见章末 CAD 对照审阅。"><title>与夹头榫共用的三件职责示意，非 CAD 剖面；本轮实际教学几何见章末 CAD 对照审阅。</title><rect x="70" y="28" width="480" height="55" rx="6" fill="#d7a56e" stroke="#171816" stroke-width="2"/>
@@ -30,7 +30,7 @@
 <tr><td>对称配合</td><td>每侧 gₙ=Cₙ/2</td><td>这是参数定义，不是推荐间隙。</td></tr>
 <tr><td>接触检查</td><td>左肩 → 右肩 → 顶榫端 → 上部底面</td><td>逐项记录实际先后；箭头为检查顺序，不是预定接触时序。</td></tr></tbody></table></div><a href="../cad/teaching-spec.html">完整公共参数规范 →</a>
 </section><section id="assembly"><h2>候选装配与观察记录</h2>
-<p>下表保留设计阶段的观察任务。本地三件教学变体已完成 1 mm 步长装配采样，具体参数、路径与限制见本章末尾的 CAD 对照审阅；尚非云端同源发布或实物装配教程。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 牙条对正</td><td>牙条端部对准腿足上端开口。</td><td>斜肩入口不能先干涉。</td></tr>
+<p>下表保留设计阶段的观察任务。FreeCAD 教学母版已完成 1 mm 步长装配采样，摘要与限制见章末 CAD 对照审阅；完整母版与交互预览留在本地，尚非实物装配教程。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 牙条对正</td><td>牙条端部对准腿足上端开口。</td><td>斜肩入口不能先干涉。</td></tr>
 <tr><td>02 · 斜肩闭合</td><td>牙条进入直至两侧肩面贴合。</td><td>两侧同时接触还是单侧先碰。</td></tr>
 <tr><td>03 · 接入上部</td><td>节点与上部构件合拢。</td><td>顶面/榫底不能抢先止位。</td></tr>
 <tr><td>04 · 并排比较</td><td>与同尺度夹头榫叠加显示。</td><td>比较接触面，不比较未经测试的强弱。</td></tr></tbody></table></div>
@@ -39,7 +39,7 @@
 <tr><td>斜面有局部磨痕</td><td>层纹台阶或单点高差</td><td>记录磨痕与打印方向的关系</td></tr>
 <tr><td>外缝闭合但牙条可动</td><td>实际承压面与外观面不一致</td><td>以剖面和测量核查内部接触</td></tr></tbody></table></div><div class="reading-exercise"><strong>读者练习</strong><p>设一个斜面的单位法线为 (0.6,0,0.8)，沿 X 平移 0.20 mm，法向距离只有 0.12 mm。要得到 0.20 mm 法向距离，需要约 0.333 mm 的 X 位移；该算例只解释投影，不定义本章肩角。</p></div>
 </section><section id="evidence"><h2>本章做到哪里</h2>
-<p>已补本地参数化源与独立几何检查；FeatureScript 尚待 Onshape 编译，没有冻结云端版本或正式打印包，也没有实物验证。状态保持 DRAFT，Gate A 未通过。</p><p><a href="../cad/table-node-pair.html">查看同尺度 CAD 对照、拆装预览与检查报告 →</a></p><h3>待补的 CAD 与图稿</h3><ul><li>三件参数化节点</li><li>斜肩法向间隙剖面</li><li>与夹头榫的同尺度叠加图</li><li>无碰撞装配动画</li></ul><h3>后续实验问题</h3><ul><li>斜肩角与闭合缝关系</li><li>左右肩误差对单侧承压的影响</li><li>打印台阶方向与插入力</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
+<p>已完成 FreeCAD 原生参数化母版、改参重算和同源几何检查；母版及精确派生文件留在本地，Onshape 仅可选同步。没有实物验证，状态保持 DRAFT，Gate A 未通过。</p><p><a href="../cad/table-node-pair.html">查看同尺度静态 CAD 对照与检查摘要 →</a></p><h3>CAD 与图稿交付清单（已完成项见审阅页）</h3><ul><li>三件参数化节点</li><li>斜肩法向间隙剖面</li><li>与夹头榫的同尺度叠加图</li><li>无碰撞装配动画</li></ul><h3>后续实验问题</h3><ul><li>斜肩角与闭合缝关系</li><li>左右肩误差对单侧承压的影响</li><li>打印台阶方向与插入力</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
 </section><div class="reading-links"><a href="../joints/clamp-tenon.html">夹头榫 →</a><a href="../works/clamp-tenon-writing-table.html">夹头榫小案 →</a></div></main><aside class="reading-toc" aria-label="本页目录"><strong>本页阅读</strong><a href="#opening">读懂问题</a><a href="#section-1">肩面不是装饰线</a><a href="#section-2">沿法线量间隙</a><a href="#section-3">从单边接触读出误差</a><a href="#parameters">参数与约束</a><a href="#assembly">候选装配</a><a href="#failures">异常与练习</a><a href="#evidence">证据与下一步</a></aside></div>
 <footer class="reading-footer">Printable Joinery Atlas · 首批正文 v0.1 · 网页正文可独立阅读和打印；概念图不替代 CAD 或实物证据。</footer>
 </div></body></html>

@@ -7,7 +7,7 @@
 <body><a class="skip-reading" href="#reading">跳至正文</a><div class="reading-shell">
 <nav class="reading-nav" aria-label="全书导航"><a href="../index.html">可打印的榫卯</a><div><a href="../book.html">阅读目录</a><a href="../cad/teaching-spec.html">公共参数</a><a href="../first-wave.html">10+3 工作台</a><a href="../joinery_book_roadmap.html">路线图</a></div></nav>
 <header class="reading-hero"><div class="kicker">09 · Cross-lap Joint</div><h1>十字半搭接</h1><p class="reading-deck">各让出一半厚度，共面便成为可以计算的问题。</p>
-<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">设计正文 · CAD 待实现 · 未经实物验证</span><span>2026-09-08</span></div></header>
+<div class="reading-status"><span>正文初稿 v0.1</span><span class="draft">DRAFT · FreeCAD 本地母版 · 未经实物验证</span><span>2026-09-08</span></div></header>
 <div class="reading-layout"><main id="reading" class="reading-body"><section id="opening"><h2>各让出一半厚度，共面便成为可以计算的问题。</h2>
 <p class="reading-intro">两根等厚直材交叉时，若都保持完整厚度，交点就会叠高。十字半搭接让一根从上侧开槽，另一根从下侧开槽，给彼此留下位置。这个简单结构很适合建立尺寸链：槽宽负责侧向配合，槽深总和决定两根构件在交点的高度关系。</p>
 </section><div class="reading-note"><p>本章采用 U03 确认的几何名称“十字半搭接”。香港浸会大学“十字榫（卡子榫）”页面包含框角、嵌片与胶合描述，因此仅作术语对照，不用于证明本章半厚交叉模型是同一种传统构造。下文公式来自所定义的等厚刚体几何。</p><p>结构来源：<a href="https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000018">十字榫（卡子榫）</a></p></div><figure class="reading-figure"><svg viewBox="0 0 620 310" role="img" aria-label="T=24 mm 的槽深算例。画面仅放大表示 B 相对 A 的高度差，不是实测结果。"><title>T=24 mm 的槽深算例。画面仅放大表示 B 相对 A 的高度差，不是实测结果。</title><path d="M35 150h550" stroke="#536b7a" stroke-width="2" stroke-dasharray="5 5"/>
@@ -30,7 +30,7 @@
 <tr><td>高度差</td><td>h=T−(d₁+d₂)</td><td>h&gt;0 抬高；h=0 共面；h&lt;0 自由落位时下沉。</td></tr>
 <tr><td>槽宽</td><td>W_slot=W_member+C𝓌</td><td>C𝓌 独立于深度补偿 Δd。</td></tr></tbody></table></div><a href="../cad/teaching-spec.html">完整公共参数规范 →</a>
 </section><section id="assembly"><h2>候选装配与观察记录</h2>
-<p>这是下一轮 CAD 要验证的步骤，尚非经验证的装配教程；上文指出的路径冲突与变形问题仍须解决。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 对准交点</td><td>两槽在平面内对齐。</td><td>槽位误差会改变总体网格尺寸。</td></tr>
+<p>下表保留设计阶段的观察任务。FreeCAD 教学母版已完成 1 mm 步长装配采样，摘要与限制见章末 CAD 对照审阅；完整母版与交互预览留在本地，尚非实物装配教程。</p><div class="reading-table" tabindex="0" role="region" aria-label="步骤表，可横向滚动"><table><thead><tr><th scope="col">步骤</th><th scope="col">候选动作</th><th scope="col">重点检查</th></tr></thead><tbody><tr><td>01 · 对准交点</td><td>两槽在平面内对齐。</td><td>槽位误差会改变总体网格尺寸。</td></tr>
 <tr><td>02 · 法向合拢</td><td>两件沿厚度方向靠近。</td><td>侧壁控制平面内晃动。</td></tr>
 <tr><td>03 · 底面接触</td><td>两个槽底分别接触对方剩余截面。</td><td>槽深总和决定共面度。</td></tr>
 <tr><td>04 · 检查削弱</td><td>显示交点处剩余截面。</td><td>共面不等于承载不变。</td></tr></tbody></table></div>
@@ -39,7 +39,7 @@
 <tr><td>共面时内部有缝</td><td>槽开深且外部构件限制下沉</td><td>注明是自由节点还是被框架约束</td></tr>
 <tr><td>高度正确但平面内松动</td><td>槽宽或槽位误差</td><td>独立记录 C𝓌，不继续加深槽底</td></tr></tbody></table></div><div class="reading-exercise"><strong>读者练习</strong><p>T=24 mm，两个槽分别深 11.8 与 12.0 mm，h=0.2 mm；改成 12.2 与 12.0 mm，h=−0.2 mm。这个算例假定材厚准确且接触面平整，实测时应把三项都换成实际值。</p></div>
 </section><section id="evidence"><h2>本章做到哪里</h2>
-<p>已完成本章正文与设计约束；尚无本章新增 CAD、可下载几何或实物验证。编辑进度为 IMPLEMENTED（页面已存在），不代表资产证据升级。Gate A 保持未通过。</p><h3>待补的 CAD 与图稿</h3><ul><li>两件半厚搭接参数模型</li><li>槽深误差三态图</li><li>装配/自由度动画</li><li>名称边界说明</li></ul><h3>后续实验问题</h3><ul><li>槽深误差与共面度</li><li>槽宽间隙与节点松动</li><li>不同方向下剩余截面的破坏</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
+<p>已完成 FreeCAD 原生参数化母版、改参重算和同源几何检查；母版及精确派生文件留在本地，Onshape 仅可选同步。没有实物验证，状态保持 DRAFT，Gate A 未通过。</p><p><a href="../cad/cross-lap-tenon.html">查看同尺度静态 CAD 对照与检查摘要 →</a></p><h3>CAD 与图稿交付清单（已完成项见审阅页）</h3><ul><li>两件半厚搭接参数模型</li><li>槽深误差三态图</li><li>装配/自由度动画</li><li>名称边界说明</li></ul><h3>后续实验问题</h3><ul><li>槽深误差与共面度</li><li>槽宽间隙与节点松动</li><li>不同方向下剩余截面的破坏</li></ul><p>配合记录沿用 <a href="../labs/clearance.html">Clearance Lab</a> 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>
 </section><div class="reading-links"><a href="../joints/keyed-tenon.html">楔钉榫 →</a><a href="../joints/rice-dumpling-corner-tenon.html">粽角榫 →</a></div></main><aside class="reading-toc" aria-label="本页目录"><strong>本页阅读</strong><a href="#opening">读懂问题</a><a href="#section-1">给高度差一个符号</a><a href="#section-2">宽度与深度不能用同一间隙处理</a><a href="#section-3">共面之后，还剩下什么</a><a href="#parameters">参数与约束</a><a href="#assembly">候选装配</a><a href="#failures">异常与练习</a><a href="#evidence">证据与下一步</a></aside></div>
 <footer class="reading-footer">Printable Joinery Atlas · 首批正文 v0.1 · 网页正文可独立阅读和打印；概念图不替代 CAD 或实物证据。</footer>
 </div></body></html>

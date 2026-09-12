@@ -1,58 +1,57 @@
 #!/usr/bin/env python3
-"""Build the local-only, DRAFT design review page from actual check results."""
+"""Publish a static CAD review; keep native masters and interactive GLB private.
+
+A clean public checkout can rebuild from the non-geometric status summary.
+When private verified outputs exist, refresh that summary and static renders.
+"""
 import hashlib
 import json
+import shutil
 from build_manuscript import ROOT, page, section, table, link
+
+PRIVATE=ROOT/"cad/table-node-pair_freecad_v0.1"
+SUMMARY=ROOT/"content/cad_status_v0.1.json"
+TITLES={"clamp-tenon":"夹头 · 水平槽底", "shouldered-tenon":"插肩 · 双斜肩教学变体"}
 
 
 def main():
-    base=ROOT/"cad/table-node-pair_local-check"
-    report=json.loads((base/"report.json").read_text())
-    assert report["feature_script_sha256"]==hashlib.sha256((ROOT/"cad/table-node-pair_v0.1.fs").read_bytes()).hexdigest()
-    body=section("boundary","这次推进到哪里",'<div class="reading-note"><p>两套本地三件实体已完成独立数字检查；下面是本地重建的模型与渲染，不是 Onshape 导出，也不是打印实物。FeatureScript 尚待云端编译，状态保持 DRAFT。</p><p>指定文件夹可写，但免费账户拒绝创建私有文档。公开保存须另经用户同意；本页不代表已经发布到 Onshape。</p></div>')
-    toc=[("boundary","进度与边界")]
-    for slug,title in [("clamp-tenon","夹头 · 水平槽底"),("shouldered-tenon","插肩 · 双斜肩教学变体")]:
-        node=report["nodes"][slug]
-        stem="table-node-pair_local-check/"+slug
-        for suffix in ["_preview.glb","_assembled.webp","_exploded.webp"]:
-            assert (ROOT/"cad"/(stem+suffix)).is_file()
-        view=f'''<figure class="node-preview"><model-viewer id="{slug}-viewer" src="{stem}_preview.glb" poster="{stem}_exploded.webp" alt="{title}三件节点，本地设计预览" camera-controls interaction-prompt="none" animation-name="Explode" camera-orbit="38deg 66deg 0.42m" camera-target="0m 0.008m 0m" shadow-intensity="0.6"></model-viewer><label>拆装进度 <input type="range" min="0" max="1000" value="1000" step="1" data-viewer="{slug}-viewer" disabled></label><figcaption>拖动旋转；滑杆左端装合、右端拆开。拆卸先抬面板，再抬牙条。绿灰：面板；金黄：牙条；赭红：腿。</figcaption></figure><div class="node-images"><figure><img src="{stem}_assembled.webp" alt="{title}装合状态渲染"><figcaption>装合 · 数字渲染</figcaption></figure><figure><img src="{stem}_exploded.webp" alt="{title}拆分状态渲染"><figcaption>拆分 · 数字渲染</figcaption></figure></div>'''
-        rows=[[name,f'{part["volume_mm3"]:.3f}',"1",str(part["triangle_count"]),"水密 / 绕向一致"] for name,part in node["parts"].items()]
-        view+=table(["零件","体积 mm³","实体数","网格三角形","本地检查"],rows)
-        rows=[[f['interface'],', '.join(f'{v:.6f}' for v in f['normal']),f'{f["area_mm2"]:.3f}'] for f in node['leg_bearing_planes']]
-        view+=table(["腿上承托面","向外单位法线（X,Y,Z）","平面面积 mm²"],rows)
-        view+='<p>面积来自本地 BREP 面。夹头槽底包括两侧间隙对应的窄条，整个槽底面积不等于与牙条实际重合的名义接触面积；插肩两面分别列出，不由面积推导强度。</p>'
-        rows=[[name,str(m["samples"]),str(m["sample_step_mm"]),f'{m["max_intersection_mm3"]:.6f}',f'{m["negative_control_intersection_mm3"]:.3f}'] for name,m in node["motion"].items()]
-        view+=table(["移动件","采样位置数","步长 mm","最大相交体积 mm³","越位 0.5 mm 相交体积"],rows)
-        view+='<p>最终装合三对零件的相交体积均为 0；接触终点的最小间隔为 0。采样不等于连续扫掠证明，越位负对照只检查止挡存在，不证明承载能力。</p>'
-        body+=section(slug,title,view)
+    if (PRIVATE/"report.json").exists():
+        report=json.loads((PRIVATE/"report.json").read_text())
+        source=json.loads((PRIVATE/"source-report.json").read_text())
+        status={"date":"2026-09-12","master_type":"FREECAD_LOCAL","state":"DRAFT","print_verified":False,"onshape_sync":"OPTIONAL_NOT_PERFORMED","private_artifacts_not_published":True,"nodes":{}}
+        public_images=ROOT/"assets/images/table-node-pair/v0.1"
+        public_images.mkdir(parents=True,exist_ok=True)
+        local_body='<h1>FreeCAD 本地母版与私有预览</h1><p>本目录已被 Git 忽略；不要将其包含在网站发布包中。修改原生文件后须另存版本、重新导出与验证。</p>'
+        for slug,title in TITLES.items():
+            node=report["nodes"][slug];src=source["nodes"][slug]
+            assert hashlib.sha256((PRIVATE/node["source_file"]).read_bytes()).hexdigest()==node["source_sha256"]
+            status["nodes"][slug]={"source_sha256":node["source_sha256"],"solid_count":len(node["parts"]),"sketch_count":sum(o["type"]=="Sketcher::SketchObject" for o in src["feature_tree"]),"parameter_test_count":node["parameter_test_count"],"reopen_recompute_passed":node["reopen_recompute_passed"],"mesh_checks_passed":all(p["watertight"] and p["winding_consistent"] for p in node["parts"].values()),"motion_samples":sum(m["samples"] for m in node["motion"].values()),"motion_step_mm":1,"sampled_path_intersections":False,"overtravel_controls_passed":True}
+            for state in ["assembled","exploded"]:
+                shutil.copyfile(PRIVATE/f"{slug}_{state}.webp",public_images/f"{slug}_{state}.webp")
+            local_body+=f'<h2>{title}</h2><p><a href="{node["source_file"]}">打开原生 FCStd</a> · <a href="{slug}_v0.1.step">本地 STEP</a></p><model-viewer id="{slug}" src="{slug}_preview.glb" poster="{slug}_exploded.webp" camera-controls animation-name="Explode" style="width:100%;height:500px"></model-viewer><label>拆装 <input data-viewer="{slug}" type="range" min="0" max="1000" value="0" disabled></label><p>如果直接通过文件打开，交互模型可能受浏览器限制；请通过项目本地 HTTP 服务访问本页。仅限本地审阅。</p>'
+        SUMMARY.write_text(json.dumps(status,ensure_ascii=False,indent=2)+"\n")
+        local_html='<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>私有 CAD 审阅</title><body style="max-width:900px;margin:40px auto;font-family:sans-serif">'+local_body+'<script type="module" src="../../assets/vendor/model-viewer-4.3.1.min.js"></script><script>document.querySelectorAll("[data-viewer]").forEach(r=>{const v=document.getElementById(r.dataset.viewer);v.addEventListener("load",()=>{v.play();v.pause();r.disabled=false;});r.addEventListener("input",()=>{v.currentTime=Math.min(r.value/1000*v.duration,v.duration-.001);});});</script></body></html>'
+        (PRIVATE/"index.html").write_text(local_html)
+    else:
+        status=json.loads(SUMMARY.read_text())
+    body=section("boundary","FreeCAD 是本地主模型",'<div class="reading-note"><p>两套节点已转换为 FreeCAD 原生参数化母版，采用参数表、约束草图及 PartDesign 拉伸 / 切除，不是导入 STEP 后改存后缀。模型已完成保存、重新打开、重算和选定参数的修改测试。</p><p>本页仅发布静态渲染和检查摘要；原生母版、精确参数、STEP/STL/GLB 及详细报告留在本地忽略目录。Onshape 仅为可选同步，本轮没有上传。状态仍为 DRAFT，尚无实物试打。</p></div>')
+    toc=[("boundary","母版与公开边界")]
+    for slug,title in TITLES.items():
+        n=status["nodes"][slug]
+        stem=f"../assets/images/table-node-pair/v0.1/{slug}"
+        images=f'<div class="node-images"><figure><img src="{stem}_assembled.webp" alt="{title}装合渲染"><figcaption>装合 · FreeCAD 同源数字渲染</figcaption></figure><figure><img src="{stem}_exploded.webp" alt="{title}拆分渲染"><figcaption>拆分 · 先面板、后牙条；腿固定</figcaption></figure></div>'
+        checks=table(["检查","结果"],[["有效单实体",str(n["solid_count"])],["完全约束草图",str(n["sketch_count"])],["改参 / 恢复测试",str(n["parameter_test_count"])+" 次通过"],["保存后重新打开并重算","通过"],["网格水密与绕向","通过"],["装配采样",f'{n["motion_samples"]} 个位置，步长 {n["motion_step_mm"]} mm；未发现体积相交'],["越过停止位置的负对照","发生预期干涉"]])
+        body+=section(slug,title,images+checks+'<p>上述结果仅针对本轮默认几何与明确测试的改参情形。离散采样不是连续扫掠证明，数字接触不代表打印配合或承载通过。</p>')
         toc.append((slug,title))
-    body+=section("parameters","共用尺寸与差异",table(["对象","本轮值","边界"],[
-        ["腿 / 牙条 / 面板","24×24×96 / 96×8×24 / 96×40×16 mm","单节点，不是完整桌架"],
-        ["双顶榫","各 16×2×8 mm","薄榫未经强度验证"],
-        ["顶榫配合 / 避底","总间隙 0.30 / 端部 0.40 mm","本轮试验值，不推荐打印参数"],
-        ["夹头槽","宽 8.30 mm；槽底 Z=-24 mm","水平面止挡"],
-        ["插肩槽","上宽 16、下宽 8、高 24 mm；相对竖直 9.4623°","斜面名义接触；槽底再让 0.40 mm"],
-        ["装配动作","牙条 −Z 48 mm → 面板 −Z 96 mm","腿固定，先牙条后面板"]]))
-    toc.append(("parameters","尺寸与差异"))
-    body+=section("source","文件与下一步",'<div class="reading-links">'+link("参数化 FeatureScript →","table-node-pair_v0.1.fs")+link("工作记录与简化边界 →","table-node-pair_v0.1.md")+link("机器可读检查报告 →","table-node-pair_local-check/report.json")+'</div><p>下一步：获准保存方式后，在 Onshape 编译、读回三实体、补稳定接触面标注与非空总装，冻结版本并同源导出；之后才进入打印实验。现有本地 STEP / STL 是检查中间件，不是正式打印包。Gate A 与作品级 S2 仍未通过。</p>')
-    toc.append(("source","源与下一步"))
-    result=page("夹头 / 插肩 · CAD 对照审阅","同尺度三件节点，把水平槽底和双斜肩的停止位置分别落实为几何。","Local CAD design review · v0.1","DRAFT · 本地数字检查 · 云端未编译 · 未试打",body,toc)
-    result=result.replace('<!-- Generated by tools/build_manuscript.py. Edit content/manuscript_v0.1.json or content/teaching_spec_v0.1.json. -->','<!-- Generated by tools/build_table_nodes_review.py from actual local check results. -->').replace('2026-09-08','2026-09-12').replace('正文初稿 v0.1','CAD 工作稿 v0.1')
-    result=result.replace('</head>','''<style>.node-preview model-viewer{display:block;width:100%;height:470px;background:#eeeae1}.node-preview label{display:flex;gap:16px;align-items:center;padding:15px 0}.node-preview input{flex:1}.node-preview figcaption,.node-images figcaption{font-size:13px;color:#777}.node-images{display:grid;grid-template-columns:1fr 1fr;gap:12px}.node-images figure,.node-preview{margin:20px 0}.node-images img{width:100%;display:block}@media(max-width:600px){.node-preview model-viewer{height:350px}.node-images{grid-template-columns:1fr}}</style></head>''')
-    result=result.replace('</body>','''<script type="module" src="../assets/vendor/model-viewer-4.3.1.min.js"></script><script>
-document.querySelectorAll('[data-viewer]').forEach(range=>{
-  const viewer=document.getElementById(range.dataset.viewer);
-  const caption=viewer.parentElement.querySelector('figcaption');
-  if(location.protocol==='file:')caption.textContent='交互 3D 需通过本地 HTTP 打开：运行 npm run dev，访问 /cad/table-node-pair.html。下方静态渲染可直接查看。';
-  const update=()=>{viewer.currentTime=Math.min(Number(range.value)/1000*viewer.duration,viewer.duration-0.001);};
-  viewer.addEventListener('load',()=>{viewer.play();viewer.pause();range.disabled=false;update();});
-  viewer.addEventListener('error',()=>{caption.textContent='3D 载入失败，请通过本地 HTTP 打开；下方静态图仍可审阅。';});
-  range.addEventListener('input',update);
-});
-</script></body>''')
+    body+=section("editing","本地怎么改",'<ol><li>用 FreeCAD 打开本地母版，不要从网页网格逆向修改。</li><li>双击树中的“00 · 参数表”，编辑 B 列的参数值；重算后检查三个 Body 及其草图、拉伸和切除特征。</li><li>另存为新版本，重新导出并检查。旧的报告和静态图不会因手工改尺寸而自动有效。</li></ol><p>原始 FeatureScript 与 CadQuery 重建保留为历史对照，不再是本轮母版。完整桌架、正交牙条、打印取向和实物实验仍待后续完成。</p>')
+    toc.append(("editing","编辑与下一步"))
+    body+=section("privacy","发布前仍需审计历史",'<p>仓库已有历史 CAD 被跟踪，新增忽略规则无法撤回这些内容。新的本地母版不增加公开下载入口；历史清理与仓库可见性需单独决定。</p><div class="reading-links">'+link("CAD 保密与发布说明 →","../CAD_PRIVACY.md")+link("不含精确几何的状态摘要 →","../content/cad_status_v0.1.json")+'</div>')
+    toc.append(("privacy","保密与发布"))
+    result=page("夹头 / 插肩 · CAD 对照审阅","FreeCAD 本地母版，静态图用于书稿审阅；精确几何不从本页公开下载。","FreeCAD local master · v0.1","DRAFT · 原生参数化已检查 · 未试打",body,toc)
+    result=result.replace('<!-- Generated by tools/build_manuscript.py. Edit content/manuscript_v0.1.json or content/teaching_spec_v0.1.json. -->','<!-- Generated by tools/build_table_nodes_review.py; public static summary only. -->').replace('2026-09-08','2026-09-12').replace('正文初稿 v0.1','CAD 工作稿 v0.1')
+    result=result.replace('</head>','<style>.node-images{display:grid;grid-template-columns:1fr 1fr;gap:12px}.node-images figure{margin:20px 0}.node-images img{width:100%;display:block}.node-images figcaption{font-size:13px;color:#777}@media(max-width:600px){.node-images{grid-template-columns:1fr}}</style></head>')
     (ROOT/"cad/table-node-pair.html").write_text(result)
-    print("Built cad/table-node-pair.html from checked local geometry")
+    print("Built public static CAD review; private files are not linked or copied into the public page")
 
 
 if __name__=="__main__":main()

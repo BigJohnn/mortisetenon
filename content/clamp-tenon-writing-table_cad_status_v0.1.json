@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-12",
+  "id": "clamp-tenon-writing-table",
+  "master_type": "FREECAD_LOCAL",
+  "state": "DRAFT",
+  "print_verified": false,
+  "onshape_sync": "NOT_PERFORMED",
+  "private_artifacts_not_published": true,
+  "source_sha256": "d42b2f5b629a3ca8683eda589999e6dedaa3b6ed1c5415604fb2f91b3632e283",
+  "solid_count": 9,
+  "fully_constrained_sketches": 26,
+  "fresh_process_edit_tests": 9,
+  "selected_path_stage_count": 5,
+  "selected_path_motion_samples": 245,
+  "motion_step_mm": 1,
+  "selected_path_boundary_face_sweep_passed": true,
+  "sweep_scope": "Fixed rigid polyhedral BRep, straight translation over the recorded travel; numeric intersection tolerance, not material simulation or all-parameter proof",
+  "step_reference_match": true,
+  "meshes_watertight": true,
+  "decoded_glb_poses_checked": 76,
+  "static_images": {
+    "assembled.webp": "3b602630f28eb1cafd0c1d47e9345b7f38ef5c3d2891ab21ccad1399154f0fc7",
+    "frame.webp": "cdc87eeb41dde28c8f35bf8d3351ef9ff3768fe01a75e022210b80530e799c19",
+    "top-removed.webp": "f5950509ad57dfaefb0420db59cf4e42327b2cc1c81b4a5f349bfcd988876553",
+    "corner-detail.webp": "f88196ecb8a3a8658d223262a933efd3d24761b5b33d07362274e8b43134b667"
+  },
+  "controls": {
+    "uncut_short_apron_collides": true,
+    "misregistered_top_collides": true
+  },
+  "nominal_frame_checks": {
+    "feet_coplanar": true,
+    "diagonals_equal": true,
+    "as_built_measurements": false
+  }
+}

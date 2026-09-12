@@ -2,7 +2,7 @@
 
 本版把项目切成两条可以不同步前进的路径：**设计线**先冻结全书要实现的结构，**证据线**继续控制哪些打印与性能主张可以发布。Design Catalog v0.1 已确定 24 个基本榫卯、6 个综合作品和 4 个实验章；First Wave Content v0.1 已为首轮 10+3 补齐来源边界、设计提案、装配步骤、参数接口、CAD 交付物和实验债务。9 项作者决策已全部确认，首轮 10+3 不再等待设计取舍。实体实验暂缓，Gate A 仍未通过；`DESIGN_BRIEF` 或已有页面不等于 `PRINT_VERIFIED`。
 
-本轮已补齐首批正文阅读入口：[book.html](book.html) 汇集全部 10+3，新增七篇榫卯与两篇作品正文。公共教学尺度、配合字段、坐标、接触面与输出规则见 [cad/teaching-spec.html](cad/teaching-spec.html)。新增九章为设计正文初稿，尚未新增 CAD 或物理验证；整条路线图并未完成。
+本轮已补齐首批正文阅读入口：[book.html](book.html) 汇集全部 10+3，新增七篇榫卯与两篇作品正文。公共教学尺度、配合字段、坐标、接触面与输出规则见 [cad/teaching-spec.html](cad/teaching-spec.html)。夹头、插肩、十字半搭接、粽角及九件夹头小案已有 FreeCAD 本地原生母版和数字检查，仍为 DRAFT、未试打；其他新增条目继续推进，整条路线图并未完成。精确 CAD 默认本地保护，Onshape 可选同步，见 [CAD_PRIVACY.md](CAD_PRIVACY.md)。
 
 ## 本地浏览
 
@@ -13,6 +13,12 @@ npm run dev
 ```
 
 无需先执行 `npm install`；该命令只调用系统自带的 Python 本地服务器。终端会显示地址，默认打开 [http://localhost:8000](http://localhost:8000)。从这里进入首页、直榫或燕尾榫页，3D 模型和交互控件都会正常工作。按 `Ctrl+C` 停止服务。
+
+默认预览拦截私有 CAD、隐藏配置、目录列表和仓库外符号链接。只在需要本地私有审阅时运行 `npm run dev -- --private-cad`；不要转发端口。已有服务器需重启生效，不能将此开发服务当作公网保密方案。
+
+新增静态审阅：[夹头 / 插肩](cad/table-node-pair.html)、[十字半搭接与槽深三态](cad/cross-lap-tenon.html)、[粽角三向装配与入口负对照](cad/rice-dumpling-corner-tenon.html)、[小案九件框架](cad/clamp-tenon-writing-table.html)。小案的双向半搭接 / 四角顶榫接口不与旧双顶榫单节点混装；名义几何通过不代表承载与打印配合通过。
+
+后续补充：[小案联合误差与局部试件](cad/writing-table-tolerance.html)。已完成 81 个局部组合、27 个整案 X 向孔组配准组合与六种原生局部配置；有限取点不是制造合格率，全部仍未试打。
 
 ## 入口
 - `book.html`：首批 10+3 正文阅读目录，新增九章可独立阅读与打印

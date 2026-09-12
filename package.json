@@ -7,6 +7,9 @@
     "dev": "python3 tools/serve_site.py",
     "start": "python3 tools/serve_site.py",
     "check:catalog": "python3 tools/validate_design_catalog.py",
+    "check:cad-privacy": "python3 tools/test_cad_privacy.py && python3 tools/check_cad_privacy.py --staged",
+    "check:preview-security": "python3 tools/test_serve_site.py",
+    "audit:cad-privacy": "python3 tools/check_cad_privacy.py --tracked",
     "build:book": "python3 tools/build_manuscript.py",
     "check:book": "python3 tools/build_manuscript.py --check && python3 tools/validate_manuscript.py"
   }

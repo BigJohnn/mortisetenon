@@ -17,7 +17,7 @@
 <tr><td>P8 · 板件比较组</td><td>龙凤榫加穿带</td><td>三块净覆盖宽 32 mm、长 96 mm、厚 8 mm 的板；榫舌伸出量不计入净覆盖宽。两根穿带位置先取 X=24、72 mm，相对于板端定义。</td></tr>
 <tr><td>MOTION · 运动教学组</td><td>走马销 / 破头楔</td><td>固定卯件展示包络 72 × 32 × 16 mm；销头、孔道、开缝和楔片没有默认尺寸，必须按约束建模。这个包络不代表所有零件都必须落在同一实体内。</td></tr>
 <tr><td>LEGACY · 既有几何保留组</td><td>直榫 / 燕尾榫 / 楔钉榫</td><td>保留直榫 v0.1、燕尾 v0.2、楔钉 v0.7 的原始尺寸与源身份，只做字段对照。楔钉工作区改画件不可写回 v0.7。</td></tr></tbody></table></div><div class="reading-table" tabindex="0" role="region" aria-label="作品表，可横向滚动"><table><thead><tr><th scope="col">作品</th><th scope="col">外廓 mm</th><th scope="col">已确认边界</th></tr></thead><tbody><tr><td>框板收纳盒</td><td>160 × 110 × 70</td><td>U05/U06：无盖、5 件基础 BOM；底板厚、槽深与燕尾角拓扑另定，不按 8 mm 壁厚自动推定。</td></tr>
-<tr><td>夹头榫小案</td><td>220 × 140 × 150</td><td>U07/U08：合并上部、9 件基础 BOM、2–3 盘目标；节点复制必须解决两根正交牙条的内部避让。</td></tr>
+<tr><td>夹头榫小案</td><td>220 × 140 × 150</td><td>U07/U08：合并上部、9 件基础 BOM、2–3 盘目标。2026-09-12 本地 DRAFT 采用两向牙条局部半搭接、四角顶榫与对应盲卯；与旧双顶榫单节点不混装。指定装配路径已检查，分盘、联合公差与实物验证未完成。</td></tr>
 <tr><td>八仙桌</td><td>保留源 CAD</td><td>U09：只引用既有源 microversion，不用教学母尺寸重缩放既有八仙桌。</td></tr></tbody></table></div>
 </section><section id="fields"><h2>总间隙、单面距离与局部让位</h2>
 <div class="reading-table" tabindex="0" role="region" aria-label="字段 / 符号表，可横向滚动"><table><thead><tr><th scope="col">字段 / 符号</th><th scope="col">默认值</th><th scope="col">定义</th></tr></thead><tbody><tr><td>fit_cx / Cₓ</td><td>待指定（null）</td><td>卯眼 X 尺寸减榫舌 X 尺寸，总间隙。对中时两侧各为 Cₓ/2。</td></tr>
@@ -34,16 +34,16 @@
 <tr><td>X</td><td>主横材长度 / 作品长边</td></tr>
 <tr><td>Y</td><td>次横材方向 / 作品短边</td></tr>
 <tr><td>Z</td><td>作品竖向；不是自动等同于打印机 Z</td></tr>
-<tr><td>原点</td><td>节点的主承压基准面中心；作品原点另取底面中心，逐件记录局部到作品的变换。</td></tr>
+<tr><td>原点</td><td>通常取节点的主承压基准面中心；作品原点取底面中心。粽角三向教学变体 v0.1 明确另取外角线汇交点为局部原点，三材向 +X/+Y/+Z 延伸；不得把此局部坐标直接当作桌腿摆放或打印坐标。逐件记录局部到作品的变换。</td></tr>
 <tr><td>打印坐标</td><td>每一打印件另记 build_direction_local 和 print_transform；不从网页朝向推断打印方向。</td></tr></tbody></table></div><div class="reading-table" tabindex="0" role="region" aria-label="接口表，可横向滚动"><table><thead><tr><th scope="col">接口</th><th scope="col">职责</th><th scope="col">约定</th></tr></thead><tbody><tr><td>IF-TOP · 腿足顶榫—上部卯眼</td><td>FIT + STOP</td><td>侧壁使用 fit_cx/fit_cy；承压肩使用 gap_stop；榫端另用 gap_end。</td></tr>
 <tr><td>IF-APRON · 牙条—腿足开口</td><td>FIT + STOP</td><td>牙条两侧定位面与牙条承压底面分开，插肩另登记左右斜面法向与接触先后。</td></tr>
 <tr><td>IF-SLIDE · 燕尾 / 穿带 / 销的滑移导向</td><td>FIT + CLEAR</td><td>记录入口、滑移全程及退出空间；抗法向退出不等于沿槽长自锁。</td></tr>
 <tr><td>IF-WEDGE · 楔片—开缝榫瓣</td><td>DEFORMING_CONTACT</td><td>刚体扫掠到初始接触即停止；后续张开须用明确标记的变形示意或经验证仿真，不能宣称刚体无碰撞。</td></tr></tbody></table></div>
 </section><section id="exports"><h2>从一个源身份派生输出</h2>
-<ol><li>每个 part_id、interface_id 和 assembly_step_id 稳定；实例名另用 instance_id。相同零件四次实例化只共享几何，不共享位姿。</li><li>配合面分类为 FIT、STOP、CLEAR、DEFORMING_CONTACT 或 COSMETIC；同一面若有多种职责必须拆分区域。</li><li>装配表含 moving_part_ids、fixed_part_ids、axis_local、travel_mm、depends_on、contact_event；刚性旋转另存 pivot 和 angle_deg。</li><li>先检查最终交叠，再检查完整运动路径；离散采样必须公布步长和最小余量，不能把有限帧无交叠写成连续无碰撞证明。</li><li>Onshape 冻结 version/microversion、读取参数与非空实例表，再从同一身份导出 STEP、逐件 STL、GLB；不以工作区链接作为发布身份。</li><li>STEP 读取文件单位元数据；STL 无内嵌单位，manifest 明示 mm；glTF/GLB 依规范以米表达，mm 源在输出时缩放 0.001，转换只做一次。既有资产另按原 manifest 审计。</li><li>几何世界为 Z-up；网页 glTF 采用 Y-up，根节点绕 X 转 -90°，记录变换而不逐件手工重摆；源角度 deg 转为 glTF 所需的 rad，节点旋转存为四元数。</li><li>Explode 从真实装配终态到可拆起态，固定至少一件；输出帧号与时间。破头楔变形段另作概念图，不能冒充同源刚体拆装。</li><li>每个派生文件登记 SHA-256、字节数、单位、包络、实体数与检查报告；新增网页正文不会新增或升级 release manifest。</li></ol><p>glTF 单位与轴向依据 <a href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#coordinate-system-and-units">Khronos glTF 2.0 Specification · Coordinate System and Units</a>；项目资产身份与证据规则见 <a href="../ASSET_CONTRACT.md">ASSET_CONTRACT.md</a>。</p>
+<ol><li>每个 part_id、interface_id 和 assembly_step_id 稳定；实例名另用 instance_id。相同零件四次实例化只共享几何，不共享位姿。</li><li>配合面分类为 FIT、STOP、CLEAR、DEFORMING_CONTACT 或 COSMETIC；同一面若有多种职责必须拆分区域。</li><li>装配表含 moving_part_ids、fixed_part_ids、axis_local、travel_mm、depends_on、contact_event；刚性旋转另存 pivot 和 angle_deg。</li><li>先检查最终交叠，再检查完整运动路径；离散采样必须公布步长和最小余量，不能把有限帧无交叠写成连续无碰撞证明。</li><li>2026-09-12 起新母版默认采用 FreeCAD 原生 FCStd：保存后重新打开重算，读取参数表并记录源文件 SHA-256，再同源导出。Onshape 仅可选同步；既有 Onshape 资产仍固定 version/microversion，不以工作区链接作发布身份。精确母版与派生件默认私有，发布需单独审阅。</li><li>STEP 读取文件单位元数据；STL 无内嵌单位，manifest 明示 mm；glTF/GLB 依规范以米表达，mm 源在输出时缩放 0.001，转换只做一次。既有资产另按原 manifest 审计。</li><li>几何世界为 Z-up；网页 glTF 采用 Y-up，根节点绕 X 转 -90°，记录变换而不逐件手工重摆；源角度 deg 转为 glTF 所需的 rad，节点旋转存为四元数。</li><li>Explode 从真实装配终态到可拆起态，固定至少一件；输出帧号与时间。破头楔变形段另作概念图，不能冒充同源刚体拆装。</li><li>每个派生文件登记 SHA-256、字节数、单位、包络、实体数与检查报告；新增网页正文不会新增或升级 release manifest。</li></ol><p>glTF 单位与轴向依据 <a href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#coordinate-system-and-units">Khronos glTF 2.0 Specification · Coordinate System and Units</a>；项目资产身份与证据规则见 <a href="../ASSET_CONTRACT.md">ASSET_CONTRACT.md</a>。</p>
 </section><section id="handoff"><h2>首批 CAD 的明确交接点</h2>
-<p>夹头 / 插肩先共用 N24 外廓，分别标记 IF-TOP 与 IF-APRON；先验证牙条进入路径、双肩闭合以及顶榫避底，再作同尺度对照。粽角要先证明最后一件的进入路径；收纳盒要解决末边两角与底槽的运动冲突；小案要解决两向牙条在腿顶的占材与闭环。</p>
-<p>破头楔的刚体进入段与受迫变形段分别记录。新建 CAD 后应在用户指定的 Onshape 项目文件夹保存源文档，冻结身份并补回本仓库；当前规范本身没有生成云端文档或几何下载。</p><div class="reading-links"><a href="../content/teaching_spec_v0.1.json">机器可读参数 JSON →</a><a href="../book.html">阅读首批正文 →</a></div>
+<p>夹头 / 插肩共用 N24 外廓，分别记录 IF-TOP 与 IF-APRON；两套 FreeCAD 原生母版已完成数字检查。粽角要先证明最后一件的进入路径；收纳盒要解决末边两角与底槽的运动冲突；小案要解决两向牙条在腿顶的占材与闭环。</p>
+<p>2026-09-12 用户确认后续以 FreeCAD 本地母版为准，Onshape 仅可选同步；原生文件、精确派生件和详细参数默认不上传公共仓库。旧有 Onshape 资产保持原来源记录。破头楔的刚体进入段与受迫变形段仍须分别记录。</p><div class="reading-links"><a href="../content/teaching_spec_v0.1.json">机器可读参数 JSON →</a><a href="../book.html">阅读首批正文 →</a></div>
 </section></main><aside class="reading-toc" aria-label="本页目录"><strong>本页阅读</strong><a href="#scope">范围</a><a href="#profiles">教学尺度</a><a href="#fields">配合字段</a><a href="#frames">坐标与接口</a><a href="#exports">派生输出</a><a href="#handoff">CAD 交接</a></aside></div>
 <footer class="reading-footer">Printable Joinery Atlas · 首批正文 v0.1 · 网页正文可独立阅读和打印；概念图不替代 CAD 或实物证据。</footer>
 </div></body></html>

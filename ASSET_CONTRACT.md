@@ -50,6 +50,24 @@ can promote an asset. The catalog is checked with
 
 ## Identity and versioning
 
+### Local FreeCAD masters (decision: 2026-09-12)
+
+New CAD defaults to a native, parameterized FreeCAD `.FCStd` master. For the
+clamp/shouldered teaching pair, the master has a Params spreadsheet, fully
+constrained Sketcher profiles, and native PartDesign Pad/Pocket history. After
+saving, reopen and recompute before exporting; bind derivatives to the exact
+FCStd SHA-256 and parameter snapshot. A later manual edit requires a new version
+and fresh checks. CadQuery is an independent checker, not a second master.
+
+Onshape is optional synchronization, not a prerequisite or an automatic upload.
+Previously published Onshape assets keep their existing source identities.
+Native sources, exact exchange/print/web geometry, and detailed parameters are
+private by default; public release requires separate review. See
+[CAD_PRIVACY.md](CAD_PRIVACY.md). Ignore rules do not remove already-tracked
+files or past Git history. Static public summaries must not link to ignored
+private files, and public-checkout builds must not require those files.
+
+
 - **Slug:** lowercase ASCII kebab-case, for example `straight-tenon`.
 - **Version:** `vMAJOR.MINOR`, for example `v0.1`.
 - Increment **minor** for compatible geometry experiments or documentation fixes.
@@ -119,6 +137,17 @@ entry must include:
 - The print log path once the state becomes `PRINT_VERIFIED`.
 
 ## Current baseline
+
+2026-09-12 local-only additions: the three-way corner teaching study includes
+an open-inlet native master and a closed-inlet negative control. Failure of the
+selected Z-last path does not mean all assembly orders fail. The nine-part
+writing-table study uses a double-axis lap / four-corner top-tenon variant,
+not the earlier paired top-tenon clamp-node interface; they are not interchangeable.
+All three native documents, reconstructable inputs, STEP/STL/GLB and detailed
+reports stay under ignored `cad/private/frame-study_v0.1/`. Public chapters use
+reviewed static images and non-geometric summaries only. Both studies remain
+DRAFT; checked rigid paths and nominal frame coplanarity do not establish print
+fit, self-support during preassembly, strength, or completed work-level S2.
 
 `clearance-test-kit@v0.1` is the first release:
 

@@ -129,20 +129,20 @@ def generate() -> dict[str, str]:
                         link("完整公共参数规范 →", "../cad/teaching-spec.html"))
         toc.append(("parameters", "参数与约束"))
         rows = [[s["step"] + " · " + s["title"], s["action"], s["watch"]] for s in e["assembly_steps"]]
-        assembly_note = '下表保留设计阶段的观察任务。本地三件教学变体已完成 1 mm 步长装配采样，具体参数、路径与限制见本章末尾的 CAD 对照审阅；尚非云端同源发布或实物装配教程。' if local_cad else '这是下一轮 CAD 要验证的步骤，尚非经验证的装配教程；上文指出的路径冲突与变形问题仍须解决。'
+        assembly_note = '下表保留设计阶段的观察任务。FreeCAD 教学母版已完成 1 mm 步长装配采样，摘要与限制见章末 CAD 对照审阅；完整母版与交互预览留在本地，尚非实物装配教程。' if local_cad else '这是下一轮 CAD 要验证的步骤，尚非经验证的装配教程；上文指出的路径冲突与变形问题仍须解决。'
         body += section("assembly", "候选装配与观察记录", '<p>' + assembly_note + '</p>' + table(["步骤", "候选动作", "重点检查"], rows))
         toc.append(("assembly", "候选装配"))
         body += section("failures", "遇到异常，先定位原因", table(["观察到什么", "待核查原因", "如何记录"], c["failure_reading"]) + f'<div class="reading-exercise"><strong>读者练习</strong><p>{esc(c["exercise"])}</p></div>')
         toc.append(("failures", "异常与练习"))
         debt = "".join(f'<li>{esc(d)}</li>' for d in e["experiment_debt"])
         deliverables = "".join(f'<li>{esc(d)}</li>' for d in e["cad_deliverables"])
-        evidence = ('<p>已补本地参数化源与独立几何检查；FeatureScript 尚待 Onshape 编译，没有冻结云端版本或正式打印包，也没有实物验证。状态保持 DRAFT，Gate A 未通过。</p><p>' + link("查看同尺度 CAD 对照、拆装预览与检查报告 →", "../" + local_cad) + '</p>') if local_cad else '<p>已完成本章正文与设计约束；尚无本章新增 CAD、可下载几何或实物验证。编辑进度为 IMPLEMENTED（页面已存在），不代表资产证据升级。Gate A 保持未通过。</p>'
+        evidence = ('<p>已完成 FreeCAD 原生参数化母版、改参重算和同源几何检查；母版及精确派生文件留在本地，Onshape 仅可选同步。没有实物验证，状态保持 DRAFT，Gate A 未通过。</p><p>' + link("查看同尺度静态 CAD 对照与检查摘要 →", "../" + local_cad) + '</p>') if local_cad else '<p>已完成本章正文与设计约束；尚无本章新增 CAD、可下载几何或实物验证。编辑进度为 IMPLEMENTED（页面已存在），不代表资产证据升级。Gate A 保持未通过。</p>'
         body += section("evidence", "本章做到哪里", evidence +
-                        f'<h3>待补的 CAD 与图稿</h3><ul>{deliverables}</ul><h3>后续实验问题</h3><ul>{debt}</ul>' +
+                        f'<h3>{"CAD 与图稿交付清单（已完成项见审阅页）" if local_cad else "待补的 CAD 与图稿"}</h3><ul>{deliverables}</ul><h3>后续实验问题</h3><ul>{debt}</ul>' +
                         '<p>配合记录沿用 ' + link("Clearance Lab", "../labs/clearance.html") + ' 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>')
         toc.append(("evidence", "证据与下一步"))
         body += '<div class="reading-links">' + "".join(link(entries[n]["name_cn"] + " →", "../" + paths[n]) for n in c["next_ids"]) + '</div>'
-        output[paths[slug]] = page(title, c["deck"], e["index"] + " · " + e["name_en"], "DRAFT · 本地 CAD 已检查 · 云端未编译 · 未经实物验证" if local_cad else "设计正文 · CAD 待实现 · 未经实物验证", body, toc)
+        output[paths[slug]] = page(title, c["deck"], e["index"] + " · " + e["name_en"], "DRAFT · FreeCAD 本地母版 · 未经实物验证" if local_cad else "设计正文 · CAD 待实现 · 未经实物验证", body, toc)
 
     # The reading index includes the three existing joint chapters and Baxian case.
     cards = {}
@@ -150,7 +150,7 @@ def generate() -> dict[str, str]:
         items = []
         for e in wave[kind]:
             new = e["id"] in authored
-            state = "正文初稿 · 本地 CAD 已检查 · 云端未编译" if e.get("local_cad_review") else "正文初稿 · CAD 待实现" if new else e["evidence_state"]
+            state = "正文初稿 · FreeCAD 本地母版已检查" if e.get("local_cad_review") else "正文初稿 · CAD 待实现" if new else e["evidence_state"]
             items.append(f'<a class="reading-card" href="{paths[e["id"]]}"><small>{esc(e["index"])} · {"新增正文" if new else "既有章节"}</small><h3>{esc(e["name_cn"])}</h3><p>{esc(e["one_sentence"])}</p><span>{esc(state)}</span></a>')
         cards[kind] = section(kind, label, '<div class="reading-card-grid">' + "".join(items) + '</div>')
     body = section("start", "从局部配合，读到完整作品", paragraphs([
@@ -169,7 +169,7 @@ def generate() -> dict[str, str]:
     coord = spec["coordinate_system"]
     body += section("frames", "坐标与接触面", table(["基准", "定义"], [["单位", "长度 mm；角度 deg；体积 mm³"], ["坐标手性", "右手系"], ["X", coord["x"]], ["Y", coord["y"]], ["Z", coord["z"]], ["原点", coord["origin"]], ["打印坐标", coord["print_frame"]]]) + table(["接口", "职责", "约定"], [[i["id"] + " · " + i["meaning"], i["classification"], i["rule"]] for i in spec["interfaces"]])); toc.append(("frames", "坐标与接口"))
     body += section("exports", "从一个源身份派生输出", '<ol>' + "".join(f'<li>{esc(r)}</li>' for r in spec["export_rules"]) + '</ol>' + '<p>glTF 单位与轴向依据 ' + link("Khronos glTF 2.0 Specification · Coordinate System and Units", "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#coordinate-system-and-units") + '；项目资产身份与证据规则见 ' + link("ASSET_CONTRACT.md", "../ASSET_CONTRACT.md") + '。</p>'); toc.append(("exports", "派生输出"))
-    body += section("handoff", "首批 CAD 的明确交接点", paragraphs(["夹头 / 插肩先共用 N24 外廓，分别标记 IF-TOP 与 IF-APRON；先验证牙条进入路径、双肩闭合以及顶榫避底，再作同尺度对照。粽角要先证明最后一件的进入路径；收纳盒要解决末边两角与底槽的运动冲突；小案要解决两向牙条在腿顶的占材与闭环。", "破头楔的刚体进入段与受迫变形段分别记录。新建 CAD 后应在用户指定的 Onshape 项目文件夹保存源文档，冻结身份并补回本仓库；当前规范本身没有生成云端文档或几何下载。"])+ '<div class="reading-links">' + link("机器可读参数 JSON →", "../content/teaching_spec_v0.1.json") + link("阅读首批正文 →", "../book.html") + '</div>'); toc.append(("handoff", "CAD 交接"))
+    body += section("handoff", "首批 CAD 的明确交接点", paragraphs(["夹头 / 插肩共用 N24 外廓，分别记录 IF-TOP 与 IF-APRON；两套 FreeCAD 原生母版已完成数字检查。粽角要先证明最后一件的进入路径；收纳盒要解决末边两角与底槽的运动冲突；小案要解决两向牙条在腿顶的占材与闭环。", "2026-09-12 用户确认后续以 FreeCAD 本地母版为准，Onshape 仅可选同步；原生文件、精确派生件和详细参数默认不上传公共仓库。旧有 Onshape 资产保持原来源记录。破头楔的刚体进入段与受迫变形段仍须分别记录。"])+ '<div class="reading-links">' + link("机器可读参数 JSON →", "../content/teaching_spec_v0.1.json") + link("阅读首批正文 →", "../book.html") + '</div>'); toc.append(("handoff", "CAD 交接"))
     output["cad/teaching-spec.html"] = page("统一教学参数与输出约定", "十种结构共用一套尺寸语言；每张接触面都有职责，每次装配都有方向。", "Teaching specification · v0.1", "编辑接口已冻结 · 几何与打印待验证", body, toc)
     return output
 

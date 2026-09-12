@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create/reuse only this task's Onshape document and its two teaching nodes."""
+"""Legacy FeatureScript experiment; NOT synchronization of the FreeCAD master."""
 from __future__ import annotations
 import argparse
 import json
@@ -19,8 +19,11 @@ def save(state):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--legacy-experiment",action="store_true",help="Explicitly request the old independent FeatureScript experiment; never use as FCStd synchronization")
     parser.add_argument("--public",action="store_true",help="Create a public document only after the owner explicitly authorizes public geometry and source")
     args=parser.parse_args()
+    if not args.legacy_experiment:
+        raise RuntimeError("FreeCAD is now the master. This legacy creator is disabled by default and is not an Onshape sync pipeline.")
     folder = request("GET", f"/api/v10/folders/{FOLDER}")
     if "WRITE" not in folder["permissionSet"]:
         raise RuntimeError("Target folder is not writable")

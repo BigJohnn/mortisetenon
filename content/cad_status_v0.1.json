@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-12",
+  "master_type": "FREECAD_LOCAL",
+  "state": "DRAFT",
+  "print_verified": false,
+  "onshape_sync": "OPTIONAL_NOT_PERFORMED",
+  "private_artifacts_not_published": true,
+  "nodes": {
+    "clamp-tenon": {
+      "source_sha256": "72bfb5e90b4894c9869cf8354a470afbb46f4e909fb4e6eaecf2ba7cc3a0031e",
+      "solid_count": 3,
+      "sketch_count": 6,
+      "parameter_test_count": 6,
+      "reopen_recompute_passed": true,
+      "mesh_checks_passed": true,
+      "motion_samples": 146,
+      "motion_step_mm": 1,
+      "sampled_path_intersections": false,
+      "overtravel_controls_passed": true
+    },
+    "shouldered-tenon": {
+      "source_sha256": "5bf791e3305a4c3dfabb63d54a4dd2b76a6cc9e378eb428f77476a28ca15c8ea",
+      "solid_count": 3,
+      "sketch_count": 7,
+      "parameter_test_count": 5,
+      "reopen_recompute_passed": true,
+      "mesh_checks_passed": true,
+      "motion_samples": 146,
+      "motion_step_mm": 1,
+      "sampled_path_intersections": false,
+      "overtravel_controls_passed": true
+    }
+  }
+}

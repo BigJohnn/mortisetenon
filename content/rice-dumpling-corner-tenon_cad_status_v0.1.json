@@ -1,0 +1,84 @@
+{
+  "date": "2026-09-12",
+  "id": "rice-dumpling-corner-tenon",
+  "master_type": "FREECAD_LOCAL",
+  "state": "DRAFT",
+  "print_verified": false,
+  "onshape_sync": "NOT_PERFORMED",
+  "private_artifacts_not_published": true,
+  "source_sha256": "dbbf33a6b20109cb8046e0228fb6b01d5c7650d7585ce33510920a8c771c8808",
+  "solid_count": 3,
+  "fully_constrained_sketches": 12,
+  "fresh_process_edit_tests": 4,
+  "selected_path_stage_count": 2,
+  "selected_path_motion_samples": 98,
+  "motion_step_mm": 1,
+  "selected_path_boundary_face_sweep_passed": true,
+  "sweep_scope": "Fixed rigid polyhedral BRep, straight translation over the recorded travel; numeric intersection tolerance, not material simulation or all-parameter proof",
+  "step_reference_match": true,
+  "meshes_watertight": true,
+  "decoded_glb_poses_checked": 43,
+  "static_images": {
+    "assembled.webp": "a86bd4de73dad4827314a7891e212c74d0a1519a59b31a949aa3911d034a6108",
+    "exploded.webp": "e292f95f3d1dda334ee910398abef7a7c19db91305845b0219c262b8b595fc76",
+    "internal.webp": "f0c882083577530c5740dabaa6a2572ee2106a6c74cbc4de5424e32432fc318f"
+  },
+  "order_trials": [
+    {
+      "order": "XYZ",
+      "sampled_clear": true
+    },
+    {
+      "order": "XZY",
+      "sampled_clear": true
+    },
+    {
+      "order": "YXZ",
+      "sampled_clear": true
+    },
+    {
+      "order": "YZX",
+      "sampled_clear": true
+    },
+    {
+      "order": "ZXY",
+      "sampled_clear": true
+    },
+    {
+      "order": "ZYX",
+      "sampled_clear": true
+    }
+  ],
+  "closed_inlet_control": {
+    "source_sha256": "efc7ec0db535ccb7171cc8a04d91fd5be1c7fb33087587afbef900301957fedb",
+    "final_pose_clear": true,
+    "z_last_blocked": true,
+    "order_trials": [
+      {
+        "order": "XYZ",
+        "sampled_clear": false
+      },
+      {
+        "order": "XZY",
+        "sampled_clear": false
+      },
+      {
+        "order": "YXZ",
+        "sampled_clear": false
+      },
+      {
+        "order": "YZX",
+        "sampled_clear": false
+      },
+      {
+        "order": "ZXY",
+        "sampled_clear": true
+      },
+      {
+        "order": "ZYX",
+        "sampled_clear": true
+      }
+    ],
+    "alternative_orders_sampled_only": true
+  }
+}
