@@ -148,7 +148,8 @@
       "name_en": "Clamp Tenon",
       "family": "桌案承重节点",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
+      "evidence_state": "DRAFT · 本地三件节点与独立数字检查；云端未编译，无冻结版本与实物验证",
+      "local_cad_review": "cad/table-node-pair.html",
       "one_sentence": "把案面边材、腿足与牙条压缩成一个三件教学节点，追踪面上载荷如何进入腿足。",
       "teaching_question": "腿足为什么要同时接住面边和牙条，而不是只靠一个普通直榫？",
       "confirmed": [
@@ -201,7 +202,8 @@
       "name_en": "Shouldered Tenon",
       "family": "桌案承重节点",
       "review_state": "READY_FOR_CAD",
-      "evidence_state": "设计正文初稿；尚无本项目 CAD 与实物，未建立几何资产证据",
+      "evidence_state": "DRAFT · 本地三件节点与独立数字检查；云端未编译，无冻结版本与实物验证",
+      "local_cad_review": "cad/table-node-pair.html",
       "one_sentence": "与夹头榫并读，把注意力放到腿足八字斜肩和牙条接触面的闭合。",
       "teaching_question": "斜肩增加的接触面，怎样改变定位、表面连续性和载荷传递？",
       "confirmed": [
@@ -695,7 +697,7 @@
     },
     "hkbu_shouldered_tenon": {
       "title": "插肩榫",
-      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000015",
+      "url": "https://digital.lib.hkbu.edu.hk/mortise_tenon/structure.php?id=MTS-000015&lang=en",
       "organization": "香港浸会大学图书馆 / 视觉艺术院",
       "use": "三件关系、八字斜肩和桌案应用。"
     },

@@ -1,0 +1,21 @@
+{
+  "version": "v0.1",
+  "units": "mm",
+  "role": "Initial build values only. After editing, each FCStd Params spreadsheet is authoritative.",
+  "parameters": {
+    "stock": 24,
+    "legLength": 96,
+    "apronLength": 96,
+    "apronThickness": 8,
+    "apronHeight": 24,
+    "topWidth": 40,
+    "topThickness": 16,
+    "tenonWidth": 16,
+    "tenonThickness": 2,
+    "tenonHeight": 8,
+    "fit": 0.3,
+    "slotFit": 0.3,
+    "endGap": 0.4,
+    "spread": 4
+  }
+}

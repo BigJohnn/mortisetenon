@@ -1,0 +1,284 @@
+{
+  "source": "Independent CadQuery reconstruction of table-node-pair_v0.1.fs",
+  "cadquery_version": "2.8.0",
+  "trimesh_version": "5.1.0",
+  "feature_script_sha256": "fa15a7c933a55c39657b4551034630fb91676a3f7ed2359adc7434ab196504a0",
+  "limitations": [
+    "FeatureScript has not been compiled in Onshape",
+    "Local files are independent check intermediates, not cloud exports",
+    "Motion is sampled at 1 mm, not a continuous swept-volume proof",
+    "Nominal digital contact is not a printed fit or strength test"
+  ],
+  "units": "mm",
+  "status": "DIGITAL_CHECK_ONLY",
+  "print_verified": false,
+  "parameters": {
+    "stock": 24,
+    "legLength": 96,
+    "apronLength": 96,
+    "apronThickness": 8,
+    "apronHeight": 24,
+    "topWidth": 40,
+    "topThickness": 16,
+    "tenonWidth": 16,
+    "tenonThickness": 2,
+    "tenonHeight": 8,
+    "fit": 0.3,
+    "slotFit": 0.3,
+    "endGap": 0.4,
+    "spread": 4
+  },
+  "shoulder_angle_from_vertical_deg": 9.462322208025617,
+  "nodes": {
+    "clamp-tenon": {
+      "parts": {
+        "Leg": {
+          "volume_mm3": 51027.2,
+          "analytic_volume_mm3": 51027.2,
+          "bbox_mm": [
+            [
+              -12.000000100000003,
+              -12.000000100000003,
+              -96.00000010000001
+            ],
+            [
+              12.000000100000003,
+              12.000000100000003,
+              8.000000100000001
+            ]
+          ],
+          "solid_count": 1,
+          "watertight": true,
+          "winding_consistent": true,
+          "triangle_count": 60,
+          "sha256": "4e984c198e1cee6e2b450650b80cf8166f3b9e1347b1ffdf44599b6308922b1d"
+        },
+        "Apron": {
+          "volume_mm3": 18432.0,
+          "analytic_volume_mm3": 18432,
+          "bbox_mm": [
+            [
+              -48.0000001,
+              -4.0000001,
+              -24.0000001
+            ],
+            [
+              48.0000001,
+              4.0000001,
+              1.000000002220446e-07
+            ]
+          ],
+          "solid_count": 1,
+          "watertight": true,
+          "winding_consistent": true,
+          "triangle_count": 12,
+          "sha256": "5a81651cc85accc63b0c625a250017e0d93604331faaabe9462783b3b30b5f18"
+        },
+        "Top": {
+          "volume_mm3": 60810.16800000001,
+          "analytic_volume_mm3": 60810.168,
+          "bbox_mm": [
+            [
+              -48.00000010000001,
+              -20.000000100000005,
+              -1.0000000532907051e-07
+            ],
+            [
+              48.00000010000001,
+              20.000000100000005,
+              16.0000001
+            ]
+          ],
+          "solid_count": 1,
+          "watertight": true,
+          "winding_consistent": true,
+          "triangle_count": 44,
+          "sha256": "f982bd0bf7560c617a376b5c00792e77e2da7e5a4ec049bdd390ebb573b8c682"
+        }
+      },
+      "assembled_intersections_mm3": {
+        "Leg/Apron": 0.0,
+        "Leg/Top": 0.0,
+        "Apron/Top": 0.0
+      },
+      "motion": {
+        "Apron": {
+          "axis": [
+            0,
+            0,
+            -1
+          ],
+          "travel_mm": 48,
+          "sample_step_mm": 1,
+          "samples": 49,
+          "max_intersection_mm3": 0,
+          "minimum_separation_mm": 0.0,
+          "negative_control_overtravel_mm": 0.5,
+          "negative_control_intersection_mm3": 96.0
+        },
+        "Top": {
+          "axis": [
+            0,
+            0,
+            -1
+          ],
+          "travel_mm": 96,
+          "sample_step_mm": 1,
+          "samples": 97,
+          "max_intersection_mm3": 0,
+          "minimum_separation_mm": 0.0,
+          "negative_control_overtravel_mm": 0.5,
+          "negative_control_intersection_mm3": 157.31
+        }
+      },
+      "leg_bearing_planes": [
+        {
+          "interface": "IF-APRON",
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "area_mm2": 199.20000000000002,
+          "centroid_mm": [
+            3.1225022567582523e-16,
+            1.1102230246251565e-16,
+            -24.0
+          ]
+        }
+      ]
+    },
+    "shouldered-tenon": {
+      "parts": {
+        "Leg": {
+          "volume_mm3": 48819.19999999999,
+          "analytic_volume_mm3": 48819.2,
+          "bbox_mm": [
+            [
+              -12.000000100000006,
+              -12.000000100000006,
+              -96.00000010000001
+            ],
+            [
+              12.000000100000006,
+              12.000000100000006,
+              8.000000100000001
+            ]
+          ],
+          "solid_count": 1,
+          "watertight": true,
+          "winding_consistent": true,
+          "triangle_count": 68,
+          "sha256": "b93318c1e71885c0550529b69bb5fd38b702c8fbf8808a8acff97504a30a0ee2"
+        },
+        "Apron": {
+          "volume_mm3": 20736.0,
+          "analytic_volume_mm3": 20736,
+          "bbox_mm": [
+            [
+              -48.0000001,
+              -8.000000100000003,
+              -24.000000100000005
+            ],
+            [
+              48.0000001,
+              8.000000100000003,
+              1.0000000355271367e-07
+            ]
+          ],
+          "solid_count": 1,
+          "watertight": true,
+          "winding_consistent": true,
+          "triangle_count": 36,
+          "sha256": "1d3c70442f65248ab8b5a470f2a43211e9f22b3ff9ec27e67883b53067dc06b0"
+        },
+        "Top": {
+          "volume_mm3": 60810.16800000001,
+          "analytic_volume_mm3": 60810.168,
+          "bbox_mm": [
+            [
+              -48.00000010000001,
+              -20.000000100000005,
+              -1.0000000532907051e-07
+            ],
+            [
+              48.00000010000001,
+              20.000000100000005,
+              16.0000001
+            ]
+          ],
+          "solid_count": 1,
+          "watertight": true,
+          "winding_consistent": true,
+          "triangle_count": 44,
+          "sha256": "f982bd0bf7560c617a376b5c00792e77e2da7e5a4ec049bdd390ebb573b8c682"
+        }
+      },
+      "assembled_intersections_mm3": {
+        "Leg/Apron": 0.0,
+        "Leg/Top": 0.0,
+        "Apron/Top": 0.0
+      },
+      "motion": {
+        "Apron": {
+          "axis": [
+            0,
+            0,
+            -1
+          ],
+          "travel_mm": 48,
+          "sample_step_mm": 1,
+          "samples": 49,
+          "max_intersection_mm3": 0,
+          "minimum_separation_mm": 0.0,
+          "negative_control_overtravel_mm": 0.5,
+          "negative_control_intersection_mm3": 114.19999999999987
+        },
+        "Top": {
+          "axis": [
+            0,
+            0,
+            -1
+          ],
+          "travel_mm": 96,
+          "sample_step_mm": 1,
+          "samples": 97,
+          "max_intersection_mm3": 0,
+          "minimum_separation_mm": 0.0,
+          "negative_control_overtravel_mm": 0.5,
+          "negative_control_intersection_mm3": 65.91000000000008
+        }
+      },
+      "leg_bearing_planes": [
+        {
+          "interface": "IF-APRON",
+          "normal": [
+            0.0,
+            0.9863939238321437,
+            0.1643989873053573
+          ],
+          "area_mm2": 583.9452029086292,
+          "centroid_mm": [
+            2.1902344911775973e-16,
+            -6.0,
+            -12.000000000000002
+          ]
+        },
+        {
+          "interface": "IF-APRON",
+          "normal": [
+            0.0,
+            -0.9863939238321437,
+            0.1643989873053573
+          ],
+          "area_mm2": 583.9452029086292,
+          "centroid_mm": [
+            2.1902344911775973e-16,
+            6.0,
+            -11.999999999999998
+          ]
+        }
+      ]
+    }
+  }
+}

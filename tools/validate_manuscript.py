@@ -57,7 +57,12 @@ def main() -> int:
         path = e.get("chapter_path") or e.get("case_path")
         require(bool(path) and (ROOT / path).is_file(), f"Missing first-wave reading page: {e['id']}")
         if e["id"] in authored:
-            require("尚无本项目 CAD" in e["evidence_state"], f"New chapter has unexpected evidence: {e['id']}")
+            if e.get("local_cad_review"):
+                require(e["evidence_state"].startswith("DRAFT") and "云端未编译" in e["evidence_state"], f"Local CAD must retain its evidence boundary: {e['id']}")
+                require((ROOT/e["local_cad_review"]).is_file(), f"Missing CAD review: {e['id']}")
+                require((ROOT/"cad/table-node-pair_local-check/report.json").is_file(), f"Missing local CAD check report: {e['id']}")
+            else:
+                require("尚无本项目 CAD" in e["evidence_state"], f"New chapter has unexpected evidence: {e['id']}")
         if e["id"] in {"dovetail", "keyed-tenon"}:
             require(e["evidence_state"].startswith("DRAFT"), f"Legacy evidence contradicts asset contract: {e['id']}")
     catalog_entries = {e["id"]: e for e in catalog["joints"] + catalog["works"]}

@@ -114,6 +114,7 @@ def generate() -> dict[str, str]:
     output = {}
     for slug, c in authored.items():
         e = entries[slug]
+        local_cad = e.get("local_cad_review")
         title = e["name_cn"]
         toc = [("opening", "读懂问题")]
         body = section("opening", c["deck"], f'<p class="reading-intro">{esc(c["intro"])}</p>')
@@ -128,18 +129,20 @@ def generate() -> dict[str, str]:
                         link("完整公共参数规范 →", "../cad/teaching-spec.html"))
         toc.append(("parameters", "参数与约束"))
         rows = [[s["step"] + " · " + s["title"], s["action"], s["watch"]] for s in e["assembly_steps"]]
-        body += section("assembly", "候选装配与观察记录", '<p>这是下一轮 CAD 要验证的步骤，尚非经验证的装配教程；上文指出的路径冲突与变形问题仍须解决。</p>' + table(["步骤", "候选动作", "重点检查"], rows))
+        assembly_note = '下表保留设计阶段的观察任务。本地三件教学变体已完成 1 mm 步长装配采样，具体参数、路径与限制见本章末尾的 CAD 对照审阅；尚非云端同源发布或实物装配教程。' if local_cad else '这是下一轮 CAD 要验证的步骤，尚非经验证的装配教程；上文指出的路径冲突与变形问题仍须解决。'
+        body += section("assembly", "候选装配与观察记录", '<p>' + assembly_note + '</p>' + table(["步骤", "候选动作", "重点检查"], rows))
         toc.append(("assembly", "候选装配"))
         body += section("failures", "遇到异常，先定位原因", table(["观察到什么", "待核查原因", "如何记录"], c["failure_reading"]) + f'<div class="reading-exercise"><strong>读者练习</strong><p>{esc(c["exercise"])}</p></div>')
         toc.append(("failures", "异常与练习"))
         debt = "".join(f'<li>{esc(d)}</li>' for d in e["experiment_debt"])
         deliverables = "".join(f'<li>{esc(d)}</li>' for d in e["cad_deliverables"])
-        body += section("evidence", "本章做到哪里", '<p>已完成本章正文与设计约束；尚无本章新增 CAD、可下载几何或实物验证。编辑进度为 IMPLEMENTED（页面已存在），不代表资产证据升级。Gate A 保持未通过。</p>' +
+        evidence = ('<p>已补本地参数化源与独立几何检查；FeatureScript 尚待 Onshape 编译，没有冻结云端版本或正式打印包，也没有实物验证。状态保持 DRAFT，Gate A 未通过。</p><p>' + link("查看同尺度 CAD 对照、拆装预览与检查报告 →", "../" + local_cad) + '</p>') if local_cad else '<p>已完成本章正文与设计约束；尚无本章新增 CAD、可下载几何或实物验证。编辑进度为 IMPLEMENTED（页面已存在），不代表资产证据升级。Gate A 保持未通过。</p>'
+        body += section("evidence", "本章做到哪里", evidence +
                         f'<h3>待补的 CAD 与图稿</h3><ul>{deliverables}</ul><h3>后续实验问题</h3><ul>{debt}</ul>' +
                         '<p>配合记录沿用 ' + link("Clearance Lab", "../labs/clearance.html") + ' 的字段与版本追溯原则；其他结构需扩展其专属测量项，不能直接套用直榫结果。</p>')
         toc.append(("evidence", "证据与下一步"))
         body += '<div class="reading-links">' + "".join(link(entries[n]["name_cn"] + " →", "../" + paths[n]) for n in c["next_ids"]) + '</div>'
-        output[paths[slug]] = page(title, c["deck"], e["index"] + " · " + e["name_en"], "设计正文 · CAD 待实现 · 未经实物验证", body, toc)
+        output[paths[slug]] = page(title, c["deck"], e["index"] + " · " + e["name_en"], "DRAFT · 本地 CAD 已检查 · 云端未编译 · 未经实物验证" if local_cad else "设计正文 · CAD 待实现 · 未经实物验证", body, toc)
 
     # The reading index includes the three existing joint chapters and Baxian case.
     cards = {}
@@ -147,7 +150,7 @@ def generate() -> dict[str, str]:
         items = []
         for e in wave[kind]:
             new = e["id"] in authored
-            state = "正文初稿 · CAD 待实现" if new else e["evidence_state"]
+            state = "正文初稿 · 本地 CAD 已检查 · 云端未编译" if e.get("local_cad_review") else "正文初稿 · CAD 待实现" if new else e["evidence_state"]
             items.append(f'<a class="reading-card" href="{paths[e["id"]]}"><small>{esc(e["index"])} · {"新增正文" if new else "既有章节"}</small><h3>{esc(e["name_cn"])}</h3><p>{esc(e["one_sentence"])}</p><span>{esc(state)}</span></a>')
         cards[kind] = section(kind, label, '<div class="reading-card-grid">' + "".join(items) + '</div>')
     body = section("start", "从局部配合，读到完整作品", paragraphs([
